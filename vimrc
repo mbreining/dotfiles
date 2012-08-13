@@ -39,7 +39,6 @@ set showmode
 set hidden
 set wildmenu
 set ttyfast
-set undofile
 
 " Softtabs, 2 spaces
 set tabstop=2
@@ -73,8 +72,11 @@ set laststatus=2
 "set statusline+=%L        " Total lines
 
 " Numbers
-"set number " show absolute line numbers
-set relativenumber " show relative line numbers
+if has("gui_running")
+  set relativenumber " show relative line numbers
+else
+  set number " show absolute line numbers
+endif
 set numberwidth=5
 set cursorline " highlight current line
 
@@ -256,7 +258,10 @@ inoremap jk <esc>
 " Change backup directory
 silent execute '!mkdir -p ~/.vim/backups'
 set backupdir=~/.vim/backups// directory=~/.vim/backups//
-set undodir=~/.vim/backups//
+if has("gui_running")
+  set undofile
+  set undodir=~/.vim/backups//
+endif
 
 augroup customEx
   au!
