@@ -35,14 +35,15 @@ setopt INC_APPEND_HISTORY
 setopt histignoredups
 
 # Path
-export PATH=/Users/feelnoway/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/openssl/bin:/usr/local/git/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/openssl/bin:/usr/local/git/bin:$PATH
 
 # DYLD_LIBRARY_PATH (load path for dynamic shared libraries)
 # This was needed in order to get /usr/local/bin/search to work
-export DYLD_LIBRARY_PATH=/usr/local/mysql/lib:$DYLD_LIBRARY_PATH
+#export DYLD_LIBRARY_PATH=/usr/local/mysql/lib:$DYLD_LIBRARY_PATH
 
-# Bring in all my aliases
+# Bring in all my aliases and functions
 source ~/etc/aliases
+source ~/etc/functions
 
 # This loads RVM into a shell session
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
