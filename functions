@@ -18,10 +18,10 @@ function vless() {
 
 # Use vim as man viewer
 function vman() {
-env PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
-vim -R -c 'set ft=man nomod nolist nonumber' -c 'map q :q<CR>' \
--c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
--c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\"" man $*
+  env PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
+  vim -R -c 'set ft=man nomod nolist nonumber' -c 'map q :q<CR>' \
+  -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
+  -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\"" man $*
 }
 
 # Extract compress files
@@ -49,12 +49,6 @@ function ext() {
     fi
     shift
   done
-}
-
-# Run command detached from terminal and without output
-function nh() {
-  [[ "$#" -lt "1" ]] && echo "usage: $FUNCNAME <command>" >&2 && return 2
-  nohup "$@" &> /dev/null & echo;
 }
 
 # Output every dir in the currect directory, and how many files each contains

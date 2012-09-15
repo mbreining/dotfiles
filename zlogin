@@ -1,4 +1,4 @@
-git_prompt_info() {
+function git_prompt_info() {
   ref=$(git symbolic-ref HEAD 2> /dev/null)
   if [[ -n $ref ]]; then
     echo "[%{$fg_bold[green]%}${ref#refs/heads/}%{$reset_color%}]"
@@ -20,7 +20,7 @@ export PS1='$(git_prompt_info)[${SSH_CONNECTION+"%{$fg_bold[green]%}%n@%m:"}%{$f
 
 # autocompletion for ruby_test
 # works with tu/tf aliases
-_ruby_tests() {
+function _ruby_tests() {
   if [[ -n $words[2] ]]; then
     compadd `ruby_test -l ${words[2]}`
   fi
@@ -29,7 +29,7 @@ compdef _ruby_tests ruby_test
 
 # autocompletion for ruby_spec
 # works with sm/sc aliases
-_ruby_specs() {
+function _ruby_specs() {
   if [[ -n $words[2] ]]; then
     compadd `ruby_spec -l ${words[2]}`
   fi
@@ -38,14 +38,14 @@ compdef _ruby_specs ruby_spec
 
 # autocompletion for ruby_tu_rs
 # works with su/sf aliases
-_ruby_mixed_tests() {
+function _ruby_mixed_tests() {
   if [[ -n $words[2] ]]; then
     compadd `ruby_tu_rs -l ${words[2]}`
   fi
 }
 compdef _ruby_mixed_tests ruby_tu_rs
 
-_git_remote_branch() {
+function _git_remote_branch() {
   ref=$(git symbolic-ref HEAD 2> /dev/null)
   if [[ -n $ref ]]; then
     if (( CURRENT == 2 )); then
@@ -70,7 +70,7 @@ _git_remote_branch() {
 compdef _git_remote_branch grb
 
 # autocompletion for schema
-_rails_tables() {
+function _rails_tables() {
   if [[ -n $words[2] ]]; then
     compadd `schema -l ${words[2]}`
   fi
@@ -78,8 +78,7 @@ _rails_tables() {
 compdef _rails_tables schema
 
 # autocompletion for cuc
-_cucumber_features() {
+function _cucumber_features() {
   compadd `ls features/**/*.feature | sed "s/features\/\(.*\).feature/\1/"`
 }
 compdef _cucumber_features cuc
-
