@@ -16,6 +16,14 @@ function vless() {
   [[ $# -eq 0 ]] || command vim --cmd 'let no_plugin_maps = 1' -c 'runtime! macros/less.vim' "$@"
 }
 
+# Use vim as man viewer
+function vman() {
+env PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
+vim -R -c 'set ft=man nomod nolist nonumber' -c 'map q :q<CR>' \
+-c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
+-c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\"" man $*
+}
+
 # Extract compress files
 function ext() {
   [[ "$#" -gt "0" && $1 == *-h* ]] && ahelp $1 && echo "usage: $FUNCNAME <compressed_file>" && return 2
@@ -53,6 +61,11 @@ function nh() {
 function wcdir() {
   [[ "$#" -gt "0" && $1 == *-h* ]] && ahelp $1 && echo "Usage: $FUNCNAME" && return 2
   find ${1:-.} -mindepth 1 -type d -print0 | xargs -0 -iFF sh -c 'echo `find "FF"/ -type f 2>/dev/null|wc -l;echo "FF"`' | sort -n | sed -e 's/^\([0-9]*\) \(.*\)$/ \1\t\2/g'
+}
+
+# Grep process
+function psgr() {
+  ps aux | grep $1 | grep -v grep
 }
 
 # Return number of processes
