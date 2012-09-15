@@ -18,7 +18,7 @@ function vless() {
 
 # Extract compress files
 function ext() {
-  [[ "$#" -gt "0" && $1 == *-h* ]] && ahelp $1 && echo "usage: $FUNCNAME" && return 2
+  [[ "$#" -gt "0" && $1 == *-h* ]] && ahelp $1 && echo "usage: $FUNCNAME <compressed_file>" && return 2
   until [[ -z "$1" ]]; do
     if [[ -f "$1" ]] ; then
       echo "Extracting $1..."
@@ -43,6 +43,12 @@ function ext() {
   done
 }
 
+# Run command detached from terminal and without output
+function nh() {
+  [[ "$#" -lt "1" ]] && echo "usage: $FUNCNAME <command>" >&2 && return 2
+  nohup "$@" &> /dev/null & echo;
+}
+
 # Output every dir in the currect directory, and how many files each contains
 function wcdir() {
   [[ "$#" -gt "0" && $1 == *-h* ]] && ahelp $1 && echo "Usage: $FUNCNAME" && return 2
@@ -51,5 +57,5 @@ function wcdir() {
 
 # Return number of processes
 function nprocs() {
-  echo `ps aux | wc -l`
+  echo `command ps aux | wc -l`
 }
