@@ -6,6 +6,10 @@ call pathogen#helptags()
 let mapleader = ","
 let maplocalleader = "\\"
 
+"
+" Options
+"
+
 " Use Vim settings, rather than Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
@@ -53,10 +57,6 @@ set incsearch
 set showmatch
 set hlsearch
 
-" Hide search highlighting
-nnoremap <Leader><Space> :noh<CR>
-"map <Leader>l :set invhls <CR>
-
 " Always display the status line
 set laststatus=2
 " Show file path and filet type in status line
@@ -93,14 +93,6 @@ set visualbell
 " Tags
 let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
 
-" Don't use Ex mode, use Q for formatting
-" (Martin) Don't know what this does
-map Q gq
-
-" This is an alternative that also works in block mode, but the deleted
-" text is lost and it only works for putting the current register.
-"vnoremap p "_dp
-
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
 if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
@@ -132,7 +124,8 @@ if has("autocmd")
 
   augroup END
 else
-  set autoindent " always set autoindenting on
+  " always set autoindenting on
+  set autoindent
 endif " has("autocmd")
 
 " if has("folding")
@@ -142,6 +135,18 @@ endif " has("autocmd")
   " set foldnestmax=2
   " set foldtext=strpart(getline(v:foldstart),0,50).'\ ...\ '.substitute(getline(v:foldend),'^[\ #]*','','g').'\ '
 " endif
+
+"
+" Mappings
+"
+
+" This is an alternative that also works in block mode, but the deleted
+" text is lost and it only works for putting the current register.
+"vnoremap p "_dp
+
+" Hide search highlighting
+nnoremap <Leader><Space> :noh<CR>
+"map <Leader>l :set invhls <CR>
 
 " NERDTree
 nnoremap <Leader>n :NERDTree<CR>
@@ -240,17 +245,14 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-S> :w<CR>
 inoremap <C-S> <ESC>:w<CR>a
 
-" ruby-debugger
-"let g:ruby_debugger_progname = '/usr/bin/mvim'
-
 " Martin's additions
 " Delete a line in insert mode
 inoremap <C-d> <ESC>ddi
 
 " Edit .vimrc file in vertical window
-nnoremap <Leader>er :vsplit $MYVIMRC<CR>
+nnoremap <Leader>evr :vsplit $MYVIMRC<CR>
 " Reload .vimrc
-nnoremap <Leader>sr :source $MYVIMRC<CR>
+nnoremap <Leader>svr :source $MYVIMRC<CR>
 
 " Exit insert mode
 inoremap jk <esc>

@@ -11,7 +11,7 @@ export EDITOR="vim --noplugin"
 # Disable vim plugins when editing files with Subversion
 export SVN_EDITOR="vim --noplugin"
 
-# Vi mode
+# Emacs mode
 bindkey -e
 
 # Use incremental search
