@@ -1,4 +1,4 @@
 *.swp
 .swo
-vim/.netrwhist
-install.sh
+vim/backups
+vim/.*
