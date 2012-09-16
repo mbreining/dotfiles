@@ -258,11 +258,11 @@ nnoremap <Leader>svr :source $MYVIMRC<CR>
 inoremap jk <esc>
 
 " Change backup directory
-silent execute '!mkdir -p ~/.vim/backups'
-set backupdir=~/.vim/backups// directory=~/.vim/backups//
+silent execute '!mkdir -p ~/.vim_backups'
+set backupdir=~/.vim_backups// directory=~/.vim_backups//
 if has("gui_running")
   set undofile
-  set undodir=~/.vim/backups//
+  set undodir=~/.vim_backups//
 endif
 
 augroup customEx
