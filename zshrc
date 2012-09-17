@@ -1,9 +1,10 @@
+# Gets called IF the shell is interactive.
+# First ~/.zshrc then ~/.zlogin.
+
 # Completion
 autoload -U compinit
 compinit
-
-# Automatically enter directories without cd
-setopt auto_cd
+setopt auto_cd # automatically enter directories without cd
 
 # Editor
 export EDITOR="vim --noplugin" # use vim as my editor

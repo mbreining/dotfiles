@@ -1,3 +1,7 @@
+# Gets called IF the shell is a login shell.
+# First ~/.zshrc then ~/.zlogin.
+
+# Return git HEAD which can then be appended to prompt.
 function git_prompt_info() {
   ref=$(git symbolic-ref HEAD 2> /dev/null)
   if [[ -n $ref ]]; then
@@ -5,19 +9,16 @@ function git_prompt_info() {
   fi
 }
 
-# makes color constants available
-autoload -U colors
+# Colors
+autoload -U colors # makes color constants available
 colors
+export CLICOLOR=1 # enable colored output from ls, etc
 
-# enable colored output from ls, etc
-export CLICOLOR=1
-
-# expand functions in the prompt
-setopt prompt_subst
-
-# prompt
+# Prompt
+# Overwrite prompt defined in ~/.zshrc to integrate git
 export PS1='$(git_prompt_info)[${SSH_CONNECTION+"%{$fg_bold[green]%}%n@%m:"}%{$fg_bold[blue]%}%~%{$reset_color%}] '
 
+# Completion
 # autocompletion for ruby_test
 # works with tu/tf aliases
 function _ruby_tests() {
