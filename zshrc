@@ -2,8 +2,7 @@
 # First ~/.zshrc then ~/.zlogin.
 
 # Completion
-autoload -U compinit
-compinit
+autoload -U compinit && compinit
 setopt auto_cd # automatically enter directories without cd
 
 # Editor
