@@ -30,6 +30,10 @@ function findgr() {
   find $1 -type f | xargs grep $2
 }
 
+# Save and restore location
+s() { pwd > ~/.save_dir ; }
+r() { cd "`cat ~/.save_dir`" ; }
+
 # Extract compress files
 function ex() {
   [[ "$#" -gt "0" && $1 == *-h* ]] && ahelp $1 && echo "usage: $FUNCNAME <compressed_file>" && return 2
