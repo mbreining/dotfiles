@@ -32,7 +32,7 @@ function findgr() {
 
 # Save and restore location
 s() { pwd > ~/.save_dir ; }
-r() { cd "`cat ~/.save_dir`" ; }
+i() { cd "`cat ~/.save_dir`" ; }
 
 # Extract compress files
 function ex() {
