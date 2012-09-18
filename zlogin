@@ -15,20 +15,14 @@ function git_prompt_info() {
 
 # Checks if working tree is dirty
 function parse_git_dirty() {
-  #local SUBMODULE_SYNTAX=''
-  #if [[ $POST_1_7_2_GIT -gt 0 ]]; then
-  #      SUBMODULE_SYNTAX="--ignore-submodules=dirty"
-  #fi
-  if [[ -n $(git status -s ${SUBMODULE_SYNTAX}  2> /dev/null) ]]; then
+  local SUBMODULE_SYNTAX="--ignore-submodules=dirty" # available with git 1.7.2 and above only
+  if [[ -n $(git status -s ${SUBMODULE_SYNTAX} 2> /dev/null) ]]; then
     echo " %{%F{red}%}*%{%f%k%b%}"
   else
     echo ""
   fi
 }
 
-#PROMPT='%{%f%k%b%}
-#%{%K{black}%B%F{green}%}%n%{%B%F{blue}%}@%{%B%F{cyan}%}%m%{%B%F{green}%} %{%b%F{yellow}%K{black}%}%~%{%B%F{green}%}$(git_prompt_info)%E%{%f%k%b%}
-#%{%K{black}%}$(_prompt_char)%{%K{black}%} %#%{%f%k%b%} '
 PROMPT='%{%f%k%b%}
 %{%b%F{yellow}%K{black}%}%~%{%B%F{green}%}$(git_prompt_info)%{%K{black}%} %#%{%f%k%b%} '
 RPROMPT='!%{%B%F{cyan}%}%!%{%f%k%b%}'
