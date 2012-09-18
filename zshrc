@@ -1,5 +1,5 @@
 # Gets called IF the shell is interactive.
-# First ~/.zshrc then ~/.zlogin.
+# Invocation order: ~/.zshrc then ~/.zlogin.
 
 # Completion
 autoload -U compinit && compinit
@@ -15,7 +15,7 @@ bindkey ^R history-incremental-search-backward # use incremental search
 
 # Prompt
 setopt prompt_subst # expand functions in the prompt
-export PS1='[${SSH_CONNECTION+"%n@%m:"}%~] '
+export PS1='[${SSH_CONNECTION+"%n@%m:"}%~] ' # simple prompt (no git integration)
 
 # History
 HISTSIZE=1000
@@ -31,7 +31,7 @@ setopt inc_append_history
 setopt share_history # share command history data
 
 # Path
-export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/openssl/bin:/usr/local/git/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
 
 # DYLD_LIBRARY_PATH (load path for dynamic shared libraries)
 # This was needed in order to get /usr/local/bin/search to work

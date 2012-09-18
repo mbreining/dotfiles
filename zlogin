@@ -1,5 +1,5 @@
 # Gets called IF the shell is a login shell.
-# First ~/.zshrc then ~/.zlogin.
+# Invocation order: ~/.zshrc then ~/.zlogin.
 
 # Colors
 autoload -U colors # makes color constants available
