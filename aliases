@@ -6,7 +6,5 @@ alias lh='ls -a | egrep "^\."'
 
 alias rm='rm -i'
 
-alias myip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | cut -d\ -f2"
-
 alias vi="/usr/bin/vi --noplugin"
 alias vim="/usr/bin/vim --noplugin"
