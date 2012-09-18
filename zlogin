@@ -1,22 +1,38 @@
 # Gets called IF the shell is a login shell.
 # First ~/.zshrc then ~/.zlogin.
 
-# Return git HEAD which can then be appended to prompt.
-function git_prompt_info() {
-  ref=$(git symbolic-ref HEAD 2> /dev/null)
-  if [[ -n $ref ]]; then
-    echo "[%{$fg_bold[green]%}${ref#refs/heads/}%{$reset_color%}]"
-  fi
-}
-
 # Colors
 autoload -U colors # makes color constants available
 colors
 export CLICOLOR=1 # enable colored output from ls, etc
 
 # Prompt
-# Overwrite prompt defined in ~/.zshrc to integrate git
-export PS1='$(git_prompt_info)[${SSH_CONNECTION+"%{$fg_bold[green]%}%n@%m:"}%{$fg_bold[blue]%}%~%{$reset_color%}] '
+# Return git HEAD which can then be appended to prompt.
+function git_prompt_info() {
+  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+  echo " [%{%B%F{blue}%}${ref#refs/heads/}$(parse_git_dirty)%{%f%k%b%K{black}%B%F{green}%}]"
+}
+
+# Checks if working tree is dirty
+function parse_git_dirty() {
+  #local SUBMODULE_SYNTAX=''
+  #if [[ $POST_1_7_2_GIT -gt 0 ]]; then
+  #      SUBMODULE_SYNTAX="--ignore-submodules=dirty"
+  #fi
+  if [[ -n $(git status -s ${SUBMODULE_SYNTAX}  2> /dev/null) ]]; then
+    echo " %{%F{red}%}*%{%f%k%b%}"
+  else
+    echo ""
+  fi
+}
+
+#PROMPT='%{%f%k%b%}
+#%{%K{black}%B%F{green}%}%n%{%B%F{blue}%}@%{%B%F{cyan}%}%m%{%B%F{green}%} %{%b%F{yellow}%K{black}%}%~%{%B%F{green}%}$(git_prompt_info)%E%{%f%k%b%}
+#%{%K{black}%}$(_prompt_char)%{%K{black}%} %#%{%f%k%b%} '
+PROMPT='%{%f%k%b%}
+%{%b%F{yellow}%K{black}%}%~%{%B%F{green}%}$(git_prompt_info)%{%K{black}%} %#%{%f%k%b%} '
+RPROMPT='!%{%B%F{cyan}%}%!%{%f%k%b%}'
+#export PS1='$(git_prompt_info)[${SSH_CONNECTION+"%{$fg_bold[green]%}%n@%m:"}%{$fg_bold[blue]%}%~%{$reset_color%}] '
 
 # Completion
 # autocompletion for ruby_test

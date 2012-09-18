@@ -21,7 +21,6 @@ export PS1='[${SSH_CONNECTION+"%n@%m:"}%~] '
 HISTSIZE=1000
 SAVEHIST=1000
 HISTORY=$HOME/.zsh_history
-
 setopt append_history
 setopt extended_history
 setopt hist_expire_dups_first

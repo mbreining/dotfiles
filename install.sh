@@ -27,7 +27,7 @@ for name in *; do
       fi
     fi
   else
-    if [[ $name != 'install.sh' ]]; then
+    if [[ $name != 'install.sh' ]] && [[ $name != 'README.md' ]]; then
       # Dotfile doesn't yet exist. Create it.
       echo "Creating $target"
       if [[ -n `grep "$cutstring" "$name"` ]]; then
