@@ -59,6 +59,12 @@ function myip() {
   ifconfig en1 | grep 'inet6 ' | sed -e 's/ / /' | awk '{print "en1 (IPv6): " $2 " " $3 " " $4 " " $5 " " $6}'
 }
 
+# Run a command detached from the terminal and w/o output
+function nh() {
+  [[ "$#" -lt "1" ]] && echo "Usage: $FUNCNAME <command>" >&2 && return 2
+  nohup "$@" &>/dev/null & echo;
+}
+
 # Output every dir in the currect directory, and how many files each contains
 function wcdir() {
   [[ "$#" -gt "0" && $1 == *-h* ]] && ahelp $1 && echo "Usage: $FUNCNAME" && return 2
