@@ -6,31 +6,16 @@ call pathogen#helptags()
 let mapleader = ","
 let maplocalleader = "\\"
 
-"
-" Options
-"
-
 " Use Vim settings, rather than Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
-" Set window size
+" General settings
 if has("gui_running")
-  " GUI is running or is about to start.
-  " Maximize gvim window.
-  set lines=48 columns=170
-else
-  " This is console Vim.
-  if exists("+lines")
-    set lines=30
-  endif
-  if exists("+columns")
-    set columns=80
-  endif
+  set lines=48 columns=170 " maximize gvim window
 endif
 
-" Allow backspacing over everything in insert mode
-set backspace=indent,eol,start
+set backspace=indent,eol,start " allow backspacing over everything in insert mode
 
 set nobackup
 set nowritebackup
@@ -48,6 +33,20 @@ set ttyfast
 set tabstop=2
 set shiftwidth=2
 set expandtab
+
+" Color scheme
+" https://github.com/altercation/solarized/tree/master/vim-colors-solarized
+" iTerm2 setting: http://stackoverflow.com/questions/7278267/incorrect-colors-with-vim-in-iterm2-using-solarized
+syntax enable
+if has('gui_running')
+  set background=light
+else
+  set background=dark
+endif
+colorscheme solarized
+call togglebg#map("<F5>")
+"highlight NonText guibg=#060606
+"highlight Folded  guibg=#0A0A0A guifg=#9090D0
 
 " Search
 set ignorecase
@@ -72,13 +71,9 @@ set laststatus=2
 "set statusline+=%L        " Total lines
 
 " Numbers
-if has("gui_running")
-  set relativenumber " show relative line numbers
-else
-  set number " show absolute line numbers
-endif
+" See https://github.com/jeffkreeftmeijer/vim-numbertoggle
 set numberwidth=5
-set cursorline " highlight current line
+"set cursorline " highlight current line
 
 " Snippets are activated by Shift+Tab
 let g:snippetsEmu_key = "<S-Tab>"
@@ -135,10 +130,6 @@ endif " has("autocmd")
   " set foldnestmax=2
   " set foldtext=strpart(getline(v:foldstart),0,50).'\ ...\ '.substitute(getline(v:foldend),'^[\ #]*','','g').'\ '
 " endif
-
-"
-" Mappings
-"
 
 " This is an alternative that also works in block mode, but the deleted
 " text is lost and it only works for putting the current register.
@@ -225,15 +216,6 @@ if executable("ack")
   set grepprg=ack\ -H\ --nogroup\ --nocolor
 endif
 
-" Color scheme
-if has("gui_running")
-  colorscheme vividchalk
-else
-  colorscheme slate
-endif
-highlight NonText guibg=#060606
-highlight Folded  guibg=#0A0A0A guifg=#9090D0
-
 " Window navigation
 nnoremap <C-Tab> <C-W><C-W>
 nnoremap <C-J> <C-W><C-J>
@@ -245,7 +227,6 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-S> :w<CR>
 inoremap <C-S> <ESC>:w<CR>a
 
-" Martin's additions
 " Delete a line in insert mode
 inoremap <C-d> <ESC>ddi
 
