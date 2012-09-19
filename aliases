@@ -5,7 +5,7 @@
 #alias mysqladmin=/usr/local/mysql/bin/mysqladmin
 #alias git=/usr/local/git/bin/git
 #alias gitk=/usr/local/git/bin/gitk
-#alias vim="/Applications/MacVim.app/Contents/MacOS/Vim --noplugin"
+#alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
 
 
 # DO NOT EDIT BELOW THIS LINE
@@ -17,4 +17,4 @@ alias lh='ls -a | egrep "^\."'
 
 alias rm='rm -i'
 
-alias vi="/usr/bin/vi --noplugin"
+alias vi="vim --noplugin"
