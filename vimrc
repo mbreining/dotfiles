@@ -55,6 +55,8 @@ set smartcase
 set incsearch
 set showmatch
 set hlsearch
+nnoremap <Leader><Space> :noh<CR> " hide search highlighting
+"map <Leader>l :set invhls <CR>
 
 " Always display the status line
 set laststatus=2
@@ -73,20 +75,15 @@ set laststatus=2
 " Numbers
 " See https://github.com/jeffkreeftmeijer/vim-numbertoggle
 set numberwidth=5
-"set cursorline " highlight current line
+set cursorline " highlight current line
 
-" Snippets are activated by Shift+Tab
-let g:snippetsEmu_key = "<S-Tab>"
-
-" Tab completion options
-set wildmode=list:longest,list:full
+" Completion
+set wildmode=list:longest,list:full " tab completion options
 set complete=.,t
+imap <Tab> <C-P> " map autocomplete to tab
 
 " Error bells are displayed visually
 set visualbell
-
-" Tags
-let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
@@ -135,10 +132,6 @@ endif " has("autocmd")
 " text is lost and it only works for putting the current register.
 "vnoremap p "_dp
 
-" Hide search highlighting
-nnoremap <Leader><Space> :noh<CR>
-"map <Leader>l :set invhls <CR>
-
 " NERDTree
 nnoremap <Leader>n :NERDTree<CR>
 
@@ -149,11 +142,10 @@ nnoremap <Leader>a :Ack
 nnoremap / /\v
 vnoremap / /\v
 
+" Rails
 " Edit the README_FOR_APP (makes :R commands work)
 nnoremap <Leader>R :e doc/README_FOR_APP<CR>
 nnoremap <Leader>TR :tabe doc/README_FOR_APP<CR>
-
-" Leader shortcuts for Rails commands
 nnoremap <Leader>m :Rmodel
 nnoremap <Leader>c :Rcontroller
 map <Leader>v :Rview
@@ -173,6 +165,12 @@ map <Leader>sv :RSview
 map <Leader>su :RSunittest
 map <Leader>sf :RSfunctionaltest
 map <Leader>si :RSintegrationtest
+command! Rroutes :e config/routes.rb
+command! RTroutes :tabe config/routes.rb
+
+" Rails plugin customizations
+autocmd User Rails Rnavcommand services app/services -glob=**/* -suffix=_service.rb
+autocmd User Rails Rnavcommand features features -glob=**/* -suffix=.feature
 
 " Opens an edit command with the path of the currently edited file filled in
 " Normal mode: <Leader>e
@@ -186,18 +184,8 @@ map <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
 " Command mode: Ctrl+P
 cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 
-" Maps autocomplete to tab
-imap <Tab> <C-P>
-
-" Duplicate a selection
-" Visual mode: D
-vmap D y'>p
-
-" No Help, please
-nmap <F1> <Esc>
-
-" Press ^F from insert mode to insert the current file name
-imap <C-F> <C-R>=expand("%")<CR>
+vmap D y'>p " Duplicate a selection in visual mode
+nmap <F1> <Esc> " disable F1 Help
 
 " Press Shift+P while in visual mode to replace the selection without
 " overwriting the default register
@@ -227,18 +215,14 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-S> :w<CR>
 inoremap <C-S> <ESC>:w<CR>a
 
-" Delete a line in insert mode
-inoremap <C-d> <ESC>ddi
+inoremap <C-d> <ESC>ddi " delete a line in insert mode
 
-" Edit .vimrc file in vertical window
-nnoremap <Leader>evr :vsplit $MYVIMRC<CR>
-" Reload .vimrc
-nnoremap <Leader>svr :source $MYVIMRC<CR>
+nnoremap <Leader>er :vsplit $MYVIMRC<CR> " edit .vimrc file in vertical window
+nnoremap <Leader>sr :source $MYVIMRC<CR> " reload .vimrc
 
-" Exit insert mode
-inoremap jk <esc>
+inoremap jk <esc> " exit insert mode
 
-" Change backup directory
+" Backups
 silent execute '!mkdir -p ~/.vim_backups'
 set backupdir=~/.vim_backups// directory=~/.vim_backups//
 if has("gui_running")
@@ -260,14 +244,6 @@ augroup customEx
   " For BrightScript
   au BufNewFile,BufRead *.brs setfiletype brs
 augroup END
-
-" Edit routes
-command! Rroutes :e config/routes.rb
-command! RTroutes :tabe config/routes.rb
-
-" Rails plugin customizations
-autocmd User Rails Rnavcommand services app/services -glob=**/* -suffix=_service.rb
-autocmd User Rails Rnavcommand features features -glob=**/* -suffix=.feature
 
 " tmux
 " tmux will only forward escape sequences to the terminal if surrounded by a DCS sequence
