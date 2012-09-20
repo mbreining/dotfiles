@@ -10,7 +10,6 @@ export CLICOLOR=1 # enable colored output from ls, etc
 # Return git HEAD which can then be appended to prompt.
 function git_prompt_info() {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-  #echo " [%{%B%F{blue}%}${ref#refs/heads/}$(parse_git_dirty)%{%f%k%b%K{black}%B%F{green}%}]"
   echo " %{%B%F{green}%}[%{%B%F{blue}%}${ref#refs/heads/}$(parse_git_dirty)%{%f%b%B%F{green}%}]"
 }
 
@@ -24,13 +23,10 @@ function parse_git_dirty() {
   fi
 }
 
-#PROMPT='%{%f%k%b%}
-#%{%b%F{yellow}%K{black}%}%~%{%B%F{green}%}$(git_prompt_info)%{%K{black}%} %#%{%f%k%b%} '
 # http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
 PROMPT='%{%f%k%b%}
 %{%b%F{yellow}%}%~$(git_prompt_info) %{%b%F{blue}%}%#%{%f%b%} '
 RPROMPT='!%{%B%F{cyan}%}%!%{%f%k%b%}'
-#export PS1='$(git_prompt_info)[${SSH_CONNECTION+"%{$fg_bold[green]%}%n@%m:"}%{$fg_bold[blue]%}%~%{$reset_color%}] '
 
 # Completion
 # autocompletion for ruby_test
