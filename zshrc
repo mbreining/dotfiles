@@ -15,7 +15,7 @@ bindkey ^R history-incremental-search-backward # use incremental search
 
 # Prompt
 setopt prompt_subst # expand functions in the prompt
-export PS1='[${SSH_CONNECTION+"%n@%m:"}%~] ' # simple prompt (no git integration)
+export PROMPT='[${SSH_CONNECTION+"%n@%m:"}%~] ' # simple prompt (no git integration)
 
 # History
 HISTSIZE=1000

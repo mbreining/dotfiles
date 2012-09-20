@@ -10,21 +10,25 @@ export CLICOLOR=1 # enable colored output from ls, etc
 # Return git HEAD which can then be appended to prompt.
 function git_prompt_info() {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-  echo " [%{%B%F{blue}%}${ref#refs/heads/}$(parse_git_dirty)%{%f%k%b%K{black}%B%F{green}%}]"
+  #echo " [%{%B%F{blue}%}${ref#refs/heads/}$(parse_git_dirty)%{%f%k%b%K{black}%B%F{green}%}]"
+  echo " %{%B%F{green}%}[%{%B%F{blue}%}${ref#refs/heads/}$(parse_git_dirty)%{%f%b%B%F{green}%}]"
 }
 
 # Checks if working tree is dirty
 function parse_git_dirty() {
   local SUBMODULE_SYNTAX="--ignore-submodules=dirty" # available with git 1.7.2 and above only
   if [[ -n $(git status -s ${SUBMODULE_SYNTAX} 2> /dev/null) ]]; then
-    echo " %{%F{red}%}*%{%f%k%b%}"
+    echo " %{%F{red}%}*%{%f%b%}"
   else
     echo ""
   fi
 }
 
+#PROMPT='%{%f%k%b%}
+#%{%b%F{yellow}%K{black}%}%~%{%B%F{green}%}$(git_prompt_info)%{%K{black}%} %#%{%f%k%b%} '
+# http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
 PROMPT='%{%f%k%b%}
-%{%b%F{yellow}%K{black}%}%~%{%B%F{green}%}$(git_prompt_info)%{%K{black}%} %#%{%f%k%b%} '
+%{%b%F{yellow}%}%~$(git_prompt_info) %{%b%F{blue}%}%#%{%f%b%} '
 RPROMPT='!%{%B%F{cyan}%}%!%{%f%k%b%}'
 #export PS1='$(git_prompt_info)[${SSH_CONNECTION+"%{$fg_bold[green]%}%n@%m:"}%{$fg_bold[blue]%}%~%{$reset_color%}] '
 
