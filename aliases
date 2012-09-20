@@ -6,6 +6,7 @@
 #alias git=/usr/local/git/bin/git
 #alias gitk=/usr/local/git/bin/gitk
 #alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
+#alias port=/opt/local/bin/port
 
 
 # DO NOT EDIT BELOW THIS LINE
