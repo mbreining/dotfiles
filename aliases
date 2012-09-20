@@ -18,3 +18,6 @@ alias lh='ls -a | egrep "^\."'
 alias rm='rm -i'
 
 alias vi="vim --noplugin"
+
+alias cdd="cd $HOME/Dropbox/Dotfiles"
+alias cds="cd $HOME/Dropbox/Scripts"
