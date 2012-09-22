@@ -10,8 +10,7 @@ for name in *; do
       # Dotfile already exists and is not a symlink. Update it.
       cutline=`grep -n -m1 "$cutstring" "$target" | sed "s/:.*//"`
       if [[ -n $cutline ]]; then
-        # The dotfile appeats to have been installed in the past by
-        # running this script.
+        # The dotfile appears to have been installed in the past by with this script.
         let "cutline = $cutline - 1"
         echo "Updating $target"
         head -n $cutline "$target" > update_tmp
