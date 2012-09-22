@@ -96,8 +96,8 @@ imap <Tab> <C-P> " map autocomplete to tab
 " Backups
 set nobackup
 set nowritebackup
-silent execute '!mkdir -p ~/.vim_backups'
-set backupdir=~/.vim_backups// directory=~/.vim_backups//
+silent execute '!mkdir -p ~/.vim_store'
+set backupdir=~/.vim_store// directory=~/.vim_store//
 
 " Navigation
 nnoremap <C-Tab> <C-W><C-W> " cycle through windows
