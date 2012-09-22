@@ -104,6 +104,14 @@ nnoremap <C-Tab> <C-W><C-W> " cycle through windows
 nnoremap <C-J> gj " move one unnumbered line down
 nnoremap <C-K> gk " move one unnumbered line up
 
+" Spelling
+set spelllang=en_us " set region to US English
+nnoremap <silent> <leader>s :set spell!<CR>
+nnoremap <leader>sn ]s " go to next error
+nnoremap <leader>sp [s " got to previous error
+nnoremap <leader>ss z= " show suggestions
+nnoremap <leader>sl 1z= " feeling lucky
+
 " Miscellaneous shortcuts
 " Edit .vimrc
 nnoremap <Leader>er :vsplit $MYVIMRC<CR> " edit .vimrc file in vertical window
