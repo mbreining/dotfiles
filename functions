@@ -26,7 +26,7 @@ function vman() {
 
 # Recursively search directory tree for string
 function findgr() {
-  [[ "$#" -lt "2" ]] && echo "Usage: $FUNCNAME <find_dir> <grep_token>" >&2 && return 2
+  [[ "$#" -lt "2" ]] && echo "usage: $0 <find_dir> <grep_token>" >&2 && return 2
   find $1 -type f | xargs grep $2
 }
 
@@ -36,7 +36,7 @@ i() { cd "`cat ~/.save_dir`" ; }
 
 # Extract compress files
 function ex() {
-  [[ "$#" -gt "0" && $1 == *-h* ]] && ahelp $1 && echo "usage: $FUNCNAME <compressed_file>" && return 2
+  [[ "$#" -gt "0" && $1 == *-h* ]] && ahelp $1 && echo "usage: $0 <compressed_file>" && return 2
   until [[ -z "$1" ]]; do
     if [[ -f "$1" ]] ; then
       echo "Extracting $1..."
@@ -72,13 +72,13 @@ function myip() {
 
 # Run a command detached from the terminal and w/o output
 function nh() {
-  [[ "$#" -lt "1" ]] && echo "Usage: $FUNCNAME <command>" >&2 && return 2
+  [[ "$#" -lt "1" ]] && echo "usage: $0 <command>" >&2 && return 2
   nohup "$@" &>/dev/null & echo;
 }
 
 # Output every dir in the currect directory, and how many files each contains
 function wcdir() {
-  [[ "$#" -gt "0" && $1 == *-h* ]] && ahelp $1 && echo "Usage: $FUNCNAME" && return 2
+  [[ "$#" -gt "0" && $1 == *-h* ]] && ahelp $1 && echo "usage: $0" && return 2
   find ${1:-.} -mindepth 1 -type d -print0 | xargs -0 -iFF sh -c 'echo `find "FF"/ -type f 2>/dev/null|wc -l;echo "FF"`' | sort -n | sed -e 's/^\([0-9]*\) \(.*\)$/ \1\t\2/g'
 }
 
@@ -90,4 +90,12 @@ function psgr() {
 # Return number of processes
 function pswc() {
   echo `command ps aux | wc -l`
+}
+
+# Go to gem directory
+function gemdir() {
+  [[ "$#" -lt "1" ]] && echo "usage: $0 <ruby_version>" >&2 && return 2
+  rvm "$1"
+  cd $(rvm gemdir)
+  pwd
 }

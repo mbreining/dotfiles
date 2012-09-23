@@ -226,13 +226,21 @@ nnoremap <Leader>si :RSintegrationtest
 command! Rroutes :e config/routes.rb
 command! RTroutes :tabe config/routes.rb
 
-" tmux
+" Tmux
 " tmux will only forward escape sequences to the terminal if surrounded by a DCS sequence
 " http://sourceforge.net/mailarchive/forum.php?thread_name=AANLkTinkbdoZ8eNR1X2UobLTeww1jFrvfJxTMfKSq-L%2B%40mail.gmail.com&forum_name=tmux-users
 if exists('$TMUX')
   let &t_SI = "\<Esc>[3 q"
   let &t_EI = "\<Esc>[0 q"
 endif
+
+" Ruby
+" http://lanyrd.com/2011/madison-ruby/sgtmd/
+function! RubyInfo()
+  ruby << RUBY
+    puts "#{RUBY_VERSION} #{RUBY_PLATFORM} #{RUBY_RELEASE_DATE}"
+RUBY
+endfunction
 
 " Local config
 if filereadable(".vimrc.local")

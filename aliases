@@ -22,3 +22,6 @@ alias vi="vim --noplugin"
 
 alias cdd="cd $HOME/Dropbox/Dotfiles"
 alias cds="cd $HOME/Dropbox/Scripts"
+
+alias tm='tmux'
+alias mu='mutt'
