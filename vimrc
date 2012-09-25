@@ -93,6 +93,11 @@ imap <Tab> <C-P> " map autocomplete to tab
   " set foldtext=strpart(getline(v:foldstart),0,50).'\ ...\ '.substitute(getline(v:foldend),'^[\ #]*','','g').'\ '
 " endif
 
+" Filetypes
+filetype on " enable file-type detection
+filetype indent on " load indent files to automatically do language-dependent indenting
+filetype plugin on " enable file-type plugins
+
 " Backups
 set nobackup
 set nowritebackup
@@ -147,10 +152,6 @@ inoremap jk <esc> " exit insert mode
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
-  " Enable file type detection and load indent files to automatically
-  " do language-dependent indenting.
-  filetype plugin indent on
-
   " Put these in an autocmd group, so that we can delete them easily.
   augroup global
     autocmd!
