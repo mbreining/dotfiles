@@ -25,7 +25,7 @@ function parse_git_dirty() {
 
 # http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
 PROMPT='%{%f%k%b%}
-%{%b%F{yellow}%}%~$(git_prompt_info) %{%b%F{green}%}%#%{%f%b%} '
+%{%b%F{yellow}%}%~$(git_prompt_info) %{%b%F{blue}%}%#%{%f%b%} '
 RPROMPT='!%{%B%F{cyan}%}%!%{%f%k%b%}'
 
 # Completion

@@ -38,8 +38,8 @@ export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
 #export DYLD_LIBRARY_PATH=/usr/local/mysql/lib:$DYLD_LIBRARY_PATH
 
 # Bring in all my functions and aliases
-source $HOME/.functions
-source $HOME/.aliases
+[[ -f $HOME/.functions ]] && . $HOME/.functions
+[[ -f $HOME/.aliases ]] && . $HOME/.aliases
 
 # This loads RVM into a shell session
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
