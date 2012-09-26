@@ -193,6 +193,9 @@ endif " has("autocmd")
 " NERDTree
 nnoremap <Leader>n :NERDTree<CR>
 
+" Scratch buffer
+nnoremap <Leader>S :Scratch<CR>
+
 "Ack
 nnoremap <Leader>a :Ack
 " Use Ack instead of Grep when available
