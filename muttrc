@@ -17,11 +17,11 @@ set hostname = gmail.com
 set mail_check = 120
 set timeout = 300
 set imap_keepalive = 300
-set postponed = "Drafts"
-set record = "Sent Mail"
-set header_cache=~/.mutt_store/cache/headers
-set message_cachedir=~/.mutt_store/cache/bodies
-set certificate_file=~/.mutt_store/certificates
+set postponed="$HOME/.mutt_store/Drafts"
+set record="$HOME/.mutt_store/SentMail"
+set header_cache="$HOME/.mutt_store/cache/headers"
+set message_cachedir="$HOME/.mutt_store/cache/bodies"
+set certificate_file="$HOME/.mutt_store/certificates"
 set move = no
 set include
 set sort = 'threads'
