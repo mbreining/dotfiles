@@ -197,8 +197,8 @@ nnoremap <Leader>n :NERDTree<CR>
 nnoremap <Leader>S :Scratch<CR>
 
 " Evernote
-let g:evernote_vim_username = "feelnoway"
-let g:evernote_vim_ruby_dir = "/Users/feelnoway/.vim/bundle/evernote.vim/ruby"
+let g:evernote_vim_username = "martin"
+let g:evernote_vim_ruby_dir = "/Users/martin/.vim/bundle/evernote.vim/ruby"
 
 "Ack
 nnoremap <Leader>a :Ack
