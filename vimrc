@@ -40,6 +40,9 @@ if has('gui_running')
 else
   set background=dark
 endif
+"let g:solarized_termcolors = 256
+"let g:solarized_visibility = "high"
+"let g:solarized_contrast = "high"
 colorscheme solarized
 call togglebg#map("<F5>")
 "highlight NonText guibg=#060606
