@@ -20,7 +20,7 @@ export PROMPT='[${SSH_CONNECTION+"%n@%m:"}%~] ' # simple prompt (no git integrat
 # History
 HISTSIZE=1000
 SAVEHIST=1000
-HISTORY=$HOME/.zsh_history
+HISTFILE=$HOME/.zsh_history
 setopt append_history
 setopt extended_history
 setopt hist_expire_dups_first
@@ -39,5 +39,4 @@ export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
 
 # This loads RVM into a shell session
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
