@@ -134,6 +134,9 @@ map <leader>es :sp %%
 map <leader>ev :vsp %%
 map <leader>et :tabe %%
 
+" Change current directory to the file being edited
+nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
+
 " Insert the path of the currently edited file into a command
 cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 
