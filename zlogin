@@ -2,8 +2,7 @@
 # Invocation order: ~/.zshrc then ~/.zlogin.
 
 # Colors
-autoload -U colors # makes color constants available
-colors
+autoload -U colors && colors # makes color constants available
 export CLICOLOR=1 # enable colored output from ls, etc
 
 # Prompt
