@@ -24,10 +24,10 @@ function vman() {
   -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\"" man $*
 }
 
-# Recursively search directory tree for string
+# Recursively search directory tree for string (exclude hidden directories)
 function findgr() {
   [[ "$#" -lt "2" ]] && echo "usage: $0 <find_dir> <grep_token>" >&2 && return 2
-  find $1 -type f | xargs grep $2
+  find $1 \( ! -regex '.*/\..*/..*' \) -type f | xargs grep $2
 }
 
 # Save and restore location
@@ -76,7 +76,7 @@ function nh() {
   nohup "$@" &>/dev/null & echo;
 }
 
-# Output every dir in the currect directory, and how many files each contains
+# Output every dir in the current directory, and how many files each contains
 function wcdir() {
   [[ "$#" -gt "0" && $1 == *-h* ]] && ahelp $1 && echo "usage: $0" && return 2
   find ${1:-.} -mindepth 1 -type d -print0 | xargs -0 -iFF sh -c 'echo `find "FF"/ -type f 2>/dev/null|wc -l;echo "FF"`' | sort -n | sed -e 's/^\([0-9]*\) \(.*\)$/ \1\t\2/g'
