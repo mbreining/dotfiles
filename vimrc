@@ -119,7 +119,7 @@ nnoremap <leader>sl 1z= " feeling lucky
 
 " Make yank and paste work with the system clipboard
 " http://stackoverflow.com/questions/677986/vim-copy-selection-to-os-x-clipboard
-set clipboard=unnamed
+"set clipboard=unnamed
 
 " Miscellaneous shortcuts
 " Edit .vimrc
