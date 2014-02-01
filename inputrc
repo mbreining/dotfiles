@@ -1,6 +1,7 @@
 # Readline configuration. Note that it isn't read by zsh.
 # http://www.reddit.com/r/commandline/comments/kbeoe/you_can_make_readline_and_bash_much_more_user/
 
+set completion-query-items 10000
 set completion-ignore-case on
 set completion-prefix-display-length 2
 set show-all-if-ambiguous on

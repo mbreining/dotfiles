@@ -40,3 +40,7 @@ export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
 # This loads RVM into a shell session
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+if [[ -e $HOME/.zshrc.local ]]; then
+  source $HOME/.zshrc.local
+fi

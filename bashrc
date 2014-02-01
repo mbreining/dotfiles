@@ -15,4 +15,9 @@ set -o noclobber
 # Source aliases
 [[ -f $HOME/.aliases ]] && . $HOME/.aliases
 
+# History
+export HISTSIZE=1000000
+export HISTFILESIZE=1000000
+shopt -s histappend
+
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
