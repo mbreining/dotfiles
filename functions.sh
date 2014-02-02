@@ -10,6 +10,17 @@ function ahelp() {
   unset -v ahelp; [[ "$#" -gt "0" ]] && [[ "$1" == "-h" || "$1" == "--h" || "$1" == "--help" || "$1" == "-help" || "$1" == "-?" ]] && ahelp="yes";
 }
 
+# Pretty print PATH
+path() {
+echo $PATH | tr ":" "\n" | \
+awk "{ sub(\"/usr\",   \"$fg_no_bold[green]/usr$reset_color\"); \
+       sub(\"/bin\",   \"$fg_no_bold[blue]/bin$reset_color\"); \
+       sub(\"/opt\",   \"$fg_no_bold[cyan]/opt$reset_color\"); \
+       sub(\"/sbin\",  \"$fg_no_bold[magenta]/sbin$reset_color\"); \
+       sub(\"/local\", \"$fg_no_bold[yellow]/local$reset_color\"); \
+       print }"
+}
+
 # Make vim a pager
 function vless() {
   [[ $# -eq 0 ]] && command vim --cmd 'let no_plugin_maps = 1' -c 'runtime! macros/less.vim' -
@@ -27,7 +38,7 @@ function vman() {
 # Recursively search directory tree for string (exclude hidden directories)
 function findg() {
   [[ "$#" -lt "2" ]] && echo "usage: $0 <find_dir> <grep_token>" >&2 && return 2
-  find $1 \( ! -regex '.*/\..*/..*' \) -type f | xargs grep $2
+  find $1 \( ! -regex '.*/\..*/..*' \) -type f -print0 | xargs -0 grep $2
 }
 
 # Save and restore location
@@ -40,20 +51,23 @@ function ex() {
   until [[ -z "$1" ]]; do
     if [[ -f "$1" ]] ; then
       echo "Extracting $1..."
-    case $1 in
-    *.tar.bz2) tar xjf $1 ;;
-    *.tar.gz)  tar xzf $1 ;;
-    *.tar)     tar xf $1 ;;
-    *.tbz2)    tar xjf $1 ;;
-    *.tgz)     tar xzf $1 ;;
-    *.bz2)     bunzip2 $1 ;;
-    *.rar)     unrar x $1 ;;
-    *.gz)      gunzip $1 ;;
-    *.zip)     unzip $1 ;;
-    *.Z)       uncompress $1 ;;
-    *.7z)      7z x $1 ;;
-    *)        echo "Don't know how to extract '$1'" ;;
-    esac;
+      case $1 in
+        *.tar.bz2) tar xjf $1 ;;
+        *.tar.gz) tar xzf $1 ;;
+        *.tar.xz) tar xvJf $1;;
+        *.tar.lzma) tar --lzma xvf $1;;
+        *.tar) tar xf $1 ;;
+        *.tbz2) tar xjf $1 ;;
+        *.tgz) tar xzf $1 ;;
+        *.bz2) bunzip2 $1 ;;
+        *.rar) unrar x $1 ;;
+        *.gz) gunzip $1 ;;
+        *.zip) unzip $1 ;;
+        *.Z) uncompress $1 ;;
+        *.7z) 7z x $1 ;;
+        *.dmg) hdiutul mount $1;; # mount OS X disk images
+        *) echo "'$1' cannot be extracted via >ex<";;
+      esac;
     else
       echo "'$1' is not a valid file"
     fi

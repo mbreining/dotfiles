@@ -12,8 +12,8 @@ has_yum() { [[ -n ${commands[yum]} ]] }
 
 source $HOME/.zsh/settings.zsh # cmd line options, completion, path, bindkeys, history
 source $HOME/.zsh/appearance.zsh # colors, prompt
-source $HOME/.zsh/aliases.zsh
-#source $HOME/.zsh/functions.zsh
+source $HOME/.aliases.sh
+source $HOME/.functions.sh
 
 # This loads RVM into a shell session
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
