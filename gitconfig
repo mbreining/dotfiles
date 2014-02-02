@@ -17,13 +17,12 @@
   a = add
   di = diff
   dic = diff --cached
+  graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+  l = log --pretty=\"%Cblue%h%Creset %Cgreen[%cr]%Creset %s\"
   pl = pull
   ps = push
   plre = pull --rebase
   st = status
-  out = log origin..HEAD
-  #qpl = log --pretty=\"%Cblue%h%Creset %Cgreen[%cr]%Creset %s\" origin/production..origin/master
-  #graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
   co = checkout
   ci = commit
   ca = commit --amend
