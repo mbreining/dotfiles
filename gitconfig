@@ -14,7 +14,6 @@
 [format]
   #pretty = %Cblue%h%Creset %Cgreen[%cr]%Creset (%an) %s
 [alias]
-  c = commit -m
   a = add
   di = diff
   dic = diff --cached
@@ -25,6 +24,7 @@
   out = log origin..HEAD
   #qpl = log --pretty=\"%Cblue%h%Creset %Cgreen[%cr]%Creset %s\" origin/production..origin/master
   #graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+  co = checkout
   ci = commit
   ca = commit --amend
 [user]
