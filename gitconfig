@@ -11,6 +11,7 @@
   branch = auto
 [core]
   excludesfile = ~/.gitignore
+  pager=cat
 [format]
   #pretty = %Cblue%h%Creset %Cgreen[%cr]%Creset (%an) %s
 [alias]
