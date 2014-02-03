@@ -50,6 +50,7 @@ alias vi="vim --noplugin"
 # ===== Tmux
 alias tmux='TERM=screen-256color-bce tmux' # Force tmux to use 256 colors
 alias tm='tmux'
+alias tml='tmux list-sessions'
 
 # ===== Mutt
 alias mu='mutt'

@@ -97,14 +97,13 @@ function wcdir() {
 }
 
 # Grep process
-function psgr() {
-  ps aux | grep $1 | grep -v grep
-}
+function psgr() { ps aux | grep $1 | grep -v grep }
 
 # Return number of processes
-function pswc() {
-  echo `command ps aux | wc -l`
-}
+function pswc() { echo `command ps aux | wc -l` }
+
+# Kill tmux session
+function tmk() { tmux kill-session -t $1 }
 
 # Go to gem directory
 function gemdir() {

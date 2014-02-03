@@ -12,8 +12,9 @@ export PS1
 # http://www.e-reading.org.ua/htmbook.php/orelly/unix2.1/upt/ch13_06.htm
 set -o noclobber
 
-# Source aliases
-[[ -f $HOME/.aliases ]] && . $HOME/.aliases
+# Source aliases and functions
+[[ -f $HOME/.aliases.sh ]] && . $HOME/.aliases.sh
+[[ -f $HOME/.functions.sh ]] && . $HOME/.functions.sh
 
 # History
 export HISTSIZE=1000000
