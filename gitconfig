@@ -12,6 +12,8 @@
 [core]
   excludesfile = ~/.gitignore
   pager=cat
+[merge]
+  conflictstyle=diff3
 [format]
   #pretty = %Cblue%h%Creset %Cgreen[%cr]%Creset (%an) %s
 [alias]

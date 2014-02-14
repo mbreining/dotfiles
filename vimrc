@@ -1,9 +1,30 @@
+" Pathogen {{{
 call pathogen#infect() " load plugins under ./vim/bundle.
 call pathogen#helptags() " generate documentation from ./vim/bundle/*/doc.
+" }}}
 
-" Leader character
+" General settings {{{
 let mapleader = ","
 let maplocalleader = "\\"
+" }}}
+
+" Colors {{{
+syntax enable
+""if has('gui_running')
+""  set background=light
+""else
+""  set background=dark
+""endif
+""call togglebg#map("<F5>")
+
+" https://github.com/altercation/solarized/tree/master/vim-colors-solarized
+" iTerm2 setting: http://stackoverflow.com/questions/7278267/incorrect-colors-with-vim-in-iterm2-using-solarized
+colorscheme solarized
+
+" https://github.com/sjl/badwolf/
+"colorscheme badwolf
+" }}}
+
 
 " Use Vim settings, rather than Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
@@ -26,39 +47,27 @@ set ttyfast
 set visualbell " display error bells visually
 set list listchars=tab:»·,trail:· " display extra whitespace
 
-" Tabs
-set tabstop=2
+" Spaces and tabs {{{
+set tabstop=2 " number of visual spaces per TAB
+set softtabstop=2 " number of spaces in tab when editing
+set expandtab " tabs are spaces
 set shiftwidth=2
-set expandtab
+" }}}
 
-" Color scheme
-" https://github.com/altercation/solarized/tree/master/vim-colors-solarized
-" iTerm2 setting: http://stackoverflow.com/questions/7278267/incorrect-colors-with-vim-in-iterm2-using-solarized
-syntax enable
-if has('gui_running')
-  set background=light
-else
-  set background=dark
-endif
-colorscheme solarized
-call togglebg#map("<F5>")
-"highlight NonText guibg=#060606
-"highlight Folded  guibg=#0A0A0A guifg=#9090D0
-
-" Search
+" Search {{{
 set ignorecase
 set smartcase
-"set gdefault
-set incsearch
+set incsearch " search as characters are entered
 set showmatch
-set hlsearch
+set hlsearch " highlight all matches
 nnoremap <Leader><Space> :noh<CR> " hide search highlighting
-"nnoremap <Leader>l :set invhls <CR>
+
 " Disable VIM's broken default regex
 nnoremap / /\v
 vnoremap / /\v
+" }}}
 
-" Status line
+" Status line {{{
 set laststatus=2 " always display the status line
 " Show file path and file type in status line
 set statusline=%f         " Path to the file
@@ -73,6 +82,7 @@ set statusline+=/         " Separator
 set statusline+=%L        " Total lines
 set statusline+=\ \       " Separator
 set statusline+=%p%%      " Percentage page scroll
+" }}}
 
 " Line numbers
 " See https://github.com/jeffkreeftmeijer/vim-numbertoggle
@@ -84,14 +94,18 @@ set wildmode=list:longest,list:full " tab completion options
 set complete=.,t
 imap <Tab> <C-P> " map autocomplete to tab
 
-" Folding
-" if has("folding")
-  " set foldenable
-  " set foldmethod=syntax
+" Folding {{{
+if has("folding")
+  set foldenable " don't fold files by default on open
+  set foldmethod=indent " fold based on indent level
   " set foldlevel=1
-  " set foldnestmax=2
+  set foldnestmax=2 " max 2 depth
+  nnoremap <space> za
+  set foldlevelstart=10 " start with fold level of 1
+  " set foldmethod=syntax
   " set foldtext=strpart(getline(v:foldstart),0,50).'\ ...\ '.substitute(getline(v:foldend),'^[\ #]*','','g').'\ '
 " endif
+" }}}
 
 " Filetypes
 filetype on " enable file-type detection
