@@ -8,7 +8,7 @@ let mapleader = ","
 let maplocalleader = "\\"
 " }}}
 
-" Miscellaneous settings {{{
+" General settings {{{
 " Use Vim settings, rather than Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
@@ -33,15 +33,21 @@ set pastetoggle=<F10> " http://stackoverflow.com/questions/2514445/turning-off-a
 
 " Colors {{{
 syntax enable
+set background=dark
+
+" Fix colorschemes in tmux
+" http://sunaku.github.io/vim-256color-bce.html
+if &term =~ '256color'
+  set t_ut=
+endif
 
 " https://github.com/altercation/solarized/tree/master/vim-colors-solarized
 " iTerm2 setting: http://stackoverflow.com/questions/7278267/incorrect-colors-with-vim-in-iterm2-using-solarized
 colorscheme solarized
-set background=dark
-call togglebg#map("<F5>")
+call togglebg#map("<F6>")
 
-" https://github.com/sjl/badwolf/
-"colorscheme badwolf
+" Add installed colorschemes here. See NextColor() function.
+let s:my_colors = ['solarized', 'badwolf']
 " }}}
 
 " Spaces and tabs {{{
@@ -110,7 +116,7 @@ set directory=~/.vim_tmp//
 
 " Spelling {{{
 set spelllang=en_us " set region to US English
-nnoremap <silent> <leader>s :set spell!<CR>
+nnoremap <leader>ss :setlocal spell!<CR>
 nnoremap <leader>sn ]s " go to next error
 nnoremap <leader>sp [s " got to previous error
 nnoremap <leader>ss z= " show suggestions
@@ -136,6 +142,13 @@ map <leader>es :sp %%
 map <leader>ev :vsp %%
 map <leader>et :tabe %%
 
+" Useful mappings for managing tabs
+map <leader>tn :tabnew<CR>
+map <leader>to :tabonly<CR>
+map <leader>tc :tabclose<CR>
+map <leader>tm :tabmove
+map <leader>te :tabedit <C-R>=expand("%:p:h")<CR>/ " open a new tab with the current buffer's path
+
 " Change current directory to the file being edited
 nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 
@@ -160,8 +173,35 @@ nnoremap <leader>save :mksession<CR>
 " }}}
 
 " Functions {{{
+function! NextColor()
+  if exists('g:colors_name')
+    let current = index(s:my_colors, g:colors_name)
+  else
+    let current = -1
+  endif
+  let missing = []
+  let new_color = current + 1
+  if new_color >= len(s:my_colors) " wrap around array
+    let new_color = 0
+  endif
+  try
+    execute 'colorscheme '.s:my_colors[new_color]
+    if new_color == 'badwolf'
+      let g:badwolf_darkgutter = 1
+      let g:badwolf_tabline = 2
+    endif
+  catch /E185:/
+    call add(missing, s:my_colors[new_color])
+  endtry
+  redraw
+  echom 'Switched to colorscheme' s:my_colors[new_color]
+  if len(missing) > 0
+    echom 'Error: colorscheme not found:' join(missing)
+  endif
+endfunction
+nnoremap <F5> :call NextColor()<CR>
+
 " http://lanyrd.com/2011/madison-ruby/sgtmd/
-" To use: :call RubyInfo()
 function! RubyInfo()
   ruby << RUBY
     puts "#{RUBY_VERSION} #{RUBY_PLATFORM} #{RUBY_RELEASE_DATE}"
@@ -210,10 +250,13 @@ nnoremap <Leader>n :NERDTree<CR>
 " }}}
 
 " CtrlP {{{
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-let g:ctrlp_map = '<c-p>'
+let g:ctrlp_map = '<C-P>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$'
+  \ }
 " }}}
 
 " Scratch buffer {{{
