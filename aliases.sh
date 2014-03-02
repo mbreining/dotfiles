@@ -44,9 +44,6 @@ alias rake="noglob rake" # Necessary to make rake work inside of zsh
 #alias bx='bundle exec'
 #alias gentags='ctags .'
 
-# ===== Vi
-alias vi="vim --noplugin"
-
 # ===== Tmux
 alias tm='tmux'
 alias tml='tmux list-sessions'

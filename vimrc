@@ -25,10 +25,15 @@ set lazyredraw " redraw only when we need to
 set ttyfast
 set visualbell " display error bells visually
 set list listchars=tab:»·,trail:· " display extra whitespace
-" https://github.com/jeffkreeftmeijer/vim-numbertoggle
-set numberwidth=5
 set cursorline " highlight current line
-set pastetoggle=<F10> " http://stackoverflow.com/questions/2514445/turning-off-auto-indent-when-pasting-text-into-vim
+
+" https://github.com/jeffkreeftmeijer/vim-numbertoggle
+set nonumber
+set relativenumber
+set numberwidth=5
+
+" http://stackoverflow.com/questions/2514445/turning-off-auto-indent-when-pasting-text-into-vim
+set pastetoggle=<F10>
 " }}}
 
 " Colors {{{
@@ -94,7 +99,7 @@ imap <Tab> <C-P> " map autocomplete to tab
 " }}}
 
 " Folding {{{
-set foldenable " don't fold files by default on open
+set nofoldenable " don't fold files by default on open
 set foldmethod=indent " fold based on indent level
 set foldlevelstart=10 " start with fold level of 10
 nnoremap <space> za
@@ -245,11 +250,11 @@ else
 endif
 " }}}
 
-" NERDTree {{{
+" File management plugins {{{
+" NERDTree
 nnoremap <Leader>n :NERDTree<CR>
-" }}}
 
-" CtrlP {{{
+" CtrlP
 let g:ctrlp_map = '<C-P>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
@@ -257,13 +262,15 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
   \ 'file': '\v\.(exe|so|dll)$'
   \ }
-" }}}
 
-" Scratch buffer {{{
+" BufExplorer
+let g:bufExplorerShowTabBuffer=1 " only show buffers for current tab
+
+" Scratch buffer
 nnoremap <Leader>S :Scratch<CR>
 " }}}
 
-" Ack {{{
+" Ack plugin {{{
 nnoremap <Leader>a :Ack
 " Use Ack instead of Grep when available
 if executable("ack")
@@ -271,7 +278,7 @@ if executable("ack")
 endif
 " }}}
 
-" Rails {{{
+" Rails  plugin {{{
 " The plugin gets loaded the first a file in a rails project is opened.
 " Edit the README_FOR_APP to make :R commands work.
 nnoremap <Leader>R :e doc/README_FOR_APP<CR>
@@ -316,4 +323,4 @@ endif
 
 " http://www.cs.swarthmore.edu/help/vim/modelines.html
 set modelines=1
-" vim:foldmethod=marker:foldlevel=0
+" vim:foldenable:foldmethod=marker:foldlevel=0
