@@ -130,8 +130,8 @@ nnoremap <leader>sl 1z= " feeling lucky
 
 " Shortcuts {{{
 " Edit .vimrc
-nnoremap <Leader>evim :vsplit $MYVIMRC<CR> " edit .vimrc file in vertical window
-nnoremap <Leader>svim :source $MYVIMRC<CR> " reload .vimrc
+nnoremap <Leader>evi :vsplit $MYVIMRC<CR> " edit .vimrc file in vertical window
+nnoremap <Leader>svi :source $MYVIMRC<CR> " reload .vimrc
 
 " Navigation
 nnoremap <C-J> gj " move one unnumbered line down
@@ -168,6 +168,9 @@ nnoremap <Leader>dp ddpkJ
 
 inoremap <C-d> <ESC>ddi " delete a line in insert mode
 inoremap jk <esc> " exit insert mode
+
+" Hide Ex mode http://www.bestofvim.com/tip/leave-ex-mode-good/
+nnoremap Q <nop>
 
 " Save changes
 nnoremap <C-S> :w<CR>
@@ -229,6 +232,10 @@ if has("autocmd")
       \ if line("'\"") > 0 && line("'\"") <= line("$") |
       \   exe "normal g`\"" |
       \ endif
+
+    " Auto reload of vimrc
+    " http://www.bestofvim.com/tip/auto-reload-your-vimrc/
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC
   augroup END
 
   augroup programming
