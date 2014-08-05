@@ -36,9 +36,5 @@ source $HOME/.functions.sh
 # ===== Load autojump
 [[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
 
-# ===== Load RVM
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-
 # ===== Local settings
 [[ -f $HOME/.zshrc.local ]] && . "$HOME/.zshrc.local"
