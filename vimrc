@@ -272,9 +272,6 @@ let g:ctrlp_custom_ignore = {
 
 " BufExplorer
 let g:bufExplorerShowTabBuffer=1 " only show buffers for current tab
-
-" Scratch buffer
-nnoremap <Leader>S :Scratch<CR>
 " }}}
 
 " Ack plugin {{{
