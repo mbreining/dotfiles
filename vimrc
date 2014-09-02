@@ -101,7 +101,7 @@ imap <Tab> <C-P> " map autocomplete to tab
 " Folding {{{
 set nofoldenable " don't fold files by default on open
 set foldmethod=indent " fold based on indent level
-set foldlevelstart=1 " start with fold level of 1
+set foldlevelstart=99 " start with fold level of 99
 nnoremap <space> za
 " }}}
 
