@@ -320,8 +320,8 @@ endif
 " }}}
 
 " Local config {{{
-if filereadable(".vimrc.local")
-  source .vimrc.local
+if filereadable($HOME . "/.vimrc.local")
+  source $HOME/.vimrc.local
 endif
 " }}}
 
