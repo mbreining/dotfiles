@@ -178,6 +178,9 @@ inoremap <C-S> <ESC>:w<CR>a
 
 " Save session, reopen with vim -S
 nnoremap <leader>save :mksession<CR>
+
+" Force save
+cmap w!! %!sudo tee > /dev/null %
 " }}}
 
 " Functions {{{
