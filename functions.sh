@@ -11,7 +11,7 @@ function ahelp() {
 }
 
 # Pretty print PATH
-path() {
+function path() {
 echo $PATH | tr ":" "\n" | \
 awk "{ sub(\"/usr\",   \"$fg_no_bold[green]/usr$reset_color\"); \
        sub(\"/bin\",   \"$fg_no_bold[blue]/bin$reset_color\"); \
