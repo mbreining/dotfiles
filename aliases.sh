@@ -1,15 +1,3 @@
-# ADD LOCAL CONFIGURATION HERE
-#alias mysql=/usr/local/mysql/bin/mysql
-#alias mysqladmin=/usr/local/mysql/bin/mysqladmin
-#alias mysql=/usr/local/mysql/bin/mysql2
-#alias mysqladmin=/usr/local/mysql/bin/mysqladmin
-#alias git=/usr/local/git/bin/git
-#alias gitk=/usr/local/git/bin/gitk
-#alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
-#alias port=/opt/local/bin/port
-
-
-# DO NOT EDIT BELOW THIS LINE
 # ===== Miscellaneous
 alias 'ttop=top -ocpu -R -F -s 2 -n30' # fancy top
 alias rm='rm -i' # make rm less destructive

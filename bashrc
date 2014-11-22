@@ -3,7 +3,7 @@
 # Read global startup file if it exists
 [[ -f /etc/bashrc ]] && . /etc/bashrc
 
-export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/git/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
 
 PS1='\[\033[0;32m\]\u\[\033[0;34m\] \w\[\033[00m\]: '
 export PS1
@@ -20,5 +20,3 @@ set -o noclobber
 export HISTSIZE=1000000
 export HISTFILESIZE=1000000
 shopt -s histappend
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

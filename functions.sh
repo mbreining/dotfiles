@@ -112,15 +112,3 @@ function gemdir() {
   cd $(rvm gemdir)
   pwd
 }
-
-# Show hidden files (OS X specific)
-function showh() {
-  defaults write com.apple.Finder AppleShowAllFiles TRUE
-  killall Finder
-}
-
-# Hide hidden files (OS X specific)
-function hideh() {
-  defaults write com.apple.Finder AppleShowAllFiles FALSE
-  killall Finder
-}

@@ -36,5 +36,9 @@ source $HOME/.functions.sh
 # ===== Load autojump
 [[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
 
+# ===== Load rbenv
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
 # ===== Local settings
 [[ -f $HOME/.zshrc.local ]] && . "$HOME/.zshrc.local"
