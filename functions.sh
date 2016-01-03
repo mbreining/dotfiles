@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# Utilities {{{
 # Check if a program exists in path
 function ahave() {
   unset -v ahave; command command type $1 &> /dev/null && ahave="yes" || return 1;
@@ -21,22 +22,8 @@ awk "{ sub(\"/usr\",   \"$fg_no_bold[green]/usr$reset_color\"); \
        print }"
 }
 
-# Make vim a pager
-function vless() {
-  [[ $# -eq 0 ]] && command vim --cmd 'let no_plugin_maps = 1' -c 'runtime! macros/less.vim' -
-  [[ $# -eq 0 ]] || command vim --cmd 'let no_plugin_maps = 1' -c 'runtime! macros/less.vim' "$@"
-}
-
-# Use vim as man viewer
-function vman() {
-  env PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
-  vim -R -c 'set ft=man nomod nolist nonumber' -c 'map q :q<CR>' \
-  -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
-  -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\"" man $*
-}
-
 # Recursively search directory tree for string (exclude hidden directories)
-function findg() {
+function findgrep() {
   [[ "$#" -lt "2" ]] && echo "usage: $0 <find_dir> <grep_token>" >&2 && return 2
   find $1 \( ! -regex '.*/\..*/..*' \) -type f -print0 | xargs -0 grep $2
 }
@@ -84,27 +71,68 @@ function myip() {
   ifconfig en1 | grep 'inet6 ' | sed -e 's/ / /' | awk '{print "en1 (IPv6): " $2 " " $3 " " $4 " " $5 " " $6}'
 }
 
-# Run a command detached from the terminal and w/o output
-function nh() {
-  [[ "$#" -lt "1" ]] && echo "usage: $0 <command>" >&2 && return 2
-  nohup "$@" &>/dev/null & echo;
-}
-
 # Output every dir in the current directory, and how many files each contains
 function wcdir() {
   [[ "$#" -gt "0" && $1 == *-h* ]] && ahelp $1 && echo "usage: $0" && return 2
   find ${1:-.} -mindepth 1 -type d -print0 | xargs -0 -iFF sh -c 'echo `find "FF"/ -type f 2>/dev/null|wc -l;echo "FF"`' | sort -n | sed -e 's/^\([0-9]*\) \(.*\)$/ \1\t\2/g'
 }
 
+function rmvimtmp() { rm -f $HOME/.vim_tmp/* }
+# }}}
+
+# Pager {{{
+# Make vim a pager
+function vless() {
+  [[ $# -eq 0 ]] && command vim --cmd 'let no_plugin_maps = 1' -c 'runtime! macros/less.vim' -
+  [[ $# -eq 0 ]] || command vim --cmd 'let no_plugin_maps = 1' -c 'runtime! macros/less.vim' "$@"
+}
+
+# Use vim as man viewer
+function vman() {
+  env PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
+  vim -R -c 'set ft=man nomod nolist nonumber' -c 'map q :q<CR>' \
+  -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
+  -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\"" man $*
+}
+# }}}
+
+# Process management {{{
 # Grep process
-function psgr() { ps aux | grep $1 | grep -v grep }
+function psgrep() { ps aux | grep $1 | grep -v grep }
 
 # Return number of processes
 function pswc() { echo `command ps aux | wc -l` }
 
-# Kill tmux session
-function tmk() { tmux kill-session -t $1 }
+# Run a command detached from the terminal and w/o output
+function nh() {
+  [[ "$#" -lt "1" ]] && echo "usage: $0 <command>" >&2 && return 2
+  nohup "$@" &>/dev/null & echo;
+}
+# }}}
 
+# Tmux {{{
+# Open existing tmux session with a specific name
+function tmuxopen() { tmux attach -t $1 }
+
+# Create new tmux session with a specific name
+function tmuxnew() { tmux new -s $1 }
+
+# List tmux session
+function tmuxlist() { tmux list-sessions }
+
+# Kill existing tmux session
+function tmuxkill() { tmux kill-session -t $1 }
+# }}}
+
+# Backups {{{
+# Rsync /home/data directory to backup drive
+function rsyncdata() {
+  [[ "$#" -lt "1" ]] && echo "usage: $0 <target_dir>" >&2 && return 2
+  rsync -aE --delete $HOME/data/ /Volumes/$1
+}
+# }}}
+
+# Ruby {{{
 # Go to gem directory
 function gemdir() {
   [[ "$#" -lt "1" ]] && echo "usage: $0 <ruby_version>" >&2 && return 2
@@ -112,3 +140,4 @@ function gemdir() {
   cd $(rvm gemdir)
   pwd
 }
+# }}}
