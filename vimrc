@@ -1,6 +1,16 @@
-" Pathogen {{{
-call pathogen#infect() " load plugins under ./vim/bundle.
-call pathogen#helptags() " generate documentation from ./vim/bundle/*/doc.
+" Inspired by https://github.com/spf13/spf13-vim
+
+" Modeline {{{
+" http://www.cs.swarthmore.edu/help/vim/modelines.html
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
+"  }}}
+
+" Vundle {{{
+set nocompatible " vim settings rather than vi (must be first!)
+filetype off
+if filereadable(expand("~/.vimrc.bundles"))
+  source ~/.vimrc.bundles
+endif
 " }}}
 
 " Leader keys {{{
@@ -9,23 +19,23 @@ let maplocalleader = "\\"
 " }}}
 
 " General settings {{{
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-set nocompatible
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
-set history=50 " keep 50 lines of command line history
+set history=1000 " keep 1000 lines of command line history
 set ruler " show the cursor position all the time
 set showcmd " show command in bottom bar
-set encoding=utf-8
+scriptencoding utf-8 " character encoding used in this script
+set encoding=utf-8 " character encoding used inside vim (buffers, registers, etc)
 set scrolloff=3
-set showmode
-set hidden
+set showmode " show current mode
+set hidden " allow buffer switching w/o saving
 set wildmenu " visual autocomplete for command menu
 set lazyredraw " redraw only when we need to
 set ttyfast
 set visualbell " display error bells visually
 set list listchars=tab:»·,trail:· " display extra whitespace
 set cursorline " highlight current line
+set mouse=a " automatically enable mouse usage
+set mousehide " hide mouse cursor while typing
 
 " https://github.com/jeffkreeftmeijer/vim-numbertoggle
 set nonumber
@@ -33,7 +43,17 @@ set relativenumber
 set numberwidth=5
 
 " http://stackoverflow.com/questions/2514445/turning-off-auto-indent-when-pasting-text-into-vim
-set pastetoggle=<F10>
+set pastetoggle=<F12>
+
+" Always switch to the current file directory
+autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
+
+set shortmess+=filmnrxoOtT " abbrev. of messages (avoids 'hit enter')
+set viewoptions=folds,options,cursor,unix,slash " better Unix / Windows compatibility
+set virtualedit=onemore " allow for cursor beyond last character
+set iskeyword-=. " '.' is an end of word designator
+set iskeyword-=# " '#' is an end of word designator
+set iskeyword-=- " '-' is an end of word designator
 " }}}
 
 " Colors {{{
@@ -48,11 +68,24 @@ endif
 
 " https://github.com/altercation/solarized/tree/master/vim-colors-solarized
 " iTerm2 setting: http://stackoverflow.com/questions/7278267/incorrect-colors-with-vim-in-iterm2-using-solarized
-colorscheme solarized
-call togglebg#map("<F6>")
+if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
+  let g:solarized_termcolors=256
+  let g:solarized_termtrans=1
+  let g:solarized_contrast="normal"
+  let g:solarized_visibility="normal"
+  colorscheme solarized
+endif
 
-" Add installed colorschemes here. See NextColor() function.
-let s:my_colors = ['solarized', 'badwolf']
+" Allow to trigger background
+function! ToggleBG()
+  let s:tbg = &background
+  if s:tbg == "dark"
+    set background=light
+  else
+    set background=dark
+  endif
+endfunction
+noremap <leader>bg :call ToggleBG()<CR>
 " }}}
 
 " Spaces and tabs {{{
@@ -62,21 +95,24 @@ set expandtab " tabs are spaces
 set shiftwidth=2
 " }}}
 
-" Status line {{{
-set laststatus=2 " always display the status line
-" Show file path and file type in status line
-set statusline=%f         " Path to the file
-set statusline+=\ -\      " Separator
-set statusline+=FileType: " Label
-set statusline+=%y        " Filetype of the file
-set statusline+=%=        " Switch to the right side
-set statusline+=%l        " Current line
-set statusline+=,         " Separator
-set statusline+=%c        " Current column
-set statusline+=/         " Separator
-set statusline+=%L        " Total lines
-set statusline+=\ \       " Separator
-set statusline+=%p%%      " Percentage page scroll
+" Status bar {{{
+if has('cmdline_info')
+  set ruler " show the ruler
+  set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " a ruler on steroids
+  set showcmd " show partial commands in status line and
+              " selected characters/lines in visual mode
+endif
+
+if has('statusline')
+  set laststatus=2 " always display the status line
+
+  set statusline=%<%f\                     " filename
+  set statusline+=%w%h%m%r                 " options
+  set statusline+=%{fugitive#statusline()} " git Hotness
+  set statusline+=\ [%{&ff}/%Y]            " filetype
+  set statusline+=\ [%{getcwd()}]          " current dir
+  set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " right aligned file nav info
+endif
 " }}}
 
 " Search {{{
@@ -85,7 +121,10 @@ set smartcase
 set incsearch " search as characters are entered
 set showmatch
 set hlsearch " highlight all matches
-nnoremap <Leader><Space> :noh<CR> " hide search highlighting
+" Toggle search highlighting
+nnoremap <leader><space> :set invhlsearch<CR>
+" Alternatively, hide search highlighting
+"nnoremap <leader><Space> :noh<CR>
 
 " Disable VIM's broken default regex
 nnoremap / /\v
@@ -95,7 +134,8 @@ vnoremap / /\v
 " Completion {{{
 set wildmode=list:longest,list:full " tab completion options
 set complete=.,t
-imap <Tab> <C-P> " map autocomplete to tab
+" Map autocomplete to tab
+inoremap <tab> <C-P>
 " }}}
 
 " Folding {{{
@@ -103,6 +143,18 @@ set nofoldenable " don't fold files by default on open
 set foldmethod=indent " fold based on indent level
 set foldlevelstart=99 " start with fold level of 99
 nnoremap <space> za
+
+" Code folding options
+nnoremap <leader>f0 :set foldlevel=0<CR>
+nnoremap <leader>f1 :set foldlevel=1<CR>
+nnoremap <leader>f2 :set foldlevel=2<CR>
+nnoremap <leader>f3 :set foldlevel=3<CR>
+nnoremap <leader>f4 :set foldlevel=4<CR>
+nnoremap <leader>f5 :set foldlevel=5<CR>
+nnoremap <leader>f6 :set foldlevel=6<CR>
+nnoremap <leader>f7 :set foldlevel=7<CR>
+nnoremap <leader>f8 :set foldlevel=8<CR>
+nnoremap <leader>f9 :set foldlevel=9<CR>
 " }}}
 
 " Filetypes {{{
@@ -120,6 +172,7 @@ set directory=~/.vim_tmp//
 " }}}
 
 " Spelling {{{
+set spell " enable spell checking
 set spelllang=en_us " set region to US English
 nnoremap <leader>ss :setlocal spell!<CR>
 nnoremap <leader>sn ]s " go to next error
@@ -128,10 +181,28 @@ nnoremap <leader>ss z= " show suggestions
 nnoremap <leader>sl 1z= " feeling lucky
 " }}}
 
-" Shortcuts {{{
-" Edit .vimrc
-nnoremap <Leader>evi :vsplit $MYVIMRC<CR> " edit .vimrc file in vertical window
-nnoremap <Leader>svi :source $MYVIMRC<CR> " reload .vimrc
+" Key mappings {{{
+" Edit .vimrc in vertical split
+nnoremap <leader>ev :split $MYVIMRC<CR>
+" Reload .vimrc
+nnoremap <leader>sv :source $MYVIMRC<CR>
+
+" Stupid shift key fixes
+" https://github.com/spf13/spf13-vim/blob/3.0/.vimrc#L369
+if !exists('g:spf13_no_keyfixes')
+  if has("user_commands")
+    command! -bang -nargs=* -complete=file E e<bang> <args>
+    command! -bang -nargs=* -complete=file W w<bang> <args>
+    command! -bang -nargs=* -complete=file Wq wq<bang> <args>
+    command! -bang -nargs=* -complete=file WQ wq<bang> <args>
+    command! -bang Wa wa<bang>
+    command! -bang WA wa<bang>
+    command! -bang Q q<bang>
+    command! -bang QA qa<bang>
+    command! -bang Qa qa<bang>
+  endif
+  cmap Tabe tabe
+endif
 
 " Navigation
 nnoremap <C-J> gj " move one unnumbered line down
@@ -141,7 +212,7 @@ nnoremap gV `[v`] " highlight last inserted text
 
 " Open an edit command with the path of the currently edited file filled in
 " http://vimcasts.org/episodes/the-edit-command/
-cnoremap %% <C-R>=expand('%:p:h').'/'<CR>
+cnoremap %% <C-R>=fnameescape(expand('%:p:h')).'/'<CR>
 map <leader>ew :e %%
 map <leader>es :sp %%
 map <leader>ev :vsp %%
@@ -152,19 +223,49 @@ map <leader>tn :tabnew<CR>
 map <leader>to :tabonly<CR>
 map <leader>tc :tabclose<CR>
 map <leader>tm :tabmove
-map <leader>te :tabedit <C-R>=expand("%:p:h")<CR>/ " open a new tab with the current buffer's path
+" Open a new tab with the current buffer's path
+map <leader>te :tabedit <C-R>=expand("%:p:h")<CR>/
 
-" Change current directory to the file being edited
-nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
+" Visual shifting (does not exit Visual mode)
+vnoremap < <gv
+vnoremap > >gv
+
+" Allow using the repeat operator with a visual selection (!)
+" http://stackoverflow.com/a/8064607/127816
+vnoremap . :normal .<CR>
+
+" Find merge conflict markers
+map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
+
+" Change working directory to that of the current file
+cmap cwd lcd %:p:h
+cmap cd. lcd %:p:h
 
 " Insert the path of the currently edited file into a command
 cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 
-vmap D y'>p " Duplicate a selection in visual mode
-nmap <F1> <Esc> " disable F1 Help
+" Duplicate a selection in visual mode
+vmap D y'>p
+
+" Disable F1 help
+nmap <F1> <Esc>
+
+" Yank from the cursor to the end of the line, to be consistent with C and D.
+nnoremap Y y$
+
+" Map <leader>ff to display all lines with keyword under cursor
+" and ask which one to jump to
+nmap <leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+
+" Easier horizontal scrolling
+map zl zL
+map zh zH
+
+" Easier formatting
+nnoremap <silent> <leader>q gwip
 
 " Convert one-line comment into end-of-line comment
-nnoremap <Leader>dp ddpkJ
+nnoremap <leader>dp ddpkJ
 
 inoremap <C-d> <ESC>ddi " delete a line in insert mode
 inoremap jk <esc> " exit insert mode
@@ -183,98 +284,33 @@ nnoremap <leader>save :mksession<CR>
 cmap w!! %!sudo tee > /dev/null %
 " }}}
 
-" Functions {{{
-function! NextColor()
-  if exists('g:colors_name')
-    let current = index(s:my_colors, g:colors_name)
-  else
-    let current = -1
-  endif
-  let missing = []
-  let new_color = current + 1
-  if new_color >= len(s:my_colors) " wrap around array
-    let new_color = 0
-  endif
-  try
-    execute 'colorscheme '.s:my_colors[new_color]
-    if new_color == 'badwolf'
-      let g:badwolf_darkgutter = 1
-      let g:badwolf_tabline = 2
-    endif
-  catch /E185:/
-    call add(missing, s:my_colors[new_color])
-  endtry
-  redraw
-  echom 'Switched to colorscheme' s:my_colors[new_color]
-  if len(missing) > 0
-    echom 'Error: colorscheme not found:' join(missing)
-  endif
-endfunction
-nnoremap <F5> :call NextColor()<CR>
+" NERDTree {{{
+if isdirectory(expand("~/.vim/bundle/nerdtree"))
+  nnoremap <leader>n :NERDTree<CR>
+  "map <C-e> <plug>NERDTreeTabsToggle<CR>
+  nnoremap <leader>e :NERDTreeFind<CR>
+  nnoremap <leader>nt :NERDTreeFind<CR>
 
-" http://lanyrd.com/2011/madison-ruby/sgtmd/
-function! RubyInfo()
-  ruby << RUBY
-    puts "#{RUBY_VERSION} #{RUBY_PLATFORM} #{RUBY_RELEASE_DATE}"
-RUBY
-endfunction
-" }}}
-
-" Autogroups {{{
-" Only do this part when compiled with support for autocommands
-if has("autocmd")
-  " Put these in an autocmd group, so that we can delete them easily
-  augroup global
-    autocmd!
-    autocmd FileType text setlocal textwidth=78 " for all text files set 'textwidth' to 78 characters
-
-    " When editing a file, always jump to the last known cursor position.
-    " Don't do it when the position is invalid or when inside an event handler
-    " (happens when dropping a file on gvim).
-    autocmd BufReadPost *
-      \ if line("'\"") > 0 && line("'\"") <= line("$") |
-      \   exe "normal g`\"" |
-      \ endif
-
-    " Auto reload of vimrc
-    " http://www.bestofvim.com/tip/auto-reload-your-vimrc/
-    autocmd BufWritePost $MYVIMRC source $MYVIMRC
-  augroup END
-
-  augroup programming
-    autocmd!
-    autocmd BufEnter Makefile setlocal noexpandtab
-    autocmd BufEnter *.sh setlocal tabstop=2
-    autocmd BufEnter *.sh setlocal shiftwidth=2
-    autocmd BufEnter *.sh setlocal softtabstop=2
-
-    " Easy commenting
-    autocmd FileType ruby nnoremap <buffer> <localleader>c I#<ESC>
-    autocmd FileType python nnoremap <buffer> <localleader>c I#
-
-    " Use .as for ActionScript files, not Atlas files.
-    autocmd BufRead,BufNewFile *.as setlocal filetype=actionscript
-  augroup END
-else
-  set autoindent " always set autoindenting on
+  let NERDTreeShowBookmarks=1
+  let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
+  let NERDTreeChDirMode=0
+  let NERDTreeQuitOnOpen=1
+  let NERDTreeMouseMode=2
+  let NERDTreeShowHidden=1
+  let NERDTreeKeepTreeInNewTab=1
+  let g:nerdtree_tabs_open_on_gui_startup=0
 endif
 " }}}
 
-" File management plugins {{{
-" NERDTree
-nnoremap <Leader>n :NERDTree<CR>
-
-" CtrlP
-let g:ctrlp_map = '<C-P>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_custom_ignore = {
+" CtrlP {{{
+let g:ctrlp_map='<C-P>'
+let g:ctrlp_cmd='CtrlP'
+let g:ctrlp_working_path_mode='ra'
+let g:ctrlp_custom_ignore={
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
   \ 'file': '\v\.(exe|so|dll)$'
   \ }
-
-" BufExplorer
-let g:bufExplorerShowTabBuffer=1 " only show buffers for current tab
+"let g:ctrlp_show_hidden=1
 " }}}
 
 " Ack plugin {{{
@@ -284,50 +320,3 @@ if executable("ack")
   set grepprg=ack\ -H\ --nogroup\ --nocolor
 endif
 " }}}
-
-" Rails  plugin {{{
-" The plugin gets loaded the first a file in a rails project is opened.
-" Edit the README_FOR_APP to make :R commands work.
-nnoremap <Leader>R :e doc/README_FOR_APP<CR>
-nnoremap <Leader>TR :tabe doc/README_FOR_APP<CR>
-nnoremap <Leader>m :Rmodel
-nnoremap <Leader>c :Rcontroller
-nnoremap <Leader>v :Rview
-nnoremap <Leader>j :Rjavascript
-nnoremap <Leader>u :Runittest
-nnoremap <Leader>f :Rfunctionaltest
-nnoremap <Leader>i :Rintegrationtest
-nnoremap <Leader>h :Rhelper
-nnoremap <Leader>tm :RTmodel
-nnoremap <Leader>tc :RTcontroller
-nnoremap <Leader>tv :RTview
-nnoremap <Leader>tu :RTunittest
-nnoremap <Leader>tf :RTfunctionaltest
-nnoremap <Leader>sm :RSmodel
-nnoremap <Leader>sc :RScontroller
-nnoremap <Leader>sv :RSview
-nnoremap <Leader>su :RSunittest
-nnoremap <Leader>sf :RSfunctionaltest
-nnoremap <Leader>si :RSintegrationtest
-command! Rroutes :e config/routes.rb
-command! RTroutes :tabe config/routes.rb
-" }}}
-
-" Tmux {{{
-" tmux will only forward escape sequences to the terminal if surrounded by a DCS sequence
-" http://sourceforge.net/mailarchive/forum.php?thread_name=AANLkTinkbdoZ8eNR1X2UobLTeww1jFrvfJxTMfKSq-L%2B%40mail.gmail.com&forum_name=tmux-users
-if exists('$TMUX')
-  let &t_SI = "\<Esc>[3 q"
-  let &t_EI = "\<Esc>[0 q"
-endif
-" }}}
-
-" Local config {{{
-if filereadable($HOME . "/.vimrc.local")
-  source $HOME/.vimrc.local
-endif
-" }}}
-
-" http://www.cs.swarthmore.edu/help/vim/modelines.html
-set modelines=1
-" vim:foldenable:foldmethod=marker:foldlevel=0

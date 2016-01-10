@@ -1,0 +1,102 @@
+" Modeline {{{
+" http://www.cs.swarthmore.edu/help/vim/modelines.html
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
+"  }}}
+
+set nocompatible " Vim settings rather than Vi (must be first!)
+set background=dark " assume dark background
+
+" Begin Vundle setup {{{
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" }}}
+
+" Core (required by my vimrc!) {{{
+" vundle: plugin management
+Plugin 'gmarik/vundle'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+if executable('ag')
+  Plugin 'mileszs/ack.vim'
+  let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
+elseif executable('ack-grep')
+  let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+  Plugin 'mileszs/ack.vim'
+elseif executable('ack')
+  Plugin 'mileszs/ack.vim'
+endif
+" }}}
+
+" General {{{
+" vim-colors-solarized: color scheme
+" vim-colors: collection of colors
+" nerdtree: file explorer
+" ctrlp: fuzzy file finder
+" ctrlp-funky: 
+" vim-surround: quoting/parenthesizing made simple
+" vim-repeat: remap . so plugins can use it
+" auto-pairs: insert/delete brackets, parens and quotes in pair
+" powerline: fancy status bar
+" powerline-fonts: fonts required by powerline
+" vim-buffergator: buffer management
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'spf13/vim-colors'
+Plugin 'crooloose/nerdtree'
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'tacahiroy/ctrlp-funky'
+Plugin 'tpope/vim-surround'
+"Plugin 'tpope/vim-repeat'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'vim-scripts/sessionman.vim'
+Plugin 'matchit.zip'
+if (has("python") || has("python3"))
+  Plugin 'Lokaltog/powerline', {'rtp':'/powerline/bindings/vim'}
+else
+  Plugin 'bling/vim-airline'
+endif
+Plugin 'powerline/fonts'
+Plugin 'jeetsukumaran/vim-buffergator'
+"Plugin 'bling/vim-bufferline'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'mbbill/undotree'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'vim-scripts/restore_view.vim'
+Plugin 'mhinz/vim-signify'
+Plugin 'tpope/vim-abolish.git'
+Plugin 'osyo-manga/vim-over'
+Plugin 'kana/vim-textobj-user'
+Plugin 'kana/vim-textobj-indent'
+Plugin 'gcmt/wildfire.vim'
+" }}}
+
+" General programming {{{
+" conflict-marker: work with conflict files
+Plugin 'scrooloose/syntastic'
+Plugin 'tpope/vim-fugitive'
+Plugin 'mattn/webapi-vim'
+Plugin 'mattn/gist-vim'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'tpope/vim-commentary'
+Plugin 'godlygeek/tabular'
+Plugin 'luochen1990/rainbow'
+Plugin 'rhysd/conflict-marker.vim'
+if executable('ctags')
+  Plugin 'majutsushi/tagbar'
+endif
+" }}}
+
+" Python {{{
+Plugin 'klen/python-mode'
+Plugin 'yssource/python.vim'
+Plugin 'python_match.vim'
+Plugin 'pythoncomplete'
+" }}}
+
+" End Vundle setup {{{
+call vundle#end()
+filetype plugin indent on
+" }}}
