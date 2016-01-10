@@ -89,6 +89,17 @@ if executable('ctags')
 endif
 " }}}
 
+" Snippets and AutoComplete {{{
+Plugin 'Shougo/neocomplete.vim.git'
+Plugin 'Shougo/neosnippet'
+Plugin 'Shougo/neosnippet-snippets'
+Plugin 'honza/vim-snippets'
+" Alternatively YouCompleteMe
+"Plugin 'Valloric/YouCompleteMe'
+"Plugin 'SirVer/ultisnips'
+"Plugin 'honza/vim-snippets'
+" }}}
+
 " Python {{{
 " python-mode: pylint, rope, pydoc, pep8, pyflakes, mccabe
 Plugin 'klen/python-mode'

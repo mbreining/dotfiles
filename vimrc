@@ -89,7 +89,6 @@ function! ToggleBG()
   endif
 endfunction
 noremap <leader>bg :call ToggleBG()<CR>
-"call togglebg#map("<leader>bg")
 " }}}
 
 " Spaces and tabs {{{
@@ -193,27 +192,9 @@ nnoremap <leader>ev :split $MYVIMRC<CR>
 " Reload .vimrc (:edit! to play nice with Airline, folding, etc)
 nnoremap <leader>sv :source $MYVIMRC<CR> :edit!<CR>
 
-" Stupid shift key fixes
-" https://github.com/spf13/spf13-vim/blob/3.0/.vimrc#L369
-if !exists('g:spf13_no_keyfixes')
-  if has("user_commands")
-    command! -bang -nargs=* -complete=file E e<bang> <args>
-    command! -bang -nargs=* -complete=file W w<bang> <args>
-    command! -bang -nargs=* -complete=file Wq wq<bang> <args>
-    command! -bang -nargs=* -complete=file WQ wq<bang> <args>
-    command! -bang Wa wa<bang>
-    command! -bang WA wa<bang>
-    command! -bang Q q<bang>
-    command! -bang QA qa<bang>
-    command! -bang Qa qa<bang>
-  endif
-  cmap Tabe tabe
-endif
-
 " Navigation
-nnoremap <C-J> gj " move one unnumbered line down
-nnoremap <C-K> gk " move one unnumbered line up
-nnoremap <C-Tab> <C-W><C-W> " cycle through windows
+nnoremap <C-J> gjh " move one unnumbered line down
+nnoremap <C-K> gkh " move one unnumbered line up
 nnoremap gV `[v`] " highlight last inserted text
 
 " Open an edit command with the path of the currently edited file filled in
@@ -232,14 +213,6 @@ map <leader>tm :tabmove
 " Open a new tab with the current buffer's path
 map <leader>te :tabedit <C-R>=expand("%:p:h")<CR>/
 
-" Visual shifting (does not exit Visual mode)
-vnoremap < <gv
-vnoremap > >gv
-
-" Allow using the repeat operator with a visual selection (!)
-" http://stackoverflow.com/a/8064607/127816
-vnoremap . :normal .<CR>
-
 " Find merge conflict markers
 map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
 
@@ -251,24 +224,17 @@ cmap cd. lcd %:p:h
 cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 
 " Duplicate a selection in visual mode
-vmap D y'>p
+vnoremap D y'>p
 
 " Disable F1 help
-nmap <F1> <Esc>
+nnoremap <F1> <Esc>
 
 " Yank from the cursor to the end of the line, to be consistent with C and D.
 nnoremap Y y$
 
 " Map <leader>ff to display all lines with keyword under cursor
 " and ask which one to jump to
-nmap <leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
-
-" Easier horizontal scrolling
-map zl zL
-map zh zH
-
-" Easier formatting
-nnoremap <silent> <leader>q gwip
+nnoremap <leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
 " Convert one-line comment into end-of-line comment
 nnoremap <leader>dp ddpkJ
