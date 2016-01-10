@@ -330,3 +330,8 @@ endif
 " Airline {{{
 let g:airline_powerline_fonts=1
 " }}}
+
+" Vim-Buffergator {{{
+" Display buffergator as a bottom horizontal split
+let g:buffergator_viewport_split_policy="B"
+" }}}
