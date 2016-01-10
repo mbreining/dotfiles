@@ -5,7 +5,7 @@
 " Modeline {{{
 " http://www.cs.swarthmore.edu/help/vim/modelines.html
 set modelines=10
-" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={{{,}}} foldlevel=0 foldmethod=marker spell:
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={{{,}}} foldlevel=0 foldmethod=marker:
 "  }}}
 
 " Vundle {{{
@@ -72,10 +72,10 @@ endif
 " https://github.com/altercation/solarized/tree/master/vim-colors-solarized
 " iTerm2 setting: http://stackoverflow.com/questions/7278267/incorrect-colors-with-vim-in-iterm2-using-solarized
 if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
-  let g:solarized_termcolors=256
-  let g:solarized_termtrans=1
-  let g:solarized_contrast="normal"
-  let g:solarized_visibility="normal"
+  "let g:solarized_termcolors=256
+  "let g:solarized_termtrans=1
+  "let g:solarized_contrast="normal"
+  "let g:solarized_visibility="normal"
   colorscheme solarized
 endif
 
@@ -89,6 +89,7 @@ function! ToggleBG()
   endif
 endfunction
 noremap <leader>bg :call ToggleBG()<CR>
+"call togglebg#map("<leader>bg")
 " }}}
 
 " Spaces and tabs {{{
@@ -108,7 +109,6 @@ endif
 
 if has('statusline')
   set laststatus=2 " always display the status line
-
   set statusline=%<%f\                     " filename
   set statusline+=%w%h%m%r                 " options
   set statusline+=%{fugitive#statusline()} " git Hotness
@@ -127,7 +127,7 @@ set hlsearch " highlight all matches
 " Toggle search highlighting
 nnoremap <leader><space> :set invhlsearch<CR>
 " Alternatively, hide search highlighting
-"nnoremap <leader><Space> :noh<CR>
+"nnoremap <leader><space> :noh<CR>
 
 " Disable VIM's broken default regex
 nnoremap / /\v
@@ -178,20 +178,20 @@ set directory=~/.vim_tmp//
 " }}}
 
 " Spelling {{{
-set spell " enable spell checking
+set nospell " disable spell checking by default
 set spelllang=en_us " set region to US English
 nnoremap <leader>ss :setlocal spell!<CR>
 nnoremap <leader>sn ]s " go to next error
 nnoremap <leader>sp [s " got to previous error
-nnoremap <leader>ss z= " show suggestions
+"nnoremap <leader>ss z= " show suggestions
 nnoremap <leader>sl 1z= " feeling lucky
 " }}}
 
 " Key mappings {{{
 " Edit .vimrc in vertical split
 nnoremap <leader>ev :split $MYVIMRC<CR>
-" Reload .vimrc
-nnoremap <leader>sv :source $MYVIMRC<CR>
+" Reload .vimrc (:edit! to play nice with Airline, folding, etc)
+nnoremap <leader>sv :source $MYVIMRC<CR> :edit!<CR>
 
 " Stupid shift key fixes
 " https://github.com/spf13/spf13-vim/blob/3.0/.vimrc#L369

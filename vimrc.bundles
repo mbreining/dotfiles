@@ -1,7 +1,7 @@
 " Modeline {{{
 " http://www.cs.swarthmore.edu/help/vim/modelines.html
 set modelines=10
-" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={{{,}}} foldlevel=0 foldmethod=marker spell:
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={{{,}}} foldlevel=0 foldmethod=marker:
 "  }}}
 
 set nocompatible " vim settings rather than vi (must be first!)
@@ -49,7 +49,7 @@ Plugin 'crooloose/nerdtree'
 "Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'ctrlpvim/ctrlp.vim'
 "Plugin 'tacahiroy/ctrlp-funky'
-"Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-surround'
 "Plugin 'tpope/vim-repeat'
 "Plugin 'jiangmiao/auto-pairs'
 "Plugin 'terryma/vim-multiple-cursors'
