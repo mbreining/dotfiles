@@ -1,8 +1,11 @@
-" Inspired by https://github.com/spf13/spf13-vim
+" Inspired by:
+" https://github.com/spf13/spf13-vim
+" http://dougblack.io/words/a-good-vimrc.html
 
 " Modeline {{{
 " http://www.cs.swarthmore.edu/help/vim/modelines.html
-" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
+set modelines=10
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={{{,}}} foldlevel=0 foldmethod=marker spell:
 "  }}}
 
 " Vundle {{{
@@ -119,7 +122,7 @@ endif
 set ignorecase
 set smartcase
 set incsearch " search as characters are entered
-set showmatch
+set showmatch " highlight matching [{()}]
 set hlsearch " highlight all matches
 " Toggle search highlighting
 nnoremap <leader><space> :set invhlsearch<CR>
@@ -139,10 +142,13 @@ inoremap <tab> <C-P>
 " }}}
 
 " Folding {{{
-set nofoldenable " don't fold files by default on open
+set foldenable " fold files by default on open
 set foldmethod=indent " fold based on indent level
-set foldlevelstart=99 " start with fold level of 99
+set foldlevelstart=10 " open most folds by default
+set foldnestmax=10 " 10 nested fold max"
+" Toggle fold w/ space
 nnoremap <space> za
+vnoremap <space> za
 
 " Code folding options
 nnoremap <leader>f0 :set foldlevel=0<CR>
@@ -319,4 +325,8 @@ nnoremap <Leader>a :Ack
 if executable("ack")
   set grepprg=ack\ -H\ --nogroup\ --nocolor
 endif
+" }}}
+
+" Airline {{{
+let g:airline_powerline_fonts=1
 " }}}
