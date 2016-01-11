@@ -1,6 +1,7 @@
 " Inspired by:
 " https://github.com/spf13/spf13-vim
 " http://dougblack.io/words/a-good-vimrc.html
+" http://statico.github.io/vim.html
 
 " Modeline {{{
 " http://www.cs.swarthmore.edu/help/vim/modelines.html
@@ -47,6 +48,7 @@ set numberwidth=5
 
 " http://stackoverflow.com/questions/2514445/turning-off-auto-indent-when-pasting-text-into-vim
 set pastetoggle=<F12>
+set paste " do not auto-indent when pasting text
 
 " Always switch to the current file directory
 autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
@@ -61,7 +63,6 @@ set iskeyword-=- " '-' is an end of word designator
 
 " Colors {{{
 syntax enable
-set background=dark
 
 " Fix colorschemes in tmux
 " http://sunaku.github.io/vim-256color-bce.html
@@ -77,6 +78,10 @@ if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"
   "let g:solarized_contrast="normal"
   "let g:solarized_visibility="normal"
   colorscheme solarized
+endif
+
+if filereadable(expand("~/.vim/bundle/vim-colorschemes/colors/gotham256.vim"))
+  colorscheme gotham256
 endif
 
 " Allow to trigger background
@@ -171,9 +176,9 @@ filetype plugin on " enable file-type plugins
 " Backups {{{
 set nobackup
 set nowritebackup
-silent execute '!mkdir -p ~/.vim_tmp'
-set backupdir=~/.vim_tmp//
-set directory=~/.vim_tmp//
+silent execute '!mkdir -p ~/.vim_bak'
+set backupdir=~/.vim_bak//
+set directory=~/.vim_bak//
 " }}}
 
 " Spelling {{{

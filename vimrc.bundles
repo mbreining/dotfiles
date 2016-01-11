@@ -15,6 +15,7 @@ call vundle#begin()
 
 " Core (required by my vimrc!) {{{
 " Vundle.vim: plugin management
+" vim-fugitive: git integration (required for status bar)
 Plugin 'VundleVim/Vundle.vim'
 "Plugin 'MarcWeber/vim-addon-mw-utils'
 "Plugin 'tomtom/tlib_vim'
@@ -27,6 +28,7 @@ elseif executable('ack-grep')
 elseif executable('ack')
   Plugin 'mileszs/ack.vim'
 endif
+Plugin 'tpope/vim-fugitive'
 " }}}
 
 " General {{{
@@ -76,7 +78,6 @@ Plugin 'jeetsukumaran/vim-buffergator'
 " General programming {{{
 " conflict-marker: work with conflict files
 Plugin 'scrooloose/syntastic'
-Plugin 'tpope/vim-fugitive'
 "Plugin 'mattn/webapi-vim'
 "Plugin 'mattn/gist-vim'
 "Plugin 'scrooloose/nerdcommenter'
