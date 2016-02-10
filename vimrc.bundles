@@ -1,7 +1,7 @@
 " Modeline {{{
 " http://www.cs.swarthmore.edu/help/vim/modelines.html
 set modelines=10
-" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={{{,}}} foldlevel=0 foldmethod=marker:
+" vim: set sw=2 ts=2 sts=2 et tw=78 foldmarker={{{,}}} foldlevel=0 foldmethod=marker:
 "  }}}
 
 set nocompatible " vim settings rather than vi (must be first!)
