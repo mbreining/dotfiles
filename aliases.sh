@@ -4,6 +4,8 @@ alias rm='rm -i' # make rm less destructive
 alias acat='< ~/.aliases.sh' # cat aliases to display
 alias fcat='< ~/.functions.sh' # cat functions to display
 alias sz='source ~/.zshrc'
+alias vi='nvim'
+alias vim='nvim'
 # }}}
 
 # Directory movement {{{
@@ -11,8 +13,6 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias 'bk=cd $OLDPWD'
-alias cdd="cd $HOME/Dropbox/Dotfiles"
-alias cds="cd $HOME/Dropbox/Scripts"
 # }}}
 
 # Directory listing {{{
@@ -25,14 +25,6 @@ alias tree="ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^
 alias 'dus=du -sckx * | sort -nr' # directories sorted by size
 alias 'wordy=wc -w * | sort | tail -n10' # sort files in current directory by the number of words they contain
 alias 'filecount=find . -type f | wc -l' # number of files (not directories)
-# }}}
-
-# Ruby {{{
-alias ri='ri -Tf ansi' # Search Ruby documentation
-alias rake="noglob rake" # Necessary to make rake work inside of zsh
-alias rb='rbenv'
-#alias be='bundle exec'
-#alias gentags='ctags .'
 # }}}
 
 # Git {{{
