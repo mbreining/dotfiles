@@ -37,13 +37,13 @@ Plugin 'tpope/vim-fugitive'
 " vim-colorschemes: more color collections
 " nerdtree: file explorer
 " ctrlp: fuzzy file finder
-" ctrlp-funky: 
+" ctrlp-funky:
 " vim-surround: quoting/parenthesizing made simple
 " vim-repeat: remap . so plugins can use it
 " auto-pairs: insert/delete brackets, parens and quotes in pair
 " powerline: fancy status bar
 " powerline-fonts: fonts required by powerline
-" vim-buffergator: buffer management
+" minibufexpl: buffer management
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'spf13/vim-colors'
 Plugin 'flazz/vim-colorschemes'
@@ -61,7 +61,8 @@ Plugin 'bling/vim-airline'
 " Alternatively powerline
 "Plugin 'Lokaltog/powerline', {'rtp':'/powerline/bindings/vim'}
 Plugin 'powerline/fonts'
-Plugin 'jeetsukumaran/vim-buffergator'
+"Plugin 'jeetsukumaran/vim-buffergator'
+Plugin 'fholgado/minibufexpl.vim'
 "Plugin 'bling/vim-bufferline'
 "Plugin 'easymotion/vim-easymotion'
 "Plugin 'mbbill/undotree'

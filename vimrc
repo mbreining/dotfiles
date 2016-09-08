@@ -28,7 +28,9 @@ set history=1000 " keep 1000 lines of command line history
 set ruler " show the cursor position all the time
 set showcmd " show command in bottom bar
 scriptencoding utf-8 " character encoding used in this script
-set encoding=utf-8 " character encoding used inside vim (buffers, registers, etc)
+if !has("nvim")
+  set encoding=utf-8 " character encoding used inside vim (buffers, registers, etc)
+endif
 set scrolloff=3
 set showmode " show current mode
 set hidden " allow buffer switching w/o saving
@@ -316,14 +318,18 @@ endif
 let g:airline_powerline_fonts=1
 " }}}
 
-" Vim-Buffergator {{{
-let g:buffergator_viewport_split_policy="B" " open up as a bottom horizontal split
+" MiniBufExplorer {{{
+let g:miniBufExplCycleArround=1
+
+noremap <Leader>b :MBEToggle<cr>
+noremap <Leader>bf   :MBEbn<CR>
+noremap <Leader>bb :MBEbp<CR>
 " }}}
 
 " Python-Mode {{{
 let g:pymode_warnings=1 " enable warnings
 let g:pymode_options_max_line_length = 89
-let g:pymode_breakpoint_bind = '<Leader>br'
+"let g:pymode_breakpoint_bind = '<Leader>br'
 " }}}
 
 " Vim-Notes {{{
