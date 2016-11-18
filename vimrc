@@ -2,6 +2,7 @@
 " https://github.com/spf13/spf13-vim
 " http://dougblack.io/words/a-good-vimrc.html
 " http://statico.github.io/vim.html
+" https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/
 
 " Modeline {{{
 " http://www.cs.swarthmore.edu/help/vim/modelines.html
@@ -242,9 +243,15 @@ autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
 " }}}
 
 " Other key mappings {{{
+" Window navigation
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
 " Navigation
-nnoremap <C-J> gjh " move one unnumbered line down
-nnoremap <C-K> gkh " move one unnumbered line up
+"nnoremap <C-J> gjh " move one unnumbered line down
+"nnoremap <C-K> gkh " move one unnumbered line up
 nnoremap gV `[v`] " highlight last inserted text
 
 " Change working directory to that of the current file
@@ -296,43 +303,52 @@ endif
 " }}}
 
 " CtrlP {{{
-let g:ctrlp_map='<C-P>'
-let g:ctrlp_cmd='CtrlP'
-let g:ctrlp_working_path_mode='ra'
-let g:ctrlp_custom_ignore={
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll)$'
-  \ }
-"let g:ctrlp_show_hidden=1
+if isdirectory(expand("~/.vim/bundle/ctrlp.vim"))
+  let g:ctrlp_map='<C-P>'
+  let g:ctrlp_cmd='CtrlP'
+  let g:ctrlp_working_path_mode='ra'
+  let g:ctrlp_match_window='bottom,order:btt,min:1,max:30'
+  let g:ctrlp_custom_ignore={
+    \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+    \ 'file': '\v\.(exe|so|dll|pyc)$'
+    \ }
+  let g:ctrlp_show_hidden=1
+endif
 " }}}
 
 " Ack plugin {{{
-nnoremap <Leader>a :Ack
-" Use Ack instead of Grep when available
+nnoremap <Leader>a :Ack<Space>
 if executable("ack")
+  " Use Ack instead of Grep when available
   set grepprg=ack\ -H\ --nogroup\ --nocolor
+  let g:ackhighlight = 1
+  " Search for word under cursor
+  nnoremap <Leader>A :Ack <C-r><C-w><CR>
 endif
 " }}}
 
 " Airline {{{
-let g:airline_powerline_fonts=1
+if isdirectory(expand("~/.vim/bundle/vim-airline"))
+  let g:airline_powerline_fonts=1
+  let g:airline#extensions#bufferline#enabled = 1
+endif
 " }}}
 
-" MiniBufExplorer {{{
-let g:miniBufExplCycleArround=1
-
-noremap <Leader>b :MBEToggle<cr>
-noremap <Leader>bf   :MBEbn<CR>
-noremap <Leader>bb :MBEbp<CR>
+" vim-buffergator {{{
+if isdirectory(expand("~/.vim/bundle/vim-buffergator"))
+  let g:buffergator_viewport_split_policy='B'
+  let g:buffergator_hsplit_size=10
+endif
 " }}}
 
-" Python-Mode {{{
-let g:pymode_warnings=1 " enable warnings
-let g:pymode_options_max_line_length = 89
-"let g:pymode_breakpoint_bind = '<Leader>br'
+" Tagbar {{{
+if executable('ctags')
+  noremap <Leader>t :TagbarToggle<CR>
+endif
 " }}}
 
-" Vim-Notes {{{
-let g:notes_directories = ['~/Dropbox/Notes']
-let g:notes_suffix = '.md'
+" Easytags {{{
+if executable('ctags')
+  let g:easytags_async=1
+endif
 " }}}

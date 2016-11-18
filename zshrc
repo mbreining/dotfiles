@@ -18,6 +18,10 @@ source $HOME/.aliases.sh
 source $HOME/.functions.sh
 # }}}
 
+# Load autojump {{{
+[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
+# }}}
+
 # Zsh local config overrides {{{
 [[ -f $HOME/.zshrc.local ]] && . "$HOME/.zshrc.local"
 # }}}

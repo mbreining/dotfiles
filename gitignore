@@ -1,4 +1,7 @@
 .*.swp
 .swo
+*.pyc
 .DS_Store
 .ropeproject
+explain*.sql
+explain*.json
