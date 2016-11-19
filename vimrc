@@ -341,6 +341,11 @@ if isdirectory(expand("~/.vim/bundle/vim-buffergator"))
 endif
 " }}}
 
+" python-mode {{{
+  " <leader>b is already used by vim-buffergator
+  let g:pymode_breakpoint_bind = '<leader>br'
+" }}}
+
 " Tagbar {{{
 if executable('ctags')
   noremap <Leader>t :TagbarToggle<CR>
