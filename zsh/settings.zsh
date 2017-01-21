@@ -143,6 +143,5 @@ export GREP_COLOR='3;33'
 
 # Powerline status {{{
 # http://powerline.readthedocs.org/en/latest/usage/shell-prompts.html#zsh-prompt
-export PATH=$HOME/Library/Python/2.7/bin:$PATH
-source $HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
+source /usr/local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
 # }}}
