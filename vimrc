@@ -177,6 +177,24 @@ set foldnestmax=10 " 10 nested fold max"
 filetype on " enable file-type detection
 filetype indent on " load indent files to automatically do language-dependent indenting
 filetype plugin on " enable file-type plugins
+
+  " Coding {{{
+  "https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/
+  au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=89 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set foldlevel=0 |
+    \ set fileformat=unix
+
+  au BufNewFile,BufRead *.js, *.html, *.css
+    \ set tabstop=2 |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2
+  " }}}
 " }}}
 
 " Backups {{{
@@ -344,6 +362,14 @@ endif
 " python-mode {{{
   " <leader>b is already used by vim-buffergator
   let g:pymode_breakpoint_bind = '<leader>br'
+" }}}
+
+" SimpylFold {{{
+  " To see in action options below, set fold level to 0
+  " Fold docstrings
+  let g:SimpylFold_fold_docstring = 1
+  " Do not fold imports
+  let g:SimpylFold_fold_import = 0
 " }}}
 
 " Tagbar {{{
