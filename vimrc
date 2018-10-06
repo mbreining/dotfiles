@@ -77,7 +77,7 @@ if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"
   "let g:solarized_termtrans=1
   "let g:solarized_contrast="normal"
   "let g:solarized_visibility="normal"
-  colorscheme solarized
+  "colorscheme solarized
 endif
 
 if filereadable(expand("~/.vim/bundle/vim-colorschemes/colors/gotham256.vim"))
@@ -379,7 +379,7 @@ endif
 " }}}
 
 " Easytags {{{
-if executable('ctags')
-  let g:easytags_async=1
-endif
+"if executable('ctags')
+"  let g:easytags_async=1
+"endif
 " }}}

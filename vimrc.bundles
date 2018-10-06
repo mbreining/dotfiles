@@ -78,6 +78,7 @@ Plugin 'jeetsukumaran/vim-buffergator'
 
 " General programming {{{
 " conflict-marker: work with conflict files
+" ale: linting
 Plugin 'scrooloose/syntastic'
 "Plugin 'mattn/webapi-vim'
 "Plugin 'mattn/gist-vim'
@@ -86,11 +87,13 @@ Plugin 'scrooloose/syntastic'
 "Plugin 'godlygeek/tabular'
 "Plugin 'luochen1990/rainbow'
 Plugin 'rhysd/conflict-marker.vim'
-if executable('ctags')
-  Plugin 'majutsushi/tagbar'
-  Plugin 'xolox/vim-misc'
-  Plugin 'xolox/vim-easytags'
-endif
+Plugin 'prettier/vim-prettier'
+Plugin 'w0rp/ale'
+"if executable('ctags')
+"  Plugin 'majutsushi/tagbar'
+"  Plugin 'xolox/vim-misc'
+"  Plugin 'xolox/vim-easytags'
+"endif
 " }}}
 
 " Snippets and AutoComplete {{{
@@ -111,6 +114,10 @@ Plugin 'yssource/python.vim'
 Plugin 'python_match.vim'
 Plugin 'pythoncomplete'
 Plugin 'tmhedberg/SimpylFold'
+" }}}
+
+" Web {{{
+Plugin 'Quramy/tsuquyomi'
 " }}}
 
 " End Vundle setup {{{

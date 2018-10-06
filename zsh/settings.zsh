@@ -140,8 +140,3 @@ export LS_COLORS=exfxcxdxbxegedabagacad
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='3;33'
 # }}}
-
-# Powerline status {{{
-# http://powerline.readthedocs.org/en/latest/usage/shell-prompts.html#zsh-prompt
-source /usr/local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
-# }}}
