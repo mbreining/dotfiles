@@ -10,4 +10,11 @@ $ ./install.sh
 ```
 
 The above will install most dotfiles under your $HOME directory.
-Check powerline/README.md to customize powerline.
+
+Append the following at the end of ~/.zshrc.local to setup Pure prompt configuration.
+
+```
+# https://github.com/sindresorhus/pure
+autoload -U promptinit; promptinit
+prompt pure
+```
