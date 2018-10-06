@@ -73,11 +73,11 @@ endif
 " https://github.com/altercation/solarized/tree/master/vim-colors-solarized
 " iTerm2 setting: http://stackoverflow.com/questions/7278267/incorrect-colors-with-vim-in-iterm2-using-solarized
 if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
-  "let g:solarized_termcolors=256
-  "let g:solarized_termtrans=1
-  "let g:solarized_contrast="normal"
-  "let g:solarized_visibility="normal"
-  "colorscheme solarized
+  let g:solarized_termcolors=256
+  let g:solarized_termtrans=1
+  let g:solarized_contrast="normal"
+  let g:solarized_visibility="normal"
+  colorscheme solarized
 endif
 
 if filereadable(expand("~/.vim/bundle/vim-colorschemes/colors/gotham256.vim"))

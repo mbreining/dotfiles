@@ -118,6 +118,7 @@ Plugin 'tmhedberg/SimpylFold'
 
 " Web {{{
 Plugin 'Quramy/tsuquyomi'
+Plugin 'leafgarland/typescript-vim'
 " }}}
 
 " End Vundle setup {{{
