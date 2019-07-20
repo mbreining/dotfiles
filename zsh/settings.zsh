@@ -1,3 +1,5 @@
+# https://blog.callstack.io/supercharge-your-terminal-with-zsh-8b369d689770
+
 # Exports {{{
 export EDITOR="vim"
 export GITHUB_USER="mbreining"
@@ -11,37 +13,39 @@ export TERM=xterm-256color
 # }}}
 
 # Set options basics {{{
-setopt no_beep # Don't beep on error
-setopt interactive_comments # Allow comments even in interactive shells
+setopt no_beep # dont beep on error
+setopt interactive_comments # allow comments even in interactive shells
 
 # Changing Directories
-setopt auto_cd # If you type foo, and it isn't a command, and it is a directory in your cdpath, go there
-setopt cdablevarS # If argument to cd is the name of a parameter whose value is a valid directory, it will become the current directory
-setopt pushd_ignore_dups # Don't push multiple copies of the same directory onto the directory stack
+setopt auto_cd # if you type foo, and it isnt a command, and it is a directory in your cdpath, go there
+setopt cdablevarS # if argument to cd is the name of a parameter whose value is a valid directory, it will become the current directory
+setopt pushd_ignore_dups # dont push multiple copies of the same directory onto the directory stack
 
 # Expansion and Globbing
-setopt extended_glob # Treat #, ~, and ^ as part of patterns for filename generation
+setopt extended_glob # treat #, ~, and ^ as part of patterns for filename generation
 
 # Correction
-setopt correct # Spelling correction for commands
-setopt correctall # Spelling correction for arguments
+setopt correct # spelling correction for commands
+setopt correctall # spelling correction for arguments
 
 # Prompt
-setopt prompt_subst # Enable parameter expansion, command substitution, and arithmetic expansion in the prompt
-setopt transient_rprompt # Only show the rprompt on the current prompt
+setopt prompt_subst # enable parameter expansion, command substitution, and arithmetic expansion in the prompt
+setopt transient_rprompt # only show the rprompt on the current prompt
 
 # Scripts and Functions
-setopt multios # Perform implicit tees or cats when multiple redirections are attempted
+setopt multios # perform implicit tees or cats when multiple redirections are attempted
 # }}}
 
 # Auto completion {{{
-setopt always_to_end # When completing from the middle of a word, move the cursor to the end of the word
-setopt auto_menu # Show completion menu on successive tab press. needs unsetop menu_complete to work
-setopt auto_name_dirs # Any parameter that is set to the absolute name of a directory immediately becomes a name for that directory
-setopt complete_in_word # Allow completion from within a word/phrase
-unsetopt menu_complete # Do not autoselect the first completion entry
+setopt always_to_end # when completing from the middle of a word, move the cursor to the end of the word
+setopt auto_list # automatically list choices on ambiguous completion
+setopt auto_menu # show completion menu on successive tab press. needs unsetop menu_complete to work
+setopt auto_name_dirs # any parameter that is set to the absolute name of a directory immediately becomes a name for that directory
+setopt complete_in_word # allow completion from within a word/phrase
+unsetopt menu_complete # do not autoselect the first completion entry
+setopt always_to_end # move cursor to end if word had one match
 
-autoload -U compinit && compinit
+autoload -Uz compinit && compinit
 zmodload -i zsh/complist
 
 # man zshcontrib
@@ -102,20 +106,20 @@ bindkey "^R" history-incremental-search-backward # use incremental search
 # }}}
 
 # History {{{
-setopt append_history # Allow multiple terminal sessions to all append to one zsh command history
-setopt extended_history # Save timestamp of command and duration
-setopt inc_append_history # Add comamnds as they are typed, don't wait until shell exit
-setopt hist_expire_dups_first # When trimming history, lose oldest duplicates first
-setopt hist_ignore_dups # Ignore duplicate history entries
-setopt hist_ignore_space # Remove command line from history list when first character on the line is a space
-setopt hist_find_no_dups # When searching history don't display results already cycled through twice
-setopt hist_reduce_blanks # Remove extra blanks from each command line being added to history
-setopt hist_verify # Don't execute, just expand history
-setopt share_history # Imports new commands and appends typed commands to history
+setopt append_history # allow multiple terminal sessions to all append to one zsh command history
+setopt extended_history # save timestamp of command and duration
+setopt inc_append_history # add comamnds as they are typed, don't wait until shell exit
+setopt hist_expire_dups_first # when trimming history, lose oldest duplicates first
+setopt hist_ignore_dups # ignore duplicate history entries
+setopt hist_ignore_space # remove command line from history list when first character on the line is a space
+setopt hist_find_no_dups # when searching history don't display results already cycled through twice
+setopt hist_reduce_blanks # remove extra blanks from each command line being added to history
+setopt hist_verify # dont execute, just expand history
+setopt share_history # imports new commands and appends typed commands to history
 
-HISTSIZE=10000
-SAVEHIST=9000
 HISTFILE=$HOME/.zsh_history
+HISTSIZE=10000
+SAVEHIST=$HISTSIZE
 # }}}
 #
 # Colors {{{
@@ -140,4 +144,13 @@ export LS_COLORS=exfxcxdxbxegedabagacad
 # Enable color in grep
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='3;33'
+# }}}
+
+
+# Plugins {{{
+# requires antibody (brew install getantibody/tap/antibody)
+source <(antibody init)
+antibody bundle zdharma/fast-syntax-highlighting
+antibody bundle zsh-users/zsh-autosuggestions
+antibody bundle zsh-users/zsh-completions
 # }}}

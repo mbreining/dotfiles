@@ -7,14 +7,12 @@ alias sz='source ~/.zshrc'
 alias vi='vim'
 # }}}
 
-# Directory movement {{{
+# Directory handling {{{
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias 'bk=cd $OLDPWD'
-# }}}
 
-# Directory listing {{{
 ls --color -d . &>/dev/null 2>&1 && alias ls="ls --color=tty -Fh" || alias ls="ls -GFh"
 alias la='ls -a | egrep "^\."'
 alias lh='ls -d .*' # show hidden files/directories only
@@ -24,6 +22,8 @@ alias tree="ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^
 alias 'dus=du -sckx * | sort -nr' # directories sorted by size
 alias 'wordy=wc -w * | sort | tail -n10' # sort files in current directory by the number of words they contain
 alias 'filecount=find . -type f | wc -l' # number of files (not directories)
+
+alias mkdir="mkdir -p"
 # }}}
 
 # Git {{{

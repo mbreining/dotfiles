@@ -77,7 +77,7 @@ function wcdir() {
   find ${1:-.} -mindepth 1 -type d -print0 | xargs -0 -iFF sh -c 'echo `find "FF"/ -type f 2>/dev/null|wc -l;echo "FF"`' | sort -n | sed -e 's/^\([0-9]*\) \(.*\)$/ \1\t\2/g'
 }
 
-function rmvimtmp() { rm -f $HOME/.vim_tmp/* }
+function rmvimbak() { rm -f $HOME/.vim_bak/* }
 # }}}
 
 # Pager {{{
@@ -129,15 +129,5 @@ function tmuxkill() { tmux kill-session -t $1 }
 function rsyncdata() {
   [[ "$#" -lt "1" ]] && echo "usage: $0 <target_dir>" >&2 && return 2
   rsync -aE --delete $HOME/data/ /Volumes/$1
-}
-# }}}
-
-# Ruby {{{
-# Go to gem directory
-function gemdir() {
-  [[ "$#" -lt "1" ]] && echo "usage: $0 <ruby_version>" >&2 && return 2
-  rvm "$1"
-  cd $(rvm gemdir)
-  pwd
 }
 # }}}
