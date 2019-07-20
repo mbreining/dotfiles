@@ -5,6 +5,7 @@ export LC_COLLATE=C # CTAGS Sorting in vim/Emacs is better behaved with this in 
 export LESS="--ignore-case --raw-control-chars"
 export MANPAGER="less -X" # don't clear the screen after quitting man
 export PAGER="less"
+export GIT_PAGER="less"
 export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
 export TERM=xterm-256color
 # }}}

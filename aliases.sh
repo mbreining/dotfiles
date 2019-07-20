@@ -4,8 +4,6 @@ alias rm='rm -i' # make rm less destructive
 alias acat='< ~/.aliases.sh' # cat aliases to display
 alias fcat='< ~/.functions.sh' # cat functions to display
 alias sz='source ~/.zshrc'
-#alias vi='nvim'
-#alias vim='nvim'
 alias vi='vim'
 # }}}
 

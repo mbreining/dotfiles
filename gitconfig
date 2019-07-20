@@ -24,7 +24,7 @@
   di = diff
   dic = diff --cached
   graph = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-  l = log --pretty=\"%Cblue%h%Creset %Cgreen[%cr]%Creset %s\"
+  l = log --pretty=\"%Cblue%h%Creset %Cgreen[%cr]%C(bold blue)<%an>%Creset %s\"
   pl = pull
   ps = push
   plre = pull --rebase

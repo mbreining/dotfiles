@@ -62,13 +62,11 @@ set iskeyword-=- " '-' is an end of word designator
 " }}}
 
 " Colors {{{
+" iTerm and vim colorschemes should match. However currently using monokai in iterm
+" and solarized in vim (i like the result in tmux).
+" For a list of iterm colorschemes: https://iterm2colorschemes.com/
+" For a list of vim colorschemes: https://github.com/flazz/vim-colorschemes
 syntax enable
-
-" Fix colorschemes in tmux
-" http://sunaku.github.io/vim-256color-bce.html
-if &term =~ '256color'
-  set t_ut=
-endif
 
 " https://github.com/altercation/solarized/tree/master/vim-colors-solarized
 " iTerm2 setting: http://stackoverflow.com/questions/7278267/incorrect-colors-with-vim-in-iterm2-using-solarized
@@ -78,10 +76,6 @@ if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"
   let g:solarized_contrast="normal"
   let g:solarized_visibility="normal"
   colorscheme solarized
-endif
-
-if filereadable(expand("~/.vim/bundle/vim-colorschemes/colors/gotham256.vim"))
-  "colorscheme gotham256
 endif
 
 " Allow to trigger background
@@ -96,7 +90,6 @@ endfunction
 noremap <Leader>bg :call ToggleBG()<CR>
 
 nnoremap <Leader><F1> :colorscheme solarized<CR>
-nnoremap <Leader><F2> :colorscheme gotham256<CR>
 " }}}
 
 " Spaces and tabs {{{
@@ -135,10 +128,6 @@ set hlsearch " highlight all matches
 nnoremap <Leader><Space> :set invhlsearch<CR>
 " Alternatively, hide search highlighting
 "nnoremap <Leader><space> :noh<CR>
-
-" Disable VIM's broken default regex
-nnoremap / /\v
-vnoremap / /\v
 " }}}
 
 " Completion {{{
@@ -190,7 +179,7 @@ filetype plugin on " enable file-type plugins
     \ set foldlevel=0 |
     \ set fileformat=unix
 
-  au BufNewFile,BufRead *.js, *.html, *.css
+  au BufNewFile,BufRead *.js,*.html,*.css
     \ set tabstop=2 |
     \ set softtabstop=2 |
     \ set shiftwidth=2
@@ -198,6 +187,7 @@ filetype plugin on " enable file-type plugins
 " }}}
 
 " Backups {{{
+" Also see vim-autoswap plugin which auto manages swap files.
 set nobackup
 set nowritebackup
 silent execute '!mkdir -p ~/.vim_bak'
@@ -213,6 +203,24 @@ nnoremap <Leader>sn ]s " go to next error
 nnoremap <Leader>sp [s " got to previous error
 "nnoremap <Leader>ss z= " show suggestions
 nnoremap <Leader>sl 1z= " feeling lucky
+" }}}
+
+" Quickfix {{{
+nnoremap <Leader>q :call QuickfixToggle()<CR>
+
+let g:quickfix_is_open = 0
+
+function! QuickfixToggle()
+  if g:quickfix_is_open
+    cclose
+    let g:quickfix_is_open = 0
+    execute g:quickfix_return_to_window . "wincmd w"
+  else
+    let g:quickfix_return_to_window = winnr()
+    copen
+    let g:quickfix_is_open = 1
+  endif
+endfunction
 " }}}
 
 " Autocommands {{{
@@ -252,25 +260,11 @@ autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
 
   " Convert one-line comment into end-of-line comment
   nnoremap <Leader>dp ddpkJ
-
-  " Find merge conflict markers
-  nnoremap <Leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
-
-  " Save session, reopen with vim -S
-  nnoremap <Leader>save :mksession<CR>
 " }}}
 
 " Other key mappings {{{
-" Window navigation
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
-" Navigation
-"nnoremap <C-J> gjh " move one unnumbered line down
-"nnoremap <C-K> gkh " move one unnumbered line up
-nnoremap gV `[v`] " highlight last inserted text
+" Highlight last inserted text
+nnoremap gV `[v`]
 
 " Change working directory to that of the current file
 cmap cwd lcd %:p:h
@@ -288,8 +282,10 @@ nnoremap <F1> <Esc>
 " Yank from the cursor to the end of the line, to be consistent with C and D.
 nnoremap Y y$
 
-inoremap <C-d> <ESC>ddi " delete a line in insert mode
-inoremap jk <esc> " exit insert mode
+" Delete a line in insert mode
+inoremap <C-d> <ESC>ddi
+" Exit insert mode
+inoremap jk <esc>
 
 " Hide Ex mode http://www.bestofvim.com/tip/leave-ex-mode-good/
 nnoremap Q <NOP>
@@ -304,11 +300,10 @@ cmap w!! %!sudo tee > /dev/null %
 
 " NERDTree {{{
 if isdirectory(expand("~/.vim/bundle/nerdtree"))
-  nnoremap <Leader>n :NERDTree<CR>
-  "nnoremap <C-e> <plug>NERDTreeTabsToggle<CR>
-  nnoremap <Leader>e :NERDTreeFind<CR>
-  nnoremap <Leader>nt :NERDTreeFind<CR>
+  nnoremap <C-n> :NERDTreeToggle<CR>
+  nnoremap <C-n><C-f> :NERDTreeFind<CR>
 
+  let NERDTreeDirArrows = 1
   let NERDTreeShowBookmarks=1
   let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
   let NERDTreeChDirMode=0
@@ -320,66 +315,55 @@ if isdirectory(expand("~/.vim/bundle/nerdtree"))
 endif
 " }}}
 
-" CtrlP {{{
-if isdirectory(expand("~/.vim/bundle/ctrlp.vim"))
-  let g:ctrlp_map='<C-P>'
-  let g:ctrlp_cmd='CtrlP'
-  let g:ctrlp_working_path_mode='ra'
-  let g:ctrlp_match_window='bottom,order:btt,min:1,max:30'
-  let g:ctrlp_custom_ignore={
-    \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-    \ 'file': '\v\.(exe|so|dll|pyc)$'
-    \ }
-  let g:ctrlp_show_hidden=1
+" Fzf {{{
+if isdirectory(expand("~/.vim/bundle/fzf.vim"))
+  nnoremap <C-p> :GFiles<CR>
+  nnoremap <C-b> :Buffers<CR>
 endif
 " }}}
 
-" Ack plugin {{{
-nnoremap <Leader>a :Ack<Space>
+" Ack {{{
 if executable("ack")
   " Use Ack instead of Grep when available
   set grepprg=ack\ -H\ --nogroup\ --nocolor
   let g:ackhighlight = 1
-  " Search for word under cursor
-  nnoremap <Leader>A :Ack <C-r><C-w><CR>
+endif
+nnoremap <C-k> :Ack!<Space>
+" Search for word under cursor
+nnoremap <C-k><C-d> :Ack! -w <C-r><C-w><CR>
+" }}}
+
+" Lightline {{{
+if isdirectory(expand("~/.vim/bundle/lightline.vim"))
 endif
 " }}}
 
-" Airline {{{
-if isdirectory(expand("~/.vim/bundle/vim-airline"))
-  let g:airline_powerline_fonts=1
-  let g:airline#extensions#bufferline#enabled = 1
+" vim-rooter {{{
+if isdirectory(expand("~/.vim/bundle/vim-rooter"))
+  let g:rooter_silent_chdir = 1
 endif
 " }}}
 
-" vim-buffergator {{{
-if isdirectory(expand("~/.vim/bundle/vim-buffergator"))
-  let g:buffergator_viewport_split_policy='B'
-  let g:buffergator_hsplit_size=10
+" Prettier {{{
+if isdirectory(expand("~/.vim/bundle/vim-prettier"))
+  " Run Prettier async before saving.
+  let g:prettier#autoformat = 0
+  " autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
 endif
 " }}}
 
 " python-mode {{{
-  " <leader>b is already used by vim-buffergator
-  let g:pymode_breakpoint_bind = '<leader>br'
+if isdirectory(expand("~/.vim/bundle/python-mode"))
+  let g:pymode_breakpoint_bind = '<Leader>b'
+endif
 " }}}
 
 " SimpylFold {{{
+if isdirectory(expand("~/.vim/bundle/SimpylFold"))
   " To see in action options below, set fold level to 0
   " Fold docstrings
   let g:SimpylFold_fold_docstring = 1
   " Do not fold imports
   let g:SimpylFold_fold_import = 0
-" }}}
-
-" Tagbar {{{
-if executable('ctags')
-  noremap <Leader>t :TagbarToggle<CR>
 endif
-" }}}
-
-" Easytags {{{
-"if executable('ctags')
-"  let g:easytags_async=1
-"endif
 " }}}
