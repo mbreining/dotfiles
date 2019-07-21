@@ -43,8 +43,7 @@ set relativenumber
 set numberwidth=5
 
 " http://stackoverflow.com/questions/2514445/turning-off-auto-indent-when-pasting-text-into-vim
-set pastetoggle=<F12>
-set paste " do not auto-indent when pasting text
+set pastetoggle=<F12> " switch to paste mode to not auto-indent when pasting text
 
 set shortmess+=filmnrxoOtT " abbrev. of messages (avoids 'hit enter')
 set viewoptions=folds,options,cursor,unix,slash " better unix / windows compatibility
@@ -147,23 +146,21 @@ filetype on " enable file-type detection
 filetype indent on " load indent files to automatically do language-dependent indenting
 filetype plugin on " enable file-type plugins
 
-  " Coding {{{
-  "https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/
-  au BufNewFile,BufRead *.py
-    \ set tabstop=4 |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4 |
-    \ set textwidth=89 |
-    \ set expandtab |
-    \ set autoindent |
-    \ set foldlevel=0 |
-    \ set fileformat=unix
+"https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/
+au BufNewFile,BufRead *.py
+  \ set tabstop=4 |
+  \ set softtabstop=4 |
+  \ set shiftwidth=4 |
+  \ set textwidth=89 |
+  \ set expandtab |
+  \ set autoindent |
+  \ set foldlevel=0 |
+  \ set fileformat=unix
 
-  au BufNewFile,BufRead *.js,*.html,*.css
-    \ set tabstop=2 |
-    \ set softtabstop=2 |
-    \ set shiftwidth=2
-  " }}}
+au BufNewFile,BufRead *.js,*.html,*.css
+  \ set tabstop=2 |
+  \ set softtabstop=2 |
+  \ set shiftwidth=2
 " }}}
 
 " Backups {{{
@@ -190,14 +187,14 @@ nnoremap <Leader>sl 1z= " feeling lucky
 nnoremap <Leader>q :call QuickfixToggle()<CR>
 
 function! QuickfixToggle()
-    for i in range(1, winnr('$'))
-      let bnum = winbufnr(i)
-      if getbufvar(bnum, '&buftype') == 'quickfix'
-        cclose
-        return
-      endif
-    endfor
-    copen
+  for i in range(1, winnr('$'))
+    let bnum = winbufnr(i)
+    if getbufvar(bnum, '&buftype') == 'quickfix'
+      cclose
+      return
+    endif
+  endfor
+  copen
 endfunction
 " }}}
 
@@ -207,39 +204,53 @@ autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
 " }}}
 
 " Leader key mappings {{{
-  " .vimrc {{{
-  " Edit .vimrc in vertical split
-  nnoremap <Leader>ev :split $MYVIMRC<CR>
-  nnoremap <Leader>sv :source $MYVIMRC<CR> :edit!<CR>
-  " }}}
+" Edit .vimrc in vertical split
+nnoremap <Leader>ev :split $MYVIMRC<CR>
+nnoremap <Leader>sv :source $MYVIMRC<CR> :edit!<CR>
 
-  " Tabs {{{
-  nnoremap <Leader>tn :tabnew<CR>
-  nnoremap <Leader>to :tabonly<CR>
-  nnoremap <Leader>tc :tabclose<CR>
-  nnoremap <Leader>tm :tabmove
-  " Open a new tab with the current buffer's path
-  nnoremap <Leader>te :tabedit <C-R>=expand("%:p:h")<CR>/
-  " }}}
+" Tabs
+nnoremap <Leader>tn :tabnew<CR>
+nnoremap <Leader>to :tabonly<CR>
+nnoremap <Leader>tc :tabclose<CR>
+nnoremap <Leader>tm :tabmove
+" Open a new tab with the current buffer's path
+nnoremap <Leader>te :tabedit <C-R>=expand("%:p:h")<CR>/
 
-  nnoremap <Leader>. :cd %:h<CR>
+nnoremap <Leader>. :cd %:h<CR>
 
-  " Open an edit command with the path of the currently edited file filled in
-  " http://vimcasts.org/episodes/the-edit-command/
-  cnoremap %% <C-R>=fnameescape(expand('%:p:h')).'/'<CR>
-  nnoremap <Leader>ew :e %%
-  nnoremap <Leader>es :sp %%
-  "nnoremap <Leader>ev :vsp %%
-  nnoremap <Leader>et :tabe %%
+" Open an edit command with the path of the currently edited file filled in
+" http://vimcasts.org/episodes/the-edit-command/
+cnoremap %% <C-R>=fnameescape(expand('%:p:h')).'/'<CR>
+nnoremap <Leader>ew :e %%
+nnoremap <Leader>es :sp %%
+"nnoremap <Leader>ev :vsp %%
+nnoremap <Leader>et :tabe %%
 
-  " Display all lines with keyword under cursor and ask which one to jump to
-  nnoremap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+" Display all lines with keyword under cursor and ask which one to jump to
+nnoremap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
-  " Convert one-line comment into end-of-line comment
-  nnoremap <Leader>dp ddpkJ
+" Convert one-line comment into end-of-line comment
+nnoremap <Leader>dp ddpkJ
 " }}}
 
 " Other key mappings {{{
+" Move up and down on a row basis
+"nnoremap j gj
+"nnoremap k gk
+
+" Emacs-style movement keys in command mode
+cnoremap <C-a>  <Home>
+cnoremap <C-b>  <Left>
+cnoremap <C-f>  <Right>
+cnoremap <C-d>  <Delete>
+cnoremap <M-b>  <S-Left>
+cnoremap <M-f>  <S-Right>
+cnoremap <M-d>  <S-right><Delete>
+cnoremap <Esc>b <S-Left>
+cnoremap <Esc>f <S-Right>
+cnoremap <Esc>d <S-right><Delete>
+cnoremap <C-g>  <C-c>
+
 " Highlight last inserted text
 nnoremap gV `[v`]
 
@@ -261,22 +272,16 @@ nnoremap Y y$
 
 " Delete a line in insert mode
 inoremap <C-d> <ESC>ddi
-" Exit insert mode
-inoremap jk <esc>
 
 " Hide Ex mode http://www.bestofvim.com/tip/leave-ex-mode-good/
 nnoremap Q <NOP>
 
 " Save changes
-nnoremap <C-S> :w<CR>
-inoremap <C-S> <ESC>:w<CR>a
+nnoremap <C-s> :w<CR>
+inoremap <C-s> <ESC>:w<CR>a
 
 " Force save
 cmap w!! %!sudo tee > /dev/null %
-" }}}
-
-" Plugins {{{
-" now using vim 8 plugin manager as opposed to vundle, see install_vim_plugins.sh
 " }}}
 
 " NERDTree {{{

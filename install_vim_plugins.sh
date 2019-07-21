@@ -55,9 +55,9 @@ wait
 (
 set_group syntax
 package https://github.com/tpope/vim-markdown.git start &
-package https://github.com/scrooloose/syntastic.git start &
 package https://github.com/w0rp/ale.git start &
 package https://github.com/prettier/vim-prettier.git start &
+package https://github.com/scrooloose/syntastic.git opt &
 wait
 ) &
 (
