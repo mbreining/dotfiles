@@ -20,7 +20,6 @@ for name in *; do
     echo "$target already installed; skipping..."
   else
     if ! skip_file $name; then
-      #if [[ $name != 'install.sh' ]] && [[ $name != 'README.md' ]]; then
       echo "$target not yet installed; creating symlink..."
       ln -s "$PWD/$name" "$target"
     fi
