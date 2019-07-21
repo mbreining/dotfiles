@@ -1,3 +1,6 @@
+" http://www.cs.swarthmore.edu/help/vim/modelines.html
+" vim: set sw=2 ts=2 sts=2 et tw=78 foldmarker={{{,}}} foldlevel=0 foldmethod=marker:
+
 " Inspired by:
 " https://github.com/spf13/spf13-vim
 " http://dougblack.io/words/a-good-vimrc.html
@@ -5,18 +8,8 @@
 " https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/
 " https://begriffs.com/posts/2019-07-19-history-use-vim.html#third-party-plugins
 
-" Modeline {{{
-" http://www.cs.swarthmore.edu/help/vim/modelines.html
-set modelines=10
-" vim: set sw=2 ts=2 sts=2 et tw=78 foldmarker={{{,}}} foldlevel=0 foldmethod=marker:
-"  }}}
-
 set nocompatible " vim settings rather than vi (must be first!)
 filetype off
-
-" Plugins {{{
-" now using vim 8 plugin manager as opposed to vundle, see install_vim_plugins.sh
-" }}}
 
 " Leader keys {{{
 let mapleader = ","
@@ -54,7 +47,7 @@ set pastetoggle=<F12>
 set paste " do not auto-indent when pasting text
 
 set shortmess+=filmnrxoOtT " abbrev. of messages (avoids 'hit enter')
-set viewoptions=folds,options,cursor,unix,slash " better Unix / Windows compatibility
+set viewoptions=folds,options,cursor,unix,slash " better unix / windows compatibility
 "set virtualedit=onemore " allow for cursor beyond last character
 set iskeyword-=. " '.' is an end of word designator
 set iskeyword-=# " '#' is an end of word designator
@@ -62,15 +55,10 @@ set iskeyword-=- " '-' is an end of word designator
 " }}}
 
 " Colors {{{
-" iTerm and vim colorschemes should match. However currently using monokai in iterm
-" and solarized in vim (i like the result in tmux).
-" For a list of iterm colorschemes: https://iterm2colorschemes.com/
-" For a list of vim colorschemes: https://github.com/flazz/vim-colorschemes
 syntax enable
 
 " https://github.com/altercation/solarized/tree/master/vim-colors-solarized
-" iTerm2 setting: http://stackoverflow.com/questions/7278267/incorrect-colors-with-vim-in-iterm2-using-solarized
-if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
+if filereadable(expand("~/.vim/pack/colors/start/vim-colors-solarized/colors/solarized.vim"))
   let g:solarized_termcolors=256
   let g:solarized_termtrans=1
   let g:solarized_contrast="normal"
@@ -141,24 +129,16 @@ inoremap <Tab> <C-P>
 set foldenable " fold files by default on open
 set foldmethod=indent " fold based on indent level
 set foldlevelstart=10 " open most folds by default
-set foldnestmax=10 " 10 nested fold max"
+set foldnestmax=10 " 10 nested fold max
 
   " Code folding key mappings {{{
   " Toggle fold w/ space
   nnoremap <Space> za
   vnoremap <Space> za
 
-  " Fold level
-  nnoremap <Leader>f0 :set foldlevel=0<CR>
-  nnoremap <Leader>f1 :set foldlevel=1<CR>
-  nnoremap <Leader>f2 :set foldlevel=2<CR>
-  nnoremap <Leader>f3 :set foldlevel=3<CR>
-  nnoremap <Leader>f4 :set foldlevel=4<CR>
-  nnoremap <Leader>f5 :set foldlevel=5<CR>
-  nnoremap <Leader>f6 :set foldlevel=6<CR>
-  nnoremap <Leader>f7 :set foldlevel=7<CR>
-  nnoremap <Leader>f8 :set foldlevel=8<CR>
-  nnoremap <Leader>f9 :set foldlevel=9<CR>
+  " Open all / Close all
+  nnoremap <Leader>fo :set foldlevel=10<CR>
+  nnoremap <Leader>fc :set foldlevel=0<CR>
   " }}}
 " }}}
 
@@ -193,6 +173,7 @@ set nowritebackup
 silent execute '!mkdir -p ~/.vim_bak'
 set backupdir=~/.vim_bak//
 set directory=~/.vim_bak//
+set updatetime=100
 " }}}
 
 " Spelling {{{
@@ -208,18 +189,15 @@ nnoremap <Leader>sl 1z= " feeling lucky
 " Quickfix {{{
 nnoremap <Leader>q :call QuickfixToggle()<CR>
 
-let g:quickfix_is_open = 0
-
 function! QuickfixToggle()
-  if g:quickfix_is_open
-    cclose
-    let g:quickfix_is_open = 0
-    execute g:quickfix_return_to_window . "wincmd w"
-  else
-    let g:quickfix_return_to_window = winnr()
+    for i in range(1, winnr('$'))
+      let bnum = winbufnr(i)
+      if getbufvar(bnum, '&buftype') == 'quickfix'
+        cclose
+        return
+      endif
+    endfor
     copen
-    let g:quickfix_is_open = 1
-  endif
 endfunction
 " }}}
 
@@ -232,7 +210,6 @@ autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
   " .vimrc {{{
   " Edit .vimrc in vertical split
   nnoremap <Leader>ev :split $MYVIMRC<CR>
-  " Reload .vimrc (:edit! to play nice with Airline, folding, etc)
   nnoremap <Leader>sv :source $MYVIMRC<CR> :edit!<CR>
   " }}}
 
@@ -296,6 +273,10 @@ inoremap <C-S> <ESC>:w<CR>a
 
 " Force save
 cmap w!! %!sudo tee > /dev/null %
+" }}}
+
+" Plugins {{{
+" now using vim 8 plugin manager as opposed to vundle, see install_vim_plugins.sh
 " }}}
 
 " NERDTree {{{

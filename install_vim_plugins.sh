@@ -46,7 +46,7 @@ package https://github.com/airblade/vim-gitgutter.git start &
 wait
 ) &
 (
-set_group colorschemes
+set_group colors
 package https://github.com/altercation/vim-colors-solarized.git start &
 package https://github.com/itchyny/lightline.vim.git start &
 package https://github.com/flazz/vim-colorschemes.git opt &
@@ -62,11 +62,11 @@ wait
 ) &
 (
 set_group python
-package https://github.com/klen/python-mode.git start &
-package https://github.com/yssource/python.vim.git start &
+#package https://github.com/klen/python-mode.git start &
+#package https://github.com/yssource/python.vim.git start &
 #package https://github.com/python_match.vim.git start &
 #package https://github.com/pythoncomplete.git start &
-package https://github.com/tmhedberg/SimpylFold.git start &
+#package https://github.com/tmhedberg/SimpylFold.git start &
 wait
 ) &
 (
