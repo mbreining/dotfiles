@@ -42,6 +42,7 @@ package https://github.com/tpope/vim-surround.git start &
 package https://github.com/tpope/vim-unimpaired.git start &
 package https://github.com/easymotion/vim-easymotion.git start &
 package https://github.com/scrooloose/nerdtree.git start &
+package https://github.com/airblade/vim-gitgutter.git start &
 wait
 ) &
 (
