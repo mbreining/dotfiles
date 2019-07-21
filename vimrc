@@ -3,6 +3,7 @@
 " http://dougblack.io/words/a-good-vimrc.html
 " http://statico.github.io/vim.html
 " https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/
+" https://begriffs.com/posts/2019-07-19-history-use-vim.html#third-party-plugins
 
 " Modeline {{{
 " http://www.cs.swarthmore.edu/help/vim/modelines.html
@@ -10,12 +11,11 @@ set modelines=10
 " vim: set sw=2 ts=2 sts=2 et tw=78 foldmarker={{{,}}} foldlevel=0 foldmethod=marker:
 "  }}}
 
-" Vundle {{{
 set nocompatible " vim settings rather than vi (must be first!)
 filetype off
-if filereadable(expand("~/.vimrc.bundles"))
-  source ~/.vimrc.bundles
-endif
+
+" Plugins {{{
+" now using vim 8 plugin manager as opposed to vundle, see install_vim_plugins.sh
 " }}}
 
 " Leader keys {{{
@@ -299,7 +299,7 @@ cmap w!! %!sudo tee > /dev/null %
 " }}}
 
 " NERDTree {{{
-if isdirectory(expand("~/.vim/bundle/nerdtree"))
+if isdirectory(expand("~/.vim/pack/general/start/nerdtree"))
   nnoremap <C-n> :NERDTreeToggle<CR>
   nnoremap <C-n><C-f> :NERDTreeFind<CR>
 
@@ -316,7 +316,7 @@ endif
 " }}}
 
 " Fzf {{{
-if isdirectory(expand("~/.vim/bundle/fzf.vim"))
+if isdirectory(expand("~/.vim/pack/general/start/fzf.vim"))
   nnoremap <C-p> :GFiles<CR>
   nnoremap <C-b> :Buffers<CR>
 endif
@@ -333,33 +333,28 @@ nnoremap <C-k> :Ack!<Space>
 nnoremap <C-k><C-d> :Ack! -w <C-r><C-w><CR>
 " }}}
 
-" Lightline {{{
-if isdirectory(expand("~/.vim/bundle/lightline.vim"))
-endif
-" }}}
-
 " vim-rooter {{{
-if isdirectory(expand("~/.vim/bundle/vim-rooter"))
+if isdirectory(expand("~/.vim/pack/general/start/vim-rooter"))
   let g:rooter_silent_chdir = 1
 endif
 " }}}
 
 " Prettier {{{
-if isdirectory(expand("~/.vim/bundle/vim-prettier"))
-  " Run Prettier async before saving.
+if isdirectory(expand("~/.vim/pack/general/start/vim-prettier"))
+  " Run Prettier async before saving
   let g:prettier#autoformat = 0
   " autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
 endif
 " }}}
 
 " python-mode {{{
-if isdirectory(expand("~/.vim/bundle/python-mode"))
+if isdirectory(expand("~/.vim/pack/general/start/python-mode"))
   let g:pymode_breakpoint_bind = '<Leader>b'
 endif
 " }}}
 
 " SimpylFold {{{
-if isdirectory(expand("~/.vim/bundle/SimpylFold"))
+if isdirectory(expand("~/.vim/pack/general/start/SimpylFold"))
   " To see in action options below, set fold level to 0
   " Fold docstrings
   let g:SimpylFold_fold_docstring = 1
