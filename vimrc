@@ -56,6 +56,11 @@ set iskeyword-=- " '-' is an end of word designator
 " Colors {{{
 syntax enable
 
+" Force 256 colors
+if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
+  set t_Co=256
+endif
+
 " https://github.com/altercation/solarized/tree/master/vim-colors-solarized
 if filereadable(expand("~/.vim/pack/colors/start/vim-colors-solarized/colors/solarized.vim"))
   let g:solarized_termcolors=256
@@ -64,6 +69,8 @@ if filereadable(expand("~/.vim/pack/colors/start/vim-colors-solarized/colors/sol
   let g:solarized_visibility="normal"
   colorscheme solarized
 endif
+
+hi CursorLine term=bold cterm=bold " no underline on current line
 
 " Allow to trigger background
 function! ToggleBG()
