@@ -67,12 +67,12 @@ if filereadable(expand("~/.vim/pack/colors/start/vim-colors-solarized/colors/sol
   let g:solarized_termtrans=1
   let g:solarized_contrast="normal"
   let g:solarized_visibility="normal"
+  set background=dark
   colorscheme solarized
 endif
 
 hi CursorLine term=bold cterm=bold " no underline on current line
 
-" Allow to trigger background
 function! ToggleBG()
   let s:tbg = &background
   if s:tbg == "dark"
