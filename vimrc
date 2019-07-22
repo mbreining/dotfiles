@@ -157,6 +157,7 @@ autocmd BufNewFile,BufRead *.py
   \ set softtabstop=4 |
   \ set shiftwidth=4 |
   \ set textwidth=89 |
+  \ set colorcolumn=+1 |
   \ set expandtab |
   \ set autoindent |
   \ set foldlevel=0 |
