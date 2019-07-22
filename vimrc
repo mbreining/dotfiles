@@ -81,9 +81,7 @@ function! ToggleBG()
     set background=dark
   endif
 endfunction
-noremap <Leader>bg :call ToggleBG()<CR>
-
-nnoremap <Leader><F1> :colorscheme solarized<CR>
+noremap <Leader>ct :call ToggleBG()<CR>
 " }}}
 
 " Spaces and tabs {{{
@@ -154,7 +152,7 @@ filetype indent on " load indent files to automatically do language-dependent in
 filetype plugin on " enable file-type plugins
 
 "https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/
-au BufNewFile,BufRead *.py
+autocmd BufNewFile,BufRead *.py
   \ set tabstop=4 |
   \ set softtabstop=4 |
   \ set shiftwidth=4 |
@@ -164,10 +162,13 @@ au BufNewFile,BufRead *.py
   \ set foldlevel=0 |
   \ set fileformat=unix
 
-au BufNewFile,BufRead *.js,*.html,*.css
+autocmd BufNewFile,BufRead *.js,*.html,*.css
   \ set tabstop=2 |
   \ set softtabstop=2 |
   \ set shiftwidth=2
+
+autocmd BufRead,BufNewFile *.md set filetype=markdown
+autocmd BufRead,BufNewFile .{jscs,jshint,eslint}rc set filetype=json
 " }}}
 
 " Backups {{{
@@ -191,7 +192,7 @@ nnoremap <Leader>sl 1z= " feeling lucky
 " }}}
 
 " Quickfix {{{
-nnoremap <Leader>q :call QuickfixToggle()<CR>
+nnoremap <Leader>qt :call QuickfixToggle()<CR>
 
 function! QuickfixToggle()
   for i in range(1, winnr('$'))
@@ -212,8 +213,8 @@ autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
 
 " Leader key mappings {{{
 " Edit .vimrc in vertical split
-nnoremap <Leader>ev :split $MYVIMRC<CR>
-nnoremap <Leader>sv :source $MYVIMRC<CR> :edit!<CR>
+nnoremap <Leader>ve :split $MYVIMRC<CR>
+nnoremap <Leader>vs :source $MYVIMRC<CR> :edit!<CR>
 
 " Tabs
 nnoremap <Leader>tn :tabnew<CR>
@@ -228,19 +229,19 @@ nnoremap <Leader>. :cd %:h<CR>
 " Open an edit command with the path of the currently edited file filled in
 " http://vimcasts.org/episodes/the-edit-command/
 cnoremap %% <C-R>=fnameescape(expand('%:p:h')).'/'<CR>
-nnoremap <Leader>ew :e %%
+nmap <Leader>ew :e %%
 nnoremap <Leader>es :sp %%
 "nnoremap <Leader>ev :vsp %%
 nnoremap <Leader>et :tabe %%
 
 " Display all lines with keyword under cursor and ask which one to jump to
 nnoremap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
-
-" Convert one-line comment into end-of-line comment
-nnoremap <Leader>dp ddpkJ
 " }}}
 
 " Other key mappings {{{
+" Disable F1 help
+nnoremap <F1> <Esc>
+
 " Move up and down on a row basis
 "nnoremap j gj
 "nnoremap k gk
@@ -258,21 +259,11 @@ cnoremap <Esc>f <S-Right>
 cnoremap <Esc>d <S-right><Delete>
 cnoremap <C-g>  <C-c>
 
-" Highlight last inserted text
-nnoremap gV `[v`]
-
 " Change working directory to that of the current file
-cmap cwd lcd %:p:h
-cmap cd. lcd %:p:h
-
-" Insert the path of the currently edited file into a command
-cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
+cmap cd. lcd %:p:h<CR>
 
 " Duplicate a selection in visual mode
 vnoremap D y'>p
-
-" Disable F1 help
-nnoremap <F1> <Esc>
 
 " Yank from the cursor to the end of the line, to be consistent with C and D.
 nnoremap Y y$
@@ -337,12 +328,6 @@ if isdirectory(expand("~/.vim/pack/general/start/vim-prettier"))
   " Run Prettier async before saving
   let g:prettier#autoformat = 0
   " autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
-endif
-" }}}
-
-" python-mode {{{
-if isdirectory(expand("~/.vim/pack/general/start/python-mode"))
-  let g:pymode_breakpoint_bind = '<Leader>b'
 endif
 " }}}
 
