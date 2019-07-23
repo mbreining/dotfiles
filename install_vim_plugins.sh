@@ -49,7 +49,7 @@ wait
 set_group colors
 package https://github.com/altercation/vim-colors-solarized.git start &
 package https://github.com/itchyny/lightline.vim.git start &
-package https://github.com/flazz/vim-colorschemes.git opt &
+#package https://github.com/flazz/vim-colorschemes.git opt &
 wait
 ) &
 (
@@ -75,6 +75,12 @@ package https://github.com/tpope/vim-rails.git opt &
 package https://github.com/tpope/vim-rake.git opt &
 package https://github.com/tpope/vim-bundler.git opt &
 package https://github.com/tpope/vim-endwise.git opt &
+wait
+) &
+(
+set_group web
+package https://github.com/leafgarland/typescript-vim.git start &
+#package https://github.com/Quramy/tsuquyomi.git opt &
 wait
 ) &
 wait
