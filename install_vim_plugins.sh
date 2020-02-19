@@ -1,5 +1,6 @@
 #!/bin/sh
 # Install vim plugins using vim's native plugin manager.
+# Add/remove plugins as needed.
 #
 # Usage:
 # $ ./install_vim_plugins.sh
@@ -47,9 +48,9 @@ wait
 ) &
 (
 set_group colors
-package https://github.com/altercation/vim-colors-solarized.git start &
+#package https://github.com/altercation/vim-colors-solarized.git start &
 package https://github.com/itchyny/lightline.vim.git start &
-#package https://github.com/flazz/vim-colorschemes.git opt &
+package https://github.com/flazz/vim-colorschemes.git opt &
 wait
 ) &
 (

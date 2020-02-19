@@ -6,16 +6,17 @@ Installation
 ```
 $ git clone git@github.com:mbreining/dotfiles.git
 $ cd dotfiles
-$ ./install_vim_plugins.sh
 $ ./install.sh
 ```
 
-The above will install most dotfiles under your $HOME directory.
+Pure prompt configuration
+-------------------------
 
-Append the following at the end of ~/.zshrc.local to setup Pure prompt configuration.
+Append the following at the end of ~/.zshrc.local.
 
 ```
-# https://github.com/sindresorhus/pure
 autoload -U promptinit; promptinit
 prompt pure
 ```
+
+More info here: https://github.com/sindresorhus/pure#install
