@@ -1,5 +1,12 @@
 My dotfiles
 
+Pre-requirements
+----------------
+
+- Install [https://github.com/alacritty/alacritty](Alacritty)
+- Install [https://github.com/tmux/tmux](tmux)
+- Install [https://github.com/junegunn/fzf](fzf)
+
 Installation
 ------------
 
@@ -19,4 +26,4 @@ autoload -U promptinit; promptinit
 prompt pure
 ```
 
-More info here: https://github.com/sindresorhus/pure#install
+More info [https://github.com/sindresorhus/pure#install](here).
