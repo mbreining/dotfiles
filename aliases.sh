@@ -1,10 +1,8 @@
+# vim: set foldmarker={{{,}}} foldlevel=0 foldmethod=marker
+
 # Miscellaneous {{{
 alias 'ttop=top -ocpu -R -F -s 2 -n30' # fancy top
 alias rm='rm -i' # make rm less destructive
-alias acat='< ~/.aliases.sh' # cat aliases to display
-alias fcat='< ~/.functions.sh' # cat functions to display
-alias sz='source ~/.zshrc'
-alias vi='vim'
 # }}}
 
 # Directory handling {{{
