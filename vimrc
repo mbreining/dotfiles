@@ -61,27 +61,7 @@ if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gno
   set t_Co=256
 endif
 
-" https://github.com/altercation/solarized/tree/master/vim-colors-solarized
-if filereadable(expand("~/.vim/pack/colors/start/vim-colors-solarized/colors/solarized.vim"))
-  let g:solarized_termcolors=256
-  let g:solarized_termtrans=1
-  let g:solarized_contrast="normal"
-  let g:solarized_visibility="normal"
-  set background=dark
-  colorscheme solarized
-endif
-
 hi CursorLine term=bold cterm=bold " no underline on current line
-
-function! ToggleBG()
-  let s:tbg = &background
-  if s:tbg == "dark"
-    set background=light
-  else
-    set background=dark
-  endif
-endfunction
-noremap <Leader>ct :call ToggleBG()<CR>
 " }}}
 
 " Spaces and tabs {{{
@@ -91,23 +71,10 @@ set expandtab " tabs are spaces
 set shiftwidth=2
 " }}}
 
-" Status bar {{{
-if has('cmdline_info')
-  set ruler " show the ruler
-  set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " a ruler on steroids
-  set showcmd " show partial commands in status line and
-              " selected characters/lines in visual mode
-endif
-
-if has('statusline')
-  set laststatus=2 " always display the status line
-  set statusline=%<%f\                     " filename
-  set statusline+=%w%h%m%r                 " options
-  set statusline+=%{fugitive#statusline()} " git Hotness
-  set statusline+=\ [%{&ff}/%Y]            " filetype
-  set statusline+=\ [%{getcwd()}]          " current dir
-  set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " right aligned file nav info
-endif
+" Status line {{{
+" https://github.com/itchyny/lightline.vim
+set laststatus=2 " always display the status line
+set noshowmode
 " }}}
 
 " Search {{{
