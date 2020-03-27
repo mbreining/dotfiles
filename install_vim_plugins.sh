@@ -41,14 +41,14 @@ package https://github.com/junegunn/fzf.vim.git start &
 package https://github.com/mileszs/ack.vim.git start &
 package https://github.com/tpope/vim-surround.git start &
 package https://github.com/tpope/vim-unimpaired.git start &
+package https://github.com/tpope/vim-repeat.git start &
+package https://github.com/tomtom/tcomment_vim.git start &
 package https://github.com/easymotion/vim-easymotion.git start &
 package https://github.com/scrooloose/nerdtree.git start &
-package https://github.com/airblade/vim-gitgutter.git start &
 wait
 ) &
 (
 set_group colors
-#package https://github.com/altercation/vim-colors-solarized.git start &
 package https://github.com/itchyny/lightline.vim.git start &
 package https://github.com/flazz/vim-colorschemes.git opt &
 wait
