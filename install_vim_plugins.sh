@@ -44,7 +44,7 @@ package https://github.com/tpope/vim-unimpaired.git start &
 package https://github.com/tpope/vim-repeat.git start &
 package https://github.com/tomtom/tcomment_vim.git start &
 package https://github.com/easymotion/vim-easymotion.git start &
-package https://github.com/scrooloose/nerdtree.git start &
+package https://github.com/christoomey/vim-system-copy.git start &
 wait
 ) &
 (

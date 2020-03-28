@@ -7,6 +7,8 @@
 " http://statico.github.io/vim.html
 " https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/
 " https://begriffs.com/posts/2019-07-19-history-use-vim.html#third-party-plugins
+"
+" Plugins must be installed under ~/.vim/pack/ (see install_vim_plugins.sh)
 
 set nocompatible " vim settings rather than vi (must be first!)
 filetype off
@@ -42,15 +44,12 @@ set nonumber
 set relativenumber
 set numberwidth=5
 
-" http://stackoverflow.com/questions/2514445/turning-off-auto-indent-when-pasting-text-into-vim
-set pastetoggle=<F12> " switch to paste mode to not auto-indent when pasting text
-
 set shortmess+=filmnrxoOtT " abbrev. of messages (avoids 'hit enter')
 set viewoptions=folds,options,cursor,unix,slash " better unix / windows compatibility
 "set virtualedit=onemore " allow for cursor beyond last character
-set iskeyword-=. " '.' is an end of word designator
-set iskeyword-=# " '#' is an end of word designator
-set iskeyword-=- " '-' is an end of word designator
+set iskeyword-=. " . is an end of word designator
+set iskeyword-=# " # is an end of word designator
+set iskeyword-=- " - is an end of word designator
 " }}}
 
 " Colors {{{
@@ -85,8 +84,6 @@ set showmatch " highlight matching [{()}]
 set hlsearch " highlight all matches
 " Toggle search highlighting
 nnoremap <Leader><Space> :set invhlsearch<CR>
-" Alternatively, hide search highlighting
-"nnoremap <Leader><space> :noh<CR>
 " }}}
 
 " Completion {{{
@@ -227,6 +224,9 @@ cnoremap <Esc>f <S-Right>
 cnoremap <Esc>d <S-right><Delete>
 cnoremap <C-g>  <C-c>
 
+" Close current buffer
+nnoremap <C-x> :bd!<CR>
+
 " Change working directory to that of the current file
 cmap cd. lcd %:p:h<CR>
 
@@ -245,32 +245,20 @@ nnoremap Q <NOP>
 " Save changes
 nnoremap <C-s> :w<CR>
 inoremap <C-s> <ESC>:w<CR>a
-
-" Force save
-cmap w!! %!sudo tee > /dev/null %
 " }}}
 
-" NERDTree {{{
-if isdirectory(expand("~/.vim/pack/general/start/nerdtree"))
-  nnoremap <C-n> :NERDTreeToggle<CR>
-  nnoremap <C-n><C-f> :NERDTreeFind<CR>
-
-  let NERDTreeDirArrows = 1
-  let NERDTreeShowBookmarks=1
-  let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
-  let NERDTreeChDirMode=0
-  let NERDTreeQuitOnOpen=1
-  let NERDTreeMouseMode=2
-  let NERDTreeShowHidden=1
-  let NERDTreeKeepTreeInNewTab=1
-  let g:nerdtree_tabs_open_on_gui_startup=0
-endif
+" netrw {{{
+let g:netrw_banner = 0
+let g:netrw_winsize = 25
+let g:netrw_browse_split = 4
+nnoremap <C-n> :Vexplore<CR>
 " }}}
 
 " Fzf {{{
 if isdirectory(expand("~/.vim/pack/general/start/fzf.vim"))
-  nnoremap <C-p> :GFiles<CR>
+  nnoremap <expr> <C-p> (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<CR>"
   nnoremap <C-b> :Buffers<CR>
+  nnoremap <C-m> :Marks<CR>
 endif
 " }}}
 
@@ -283,12 +271,6 @@ endif
 nnoremap <C-k> :Ack!<Space>
 " Search for word under cursor
 nnoremap <C-k><C-d> :Ack! -w <C-r><C-w><CR>
-" }}}
-
-" vim-rooter {{{
-if isdirectory(expand("~/.vim/pack/general/start/vim-rooter"))
-  let g:rooter_silent_chdir = 1
-endif
 " }}}
 
 " Prettier {{{
