@@ -20,9 +20,6 @@ cd ~/dotfiles
 brew install getantibody/tap/antibody
 brew install tmux
 
-# Install vim plugins
-source ~/dotfiles/install_vim_plugins.sh
-
 # Install dotfiles
 for name in *; do
   target="$HOME/.$name"

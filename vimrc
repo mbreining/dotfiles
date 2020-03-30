@@ -7,8 +7,6 @@
 " http://statico.github.io/vim.html
 " https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/
 " https://begriffs.com/posts/2019-07-19-history-use-vim.html#third-party-plugins
-"
-" Plugins must be installed under ~/.vim/pack/ (see install_vim_plugins.sh)
 
 set nocompatible " vim settings rather than vi (must be first!)
 filetype off
@@ -176,8 +174,8 @@ endfunction
 autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
 " }}}
 
-" Leader key mappings {{{
-" Edit .vimrc in vertical split
+" Leader mappings {{{
+" VIM config
 nnoremap <Leader>ve :split $MYVIMRC<CR>
 nnoremap <Leader>vs :source $MYVIMRC<CR> :edit!<CR>
 
@@ -201,9 +199,14 @@ nnoremap <Leader>et :tabe %%
 
 " Display all lines with keyword under cursor and ask which one to jump to
 nnoremap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+
+" Plugins
+nnoremap <Leader>pi :PlugUpdate<CR>
+nnoremap <Leader>pc :PlugClean<CR>
+nnoremap <Leader>pl :Plug<CR>
 " }}}
 
-" Other key mappings {{{
+" Other mappings {{{
 " Disable F1 help
 nnoremap <F1> <Esc>
 
@@ -250,6 +253,41 @@ nnoremap <C-s> :w<CR>
 inoremap <C-s> <ESC>:w<CR>a
 " }}}
 
+" Plugins {{{
+call plug#begin()
+" general
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'mileszs/ack.vim'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-commentary'
+Plug 'easymotion/vim-easymotion'
+Plug 'christoomey/vim-system-copy'
+Plug 'itchyny/lightline.vim'
+
+" syntax
+Plug 'tpope/vim-markdown.git'
+Plug 'w0rp/ale.git'
+Plug 'prettier/vim-prettier.git'
+Plug 'scrooloose/syntastic.git'
+
+" python
+Plug 'tmhedberg/SimpylFold'
+Plug 'klen/python-mode'
+Plug 'yssource/python.vim'
+
+" ruby
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rake'
+Plug 'tpope/vim-bundler'
+Plug 'tpope/vim-endwise'
+
+" web
+Plug 'leafgarland/typescript-vim'
+call plug#end()
+" }}}
+
 " Netrw {{{
 let g:netrw_banner = 0
 let g:netrw_winsize = 25
@@ -258,7 +296,7 @@ nnoremap <C-n> :Vexplore<CR>
 " }}}
 
 " Fzf {{{
-if isdirectory(expand("~/.vim/pack/general/start/fzf.vim"))
+if isdirectory(expand("~/.vim/plugged/fzf.vim"))
   nnoremap <expr> <C-p> (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<CR>"
   nnoremap <C-b> :Buffers<CR>
   nnoremap <C-m> :Marks<CR>
@@ -277,7 +315,7 @@ nnoremap <C-k><C-d> :Ack! -w <C-r><C-w><CR>
 " }}}
 
 " Prettier {{{
-if isdirectory(expand("~/.vim/pack/general/start/vim-prettier"))
+if isdirectory(expand("~/.vim/plugged/vim-prettier"))
   " Run Prettier async before saving
   let g:prettier#autoformat = 0
   " autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
@@ -285,11 +323,8 @@ endif
 " }}}
 
 " SimpylFold {{{
-if isdirectory(expand("~/.vim/pack/general/start/SimpylFold"))
-  " To see in action options below, set fold level to 0
-  " Fold docstrings
+if isdirectory(expand("~/.vim/plugged/SimpylFold"))
   let g:SimpylFold_fold_docstring = 1
-  " Do not fold imports
-  let g:SimpylFold_fold_import = 0
+  let g:SimpylFold_fold_import = 1
 endif
 " }}}
