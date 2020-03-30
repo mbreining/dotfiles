@@ -195,8 +195,8 @@ nnoremap <Leader>. :cd %:h<CR>
 " http://vimcasts.org/episodes/the-edit-command/
 cnoremap %% <C-R>=fnameescape(expand('%:p:h')).'/'<CR>
 nmap <Leader>ew :e %%
-nnoremap <Leader>es :sp %%
-"nnoremap <Leader>ev :vsp %%
+nmap <Leader>es :sp %%
+nmap <Leader>ev :vsp %%
 nnoremap <Leader>et :tabe %%
 
 " Display all lines with keyword under cursor and ask which one to jump to
