@@ -227,13 +227,16 @@ cnoremap <C-g>  <C-c>
 " Close current buffer
 nnoremap <C-x> :bd!<CR>
 
+" Show absolute file path and number of lines
+nnoremap <C-g> 1<C-g>
+
 " Change working directory to that of the current file
 cmap cd. lcd %:p:h<CR>
 
 " Duplicate a selection in visual mode
 vnoremap D y'>p
 
-" Yank from the cursor to the end of the line, to be consistent with C and D.
+" Yank from the cursor to the end of the line, to be consistent with C and D
 nnoremap Y y$
 
 " Delete a line in insert mode
@@ -247,7 +250,7 @@ nnoremap <C-s> :w<CR>
 inoremap <C-s> <ESC>:w<CR>a
 " }}}
 
-" netrw {{{
+" Netrw {{{
 let g:netrw_banner = 0
 let g:netrw_winsize = 25
 let g:netrw_browse_split = 4

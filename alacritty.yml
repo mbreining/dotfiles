@@ -603,7 +603,11 @@ key_bindings:
   #- { key: F,      mods: Command|Control,    action: ToggleFullscreen }
 
   # mine
-  - { key: Key6,        mods: Control, chars: "\x1e"                     }
+  # https://github.com/alacritty/alacritty/wiki/Keyboard-mappings#macos
+  - { key: N,         mods: Command, action: SpawnNewInstance               }
+  # vim alternate buffer
+  - { key: Key6,      mods: Control, chars: "\x1e"                          }
+  # map Option key to meta key? https://github.com/alacritty/alacritty/issues/62#issuecomment-347552058
 
 #debug:
   # Display the time it takes to redraw each frame.
