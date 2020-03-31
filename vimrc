@@ -201,9 +201,10 @@ nnoremap <Leader>et :tabe %%
 nnoremap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
 " Plugins
-nnoremap <Leader>pi :PlugUpdate<CR>
-nnoremap <Leader>pc :PlugClean<CR>
-nnoremap <Leader>pl :Plug<CR>
+nnoremap <Leader>pi :call minpac#update()<CR>
+nnoremap <Leader>pc :call minpac#clean()<CR>
+nnoremap <Leader>ps :call minpac#status()<CR>
+nnoremap <Leader>pl :echo minpac#getpackages()<CR>
 " }}}
 
 " Other mappings {{{
@@ -254,38 +255,40 @@ inoremap <C-s> <ESC>:w<CR>a
 " }}}
 
 " Plugins {{{
-call plug#begin()
+packadd minpac
+call minpac#init()
+
 " general
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'mileszs/ack.vim'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-commentary'
-Plug 'easymotion/vim-easymotion'
-Plug 'christoomey/vim-system-copy'
-Plug 'itchyny/lightline.vim'
+call minpac#add('k-takata/minpac', {'type':'opt'})
+call minpac#add('junegunn/fzf')
+call minpac#add('junegunn/fzf.vim')
+call minpac#add('mileszs/ack.vim')
+call minpac#add('tpope/vim-surround')
+call minpac#add('tpope/vim-repeat')
+call minpac#add('tomtom/tcomment_vim')
+call minpac#add('easymotion/vim-easymotion')
+call minpac#add('christoomey/vim-system-copy')
+call minpac#add('itchyny/lightline.vim')
 
 " syntax
-Plug 'tpope/vim-markdown.git'
-Plug 'w0rp/ale.git'
-Plug 'prettier/vim-prettier.git'
-Plug 'scrooloose/syntastic.git'
+call minpac#add('tpope/vim-markdown')
+call minpac#add('w0rp/ale')
+call minpac#add('prettier/vim-prettier')
+call minpac#add('scrooloose/syntastic')
 
 " python
-Plug 'tmhedberg/SimpylFold'
-Plug 'klen/python-mode'
-Plug 'yssource/python.vim'
+call minpac#add('tmhedberg/SimpylFold')
+call minpac#add('klen/python-mode')
+call minpac#add('yssource/python.vim')
 
 " ruby
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-rake'
-Plug 'tpope/vim-bundler'
-Plug 'tpope/vim-endwise'
+call minpac#add('tpope/vim-rails')
+call minpac#add('tpope/vim-rake')
+call minpac#add('tpope/vim-bundler')
+call minpac#add('tpope/vim-endwise')
 
 " web
-Plug 'leafgarland/typescript-vim'
-call plug#end()
+call minpac#add ('leafgarland/typescript-vim')
 " }}}
 
 " Netrw {{{
@@ -296,7 +299,7 @@ nnoremap <C-n> :Vexplore<CR>
 " }}}
 
 " Fzf {{{
-if isdirectory(expand("~/.vim/plugged/fzf.vim"))
+if isdirectory(expand("~/.vim/pack/minpac/start/fzf.vim"))
   nnoremap <expr> <C-p> (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<CR>"
   nnoremap <C-b> :Buffers<CR>
   nnoremap <C-m> :Marks<CR>
@@ -315,7 +318,7 @@ nnoremap <C-k><C-d> :Ack! -w <C-r><C-w><CR>
 " }}}
 
 " Prettier {{{
-if isdirectory(expand("~/.vim/plugged/vim-prettier"))
+if isdirectory(expand("~/.vim/pack/minpac/start/vim-prettier"))
   " Run Prettier async before saving
   let g:prettier#autoformat = 0
   " autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
@@ -323,7 +326,7 @@ endif
 " }}}
 
 " SimpylFold {{{
-if isdirectory(expand("~/.vim/plugged/SimpylFold"))
+if isdirectory(expand("~/.vim/pack/minpac/start/SimpylFold"))
   let g:SimpylFold_fold_docstring = 1
   let g:SimpylFold_fold_import = 1
 endif

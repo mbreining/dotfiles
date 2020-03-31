@@ -178,8 +178,8 @@ schemes:
       background: '#292c3e'
       foreground: '#ebebeb'
     cursor:
-     text: '#ebebeb'
-     cursor: '#ff261e'
+     text:     '#ebebeb'
+     cursor:   '#ff261e'
     normal:
       black:   '#0d0d0d'
       red:     '#ff301b'
@@ -198,7 +198,76 @@ schemes:
       magenta: '#a578ea'
       cyan:    '#73fbf1'
       white:   '#fefef8'
-  solarized: &solarized
+  ayu_dark: &ayu_dark
+    primary:
+      background: '#0a0e14'
+      foreground: '#b3b1ad'
+    normal:
+      black: '#01060e'
+      red: '#ea6c73'
+      green: '#91b362'
+      yellow: '#f9af4f'
+      blue: '#53bdfa'
+      magenta: '#fae994'
+      cyan: '#90e1c6'
+      white: '#c7c7c7'
+    bright:
+      black: '#686868'
+      red: '#f07178'
+      green: '#c2d94c'
+      yellow: '#ffb454'
+      blue: '#59c2ff'
+      magenta: '#ffee99'
+      cyan: '#95e6cb'
+      white: '#ffffff'
+  ayu_light: &ayu_light
+    primary:
+      background: '0xfafafa'
+      foreground: '0x5c6773'
+    cursor:
+      text:   '0x5c6773'
+      cursor: '0xff6a00'
+    normal:
+      black:   '0x000000'
+      red:     '0xff3333'
+      green:   '0x86b300'
+      yellow:  '0xf29718'
+      blue:    '0x41a6d9'
+      magenta: '0xf07178'
+      cyan:    '0x4dbf99'
+      white:   '0xffffff'
+    bright:
+      black:   '0x323232'
+      red:     '0xff6565'
+      green:   '0xb8e532'
+      yellow:  '0xffc94a'
+      blue:    '0x73d8ff'
+      magenta: '0xffa3aa'
+      cyan:    '0x7ff1cb'
+      white:   '0xffffff'
+  nord: &nord
+    primary:
+      background: '#2e3440'
+      foreground: '#d8dee9'
+    normal:
+      black:   '#3b4252'
+      red:     '#bf616a'
+      green:   '#a3be8c'
+      yellow:  '#ebcb8b'
+      blue:    '#81a1c1'
+      magenta: '#b48ead'
+      cyan:    '#88c0d0'
+      white:   '#e5e9f0'
+    bright:
+      black:   '#4c566a'
+      red:     '#bf616a'
+      green:   '#a3be8c'
+      yellow:  '#ebcb8b'
+      blue:    '#81a1c1'
+      magenta: '#b48ead'
+      cyan:    '#8fbcbb'
+      white:   '#eceff4'
+  solarized_light: &solarized_light
     primary:
       background: '#fdf6e3'
       foreground: '#657b83'
@@ -224,7 +293,7 @@ schemes:
       cyan:    '#93a1a1'
       white:   '#fdf6e3'
 
-colors: *argonaut
+colors: *nord
 
 # Visual Bell
 #
