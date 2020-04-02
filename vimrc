@@ -177,7 +177,7 @@ autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
 " Leader mappings {{{
 " VIM config
 nnoremap <Leader>ve :split $MYVIMRC<CR>
-nnoremap <Leader>vs :source $MYVIMRC<CR> :edit!<CR>
+nnoremap <Leader>vs :w<CR> :source $MYVIMRC<CR> :edit!<CR>
 
 " Tabs
 nnoremap <Leader>tn :tabnew<CR>
@@ -212,8 +212,8 @@ nnoremap <Leader>pl :echo minpac#getpackages()<CR>
 nnoremap <F1> <Esc>
 
 " Move up and down on a row basis
-"nnoremap j gj
-"nnoremap k gk
+nnoremap j gj
+nnoremap k gk
 
 " Emacs-style movement keys in command mode
 cnoremap <C-a>  <Home>
@@ -243,9 +243,6 @@ vnoremap D y'>p
 " Yank from the cursor to the end of the line, to be consistent with C and D
 nnoremap Y y$
 
-" Delete a line in insert mode
-inoremap <C-d> <ESC>ddi
-
 " Hide Ex mode http://www.bestofvim.com/tip/leave-ex-mode-good/
 nnoremap Q <NOP>
 
@@ -260,6 +257,7 @@ call minpac#init()
 
 " general
 call minpac#add('k-takata/minpac', {'type':'opt'})
+call minpac#add('qpkorr/vim-bufkill')
 call minpac#add('junegunn/fzf')
 call minpac#add('junegunn/fzf.vim')
 call minpac#add('mileszs/ack.vim')
@@ -279,7 +277,7 @@ call minpac#add('scrooloose/syntastic')
 " python https://www.vimfromscratch.com/articles/vim-for-python/
 call minpac#add('tmhedberg/SimpylFold')
 call minpac#add('klen/python-mode')
-" call minpac#add('sheerun/vim-polyglot')
+call minpac#add('sheerun/vim-polyglot')
 call minpac#add('yssource/python.vim')
 
 " ruby
@@ -292,6 +290,12 @@ call minpac#add('tpope/vim-endwise')
 call minpac#add ('leafgarland/typescript-vim')
 " }}}
 
+" bufkill {{{
+nnoremap <Leader>bx :BD<CR>
+nnoremap <Leader>bb :BB<CR>
+nnoremap <Leader>bf :BF<CR>
+" }}}
+"
 " Netrw {{{
 let g:netrw_banner = 0
 let g:netrw_winsize = 25

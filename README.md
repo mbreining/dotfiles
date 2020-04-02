@@ -5,7 +5,9 @@ Pre-requirements
 
 - Install [https://github.com/alacritty/alacritty](Alacritty)
 - Install [https://github.com/tmux/tmux](tmux)
+- Install vim with python3 (`brew install vim --with-python3`)
 - Install [https://github.com/junegunn/fzf](fzf)
+- Install ack (`brew install ack`)
 
 Installation
 ------------
