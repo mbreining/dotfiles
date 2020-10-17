@@ -255,7 +255,9 @@ inoremap <C-s> <ESC>:w<CR>a
 " }}}
 
 " Plugins {{{
-packadd minpac
+if isdirectory(expand("~/.vim/pack/minpac"))
+  packadd minpac
+endif
 if exists('g:loaded_minpac')
   call minpac#init()
 
