@@ -1,13 +1,13 @@
 My dotfiles
 
-Pre-requirements
+Requirements
 ----------------
 
-- Install [https://github.com/alacritty/alacritty](Alacritty)
 - Install [https://github.com/tmux/tmux](tmux)
-- Install vim with python3 (`brew install vim --with-python3`)
+- Install vim with python3 (e.g. `brew install vim --with-python3`)
 - Install [https://github.com/junegunn/fzf](fzf)
-- Install ack (`brew install ack`)
+- Install ack (e.g. `brew install ack`)
+- install vim minpac plugin [https://github.com/k-takata/minpac](minpac)
 
 Installation
 ------------
