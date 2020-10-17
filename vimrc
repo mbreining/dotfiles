@@ -8,9 +8,6 @@
 " https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/
 " https://begriffs.com/posts/2019-07-19-history-use-vim.html#third-party-plugins
 
-" Requirements:
-" - vim minpac plugin https://github.com/k-takata/minpac
-
 set nocompatible " vim settings rather than vi (must be first!)
 filetype off
 
