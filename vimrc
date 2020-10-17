@@ -197,14 +197,6 @@ nnoremap <Leader>et :tabe %%
 
 " Display all lines with keyword under cursor and ask which one to jump to
 nnoremap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
-
-" Plugins
-if exists('g:loaded_minpac')
-  nnoremap <Leader>pi :call minpac#update()<CR>
-  nnoremap <Leader>pc :call minpac#clean()<CR>
-  nnoremap <Leader>ps :call minpac#status()<CR>
-  nnoremap <Leader>pl :echo minpac#getpackages()<CR>
-endif
 " }}}
 
 " Other mappings {{{
