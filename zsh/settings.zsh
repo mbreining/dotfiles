@@ -137,6 +137,5 @@ export PR_BOLD_RED PR_BOLD_GREEN PR_BOLD_YELLOW PR_BOLD_BLUE
 export PR_BOLD_WHITE PR_BOLD_BLACK
 
 # Enable color in grep
-export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='3;33'
 # }}}
