@@ -145,12 +145,3 @@ export LS_COLORS=exfxcxdxbxegedabagacad
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='3;33'
 # }}}
-
-
-# Plugins {{{
-# requires antibody (brew install getantibody/tap/antibody)
-source <(antibody init)
-antibody bundle zdharma/fast-syntax-highlighting
-antibody bundle zsh-users/zsh-autosuggestions
-antibody bundle zsh-users/zsh-completions
-# }}}

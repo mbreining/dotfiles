@@ -5,3 +5,4 @@
 .ropeproject
 explain*.sql
 explain*.json
+node_modules/

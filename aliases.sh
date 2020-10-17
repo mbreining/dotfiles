@@ -3,6 +3,7 @@
 # Miscellaneous {{{
 alias 'ttop=top -ocpu -R -F -s 2 -n30' # fancy top
 alias rm='rm -i' # make rm less destructive
+alias python=python3
 # }}}
 
 # Directory handling {{{
@@ -28,10 +29,3 @@ alias gv='git log --pretty=format:'%s' | cut -d " " -f 1 | sort | uniq -c | sort
 alias gsh="git shortlog | grep -E '^[ ]+\w+' | wc -l" # show number of commits for current repos for all developers
 alias gu="git shortlog | grep -E '^[^ ]'" # show list of all developers and the number of commits they've made
 # }}}
-
-# Mac only {{{
-if type is_mac &>/dev/null && is_mac; then
-  alias oo='open .' # open current directory in OS X Finder
-  alias brewupgrade='brew outdated | while read cask; do brew upgrade $cask; done' # refresh brew by upgrading all outdated casks
-fi
-#}}}

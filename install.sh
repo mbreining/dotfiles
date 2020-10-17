@@ -4,7 +4,7 @@
 # Usage:
 # $ ./install.sh
 
-files_to_skip="README.md install.sh install_vim_plugins.sh powerline"
+files_to_skip="README.md install.sh"
 
 function skip_file() {
   if [[ $files_to_skip =~ $1 ]]; then
@@ -15,10 +15,6 @@ function skip_file() {
 }
 
 cd ~/dotfiles
-
-# Install zsh plugin manager
-brew install getantibody/tap/antibody
-brew install tmux
 
 # Install dotfiles
 for name in *; do

@@ -8,6 +8,9 @@
 " https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/
 " https://begriffs.com/posts/2019-07-19-history-use-vim.html#third-party-plugins
 
+" Requirements:
+" - vim minpac plugin https://github.com/k-takata/minpac
+
 set nocompatible " vim settings rather than vi (must be first!)
 filetype off
 
@@ -92,7 +95,6 @@ inoremap <Tab> <C-P>
 " }}}
 
 " Folding {{{
-set foldenable " fold files by default on open
 set foldmethod=indent " fold based on indent level
 set foldlevelstart=10 " open most folds by default
 set foldnestmax=10 " 10 nested fold max
@@ -122,7 +124,6 @@ autocmd BufNewFile,BufRead *.py
   \ set colorcolumn=+1 |
   \ set expandtab |
   \ set autoindent |
-  \ set foldlevel=0 |
   \ set fileformat=unix
 
 autocmd BufNewFile,BufRead *.js,*.html,*.css
@@ -201,10 +202,12 @@ nnoremap <Leader>et :tabe %%
 nnoremap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
 " Plugins
-nnoremap <Leader>pi :call minpac#update()<CR>
-nnoremap <Leader>pc :call minpac#clean()<CR>
-nnoremap <Leader>ps :call minpac#status()<CR>
-nnoremap <Leader>pl :echo minpac#getpackages()<CR>
+if exists('g:loaded_minpac')
+  nnoremap <Leader>pi :call minpac#update()<CR>
+  nnoremap <Leader>pc :call minpac#clean()<CR>
+  nnoremap <Leader>ps :call minpac#status()<CR>
+  nnoremap <Leader>pl :echo minpac#getpackages()<CR>
+endif
 " }}}
 
 " Other mappings {{{
@@ -253,41 +256,43 @@ inoremap <C-s> <ESC>:w<CR>a
 
 " Plugins {{{
 packadd minpac
-call minpac#init()
+if exists('g:loaded_minpac')
+  call minpac#init()
 
-" general
-call minpac#add('k-takata/minpac', {'type':'opt'})
-call minpac#add('qpkorr/vim-bufkill')
-call minpac#add('junegunn/fzf')
-call minpac#add('junegunn/fzf.vim')
-call minpac#add('mileszs/ack.vim')
-call minpac#add('tpope/vim-surround')
-call minpac#add('tpope/vim-repeat')
-call minpac#add('tomtom/tcomment_vim')
-call minpac#add('easymotion/vim-easymotion')
-call minpac#add('christoomey/vim-system-copy')
-call minpac#add('itchyny/lightline.vim')
+  " general
+  call minpac#add('k-takata/minpac', {'type':'opt'})
+  call minpac#add('qpkorr/vim-bufkill')
+  call minpac#add('junegunn/fzf')
+  call minpac#add('junegunn/fzf.vim')
+  call minpac#add('mileszs/ack.vim')
+  call minpac#add('tpope/vim-surround')
+  call minpac#add('tpope/vim-repeat')
+  call minpac#add('tomtom/tcomment_vim')
+  call minpac#add('easymotion/vim-easymotion')
+  call minpac#add('christoomey/vim-system-copy')
+  call minpac#add('itchyny/lightline.vim')
 
-" syntax
-call minpac#add('tpope/vim-markdown')
-call minpac#add('dense-analysis/ale')
-call minpac#add('prettier/vim-prettier')
-call minpac#add('scrooloose/syntastic')
+  " syntax
+  call minpac#add('tpope/vim-markdown')
+  call minpac#add('dense-analysis/ale')
+  call minpac#add('prettier/vim-prettier')
+  call minpac#add('scrooloose/syntastic')
 
-" python https://www.vimfromscratch.com/articles/vim-for-python/
-call minpac#add('tmhedberg/SimpylFold')
-call minpac#add('klen/python-mode')
-call minpac#add('sheerun/vim-polyglot')
-call minpac#add('yssource/python.vim')
+  " python https://www.vimfromscratch.com/articles/vim-for-python/
+  call minpac#add('tmhedberg/SimpylFold')
+  call minpac#add('klen/python-mode')
+  " call minpac#add('sheerun/vim-polyglot')
+  call minpac#add('yssource/python.vim')
 
-" ruby
-call minpac#add('tpope/vim-rails')
-call minpac#add('tpope/vim-rake')
-call minpac#add('tpope/vim-bundler')
-call minpac#add('tpope/vim-endwise')
+  " ruby
+  call minpac#add('tpope/vim-rails')
+  call minpac#add('tpope/vim-rake')
+  call minpac#add('tpope/vim-bundler')
+  call minpac#add('tpope/vim-endwise')
 
-" web
-call minpac#add ('leafgarland/typescript-vim')
+  " web
+  call minpac#add ('leafgarland/typescript-vim')
+endif
 " }}}
 
 " bufkill {{{
@@ -295,7 +300,7 @@ nnoremap <Leader>bx :BD<CR>
 nnoremap <Leader>bb :BB<CR>
 nnoremap <Leader>bf :BF<CR>
 " }}}
-"
+
 " Netrw {{{
 let g:netrw_banner = 0
 let g:netrw_winsize = 25

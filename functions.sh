@@ -80,34 +80,12 @@ function wcdir() {
 function rmvimbak() { rm -f $HOME/.vim_bak/* }
 # }}}
 
-# Pager {{{
-# Make vim a pager
-function vless() {
-  [[ $# -eq 0 ]] && command vim --cmd 'let no_plugin_maps = 1' -c 'runtime! macros/less.vim' -
-  [[ $# -eq 0 ]] || command vim --cmd 'let no_plugin_maps = 1' -c 'runtime! macros/less.vim' "$@"
-}
-
-# Use vim as man viewer
-function vman() {
-  env PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
-  vim -R -c 'set ft=man nomod nolist nonumber' -c 'map q :q<CR>' \
-  -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
-  -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\"" man $*
-}
-# }}}
-
 # Process management {{{
 # Grep process
 function psgrep() { ps aux | grep $1 | grep -v grep }
 
 # Return number of processes
 function pswc() { echo `command ps aux | wc -l` }
-
-# Run a command detached from the terminal and w/o output
-function nh() {
-  [[ "$#" -lt "1" ]] && echo "usage: $0 <command>" >&2 && return 2
-  nohup "$@" &>/dev/null & echo;
-}
 # }}}
 
 # Tmux {{{
@@ -122,12 +100,4 @@ function tmuxlist() { tmux list-sessions }
 
 # Kill existing tmux session
 function tmuxkill() { tmux kill-session -t $1 }
-# }}}
-
-# Backups {{{
-# Rsync /home/data directory to backup drive
-function rsyncdata() {
-  [[ "$#" -lt "1" ]] && echo "usage: $0 <target_dir>" >&2 && return 2
-  rsync -aE --delete $HOME/data/ /Volumes/$1
-}
 # }}}
