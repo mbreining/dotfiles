@@ -244,14 +244,13 @@ inoremap <C-s> <ESC>:w<CR>a
 " }}}
 
 " Plugins {{{
-if isdirectory(expand("~/.vim/pack/minpac"))
+function! PackInit() abort
   packadd minpac
-endif
-if exists('g:loaded_minpac')
+
   call minpac#init()
+  call minpac#add('k-takata/minpac', {'type': 'opt'})
 
   " general
-  call minpac#add('k-takata/minpac', {'type':'opt'})
   call minpac#add('qpkorr/vim-bufkill')
   call minpac#add('junegunn/fzf')
   call minpac#add('junegunn/fzf.vim')
@@ -276,13 +275,21 @@ if exists('g:loaded_minpac')
   call minpac#add('yssource/python.vim')
 
   " ruby
-  call minpac#add('tpope/vim-rails')
-  call minpac#add('tpope/vim-rake')
-  call minpac#add('tpope/vim-bundler')
-  call minpac#add('tpope/vim-endwise')
+  " call minpac#add('tpope/vim-rails')
+  " call minpac#add('tpope/vim-rake')
+  " call minpac#add('tpope/vim-bundler')
+  " call minpac#add('tpope/vim-endwise')
 
   " web
-  call minpac#add ('leafgarland/typescript-vim')
+  " call minpac#add ('leafgarland/typescript-vim')
+endfunction
+
+command! PackUpdate call PackInit() | call minpac#update()
+command! PackClean  call PackInit() | call minpac#clean()
+command! PackStatus packadd minpac | call minpac#status()
+
+if isdirectory(expand("~/.vim/pack/minpac"))
+  call PackInit()
 endif
 " }}}
 
