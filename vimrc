@@ -257,16 +257,19 @@ function! PackInit() abort
   call minpac#add('mileszs/ack.vim')
   call minpac#add('tpope/vim-surround')
   call minpac#add('tpope/vim-repeat')
+  call minpac#add('tpope/vim-fugitive')
   call minpac#add('tomtom/tcomment_vim')
   call minpac#add('easymotion/vim-easymotion')
   call minpac#add('christoomey/vim-system-copy')
   call minpac#add('itchyny/lightline.vim')
 
   " syntax
-  call minpac#add('tpope/vim-markdown')
-  call minpac#add('dense-analysis/ale')
-  call minpac#add('prettier/vim-prettier')
+  call minpac#add('neoclide/coc.nvim')
+  " call minpac#add('dense-analysis/ale')
   call minpac#add('scrooloose/syntastic')
+
+  " markdown
+  call minpac#add('tpope/vim-markdown')
 
   " python https://www.vimfromscratch.com/articles/vim-for-python/
   call minpac#add('tmhedberg/SimpylFold')
@@ -281,6 +284,7 @@ function! PackInit() abort
   " call minpac#add('tpope/vim-endwise')
 
   " web
+  " call minpac#add('prettier/vim-prettier')
   " call minpac#add ('leafgarland/typescript-vim')
 endfunction
 
