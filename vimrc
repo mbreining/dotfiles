@@ -17,6 +17,7 @@ let maplocalleader = "\\"
 " }}}
 
 " General settings {{{
+set autoindent " maintain indent of current line
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
 set history=1000 " keep 1000 lines of command line history
 set ruler " show the cursor position all the time
@@ -31,7 +32,6 @@ set hidden " allow buffer switching w/o saving
 set wildmenu " visual autocomplete for command menu
 set lazyredraw " redraw only when we need to
 set ttyfast
-set visualbell " display error bells visually
 set list listchars=tab:»·,trail:· " display extra whitespace
 set cursorline " highlight current line
 set mouse=a " automatically enable mouse usage
@@ -48,16 +48,22 @@ set viewoptions=folds,options,cursor,unix,slash " better unix / windows compatib
 set iskeyword-=. " . is an end of word designator
 set iskeyword-=# " # is an end of word designator
 set iskeyword-=- " - is an end of word designator
+
+if has('linebreak')
+  set breakindent " indent wrapped lines to match start
+  if exists('&breakindentopt')
+    set breakindentopt=shift:2 " emphasize broken lines by indenting them
+  endif
+endif
+
+set visualbell " display error bells visually
+if exists('&belloff')
+  set belloff=all " never ring the bell for any reason
+endif
 " }}}
 
 " Colors {{{
 syntax enable
-
-" Force 256 colors
-if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
-  set t_Co=256
-endif
-
 hi CursorLine term=bold cterm=bold " no underline on current line
 " }}}
 
@@ -81,7 +87,7 @@ set incsearch " search as characters are entered
 set showmatch " highlight matching [{()}]
 set hlsearch " highlight all matches
 " Toggle search highlighting
-nnoremap <Leader><Space> :set invhlsearch<CR>
+nnoremap <leader><space> :set invhlsearch<CR>
 " }}}
 
 " Completion {{{
@@ -102,8 +108,8 @@ set foldnestmax=10 " 10 nested fold max
   vnoremap <Space> za
 
   " Open all / Close all
-  nnoremap <Leader>fo :set foldlevel=10<CR>
-  nnoremap <Leader>fc :set foldlevel=0<CR>
+  nnoremap <leader>fo :set foldlevel=10<CR>
+  nnoremap <leader>fc :set foldlevel=0<CR>
   " }}}
 " }}}
 
@@ -136,24 +142,25 @@ autocmd BufRead,BufNewFile .{jscs,jshint,eslint}rc set filetype=json
 " Also see vim-autoswap plugin which auto manages swap files.
 set nobackup
 set nowritebackup
-silent execute '!mkdir -p ~/.vim_bak'
-set backupdir=~/.vim_bak//
-set directory=~/.vim_bak//
+silent execute '!mkdir -p ~/.vim/tmp/{backup,swap,undo}'
+set backupdir=~/.vim/tmp/backup
+set directory=~/.vim/tmp/swap
+set undodir=~/.vim/tmp/undo
 set updatetime=100
 " }}}
 
 " Spelling {{{
 set nospell " disable spell checking by default
 set spelllang=en_us " set region to US English
-nnoremap <Leader>ss :setlocal spell!<CR>
-nnoremap <Leader>sn ]s " go to next error
-nnoremap <Leader>sp [s " got to previous error
-"nnoremap <Leader>ss z= " show suggestions
-nnoremap <Leader>sl 1z= " feeling lucky
+" nnoremap <leader>ss :setlocal spell!<CR>
+" nnoremap <leader>sn ]s " go to next error
+" nnoremap <leader>sp [s " got to previous error
+" nnoremap <leader>ss z= " show suggestions
+" nnoremap <leader>sl 1z= " feeling lucky
 " }}}
 
 " Quickfix {{{
-nnoremap <Leader>qt :call QuickfixToggle()<CR>
+nnoremap <leader>qt :call QuickfixToggle()<CR>
 
 function! QuickfixToggle()
   for i in range(1, winnr('$'))
@@ -168,35 +175,33 @@ endfunction
 " }}}
 
 " Autocommands {{{
-" Always switch to the current file directory
-autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
 " }}}
 
 " Leader mappings {{{
 " VIM config
-nnoremap <Leader>ve :split $MYVIMRC<CR>
-nnoremap <Leader>vs :w<CR> :source $MYVIMRC<CR> :edit!<CR>
+nnoremap <leader>ve :split $MYVIMRC<CR>
+nnoremap <leader>vs :w<CR> :source $MYVIMRC<CR> :edit!<CR>
 
 " Tabs
-nnoremap <Leader>tn :tabnew<CR>
-nnoremap <Leader>to :tabonly<CR>
-nnoremap <Leader>tc :tabclose<CR>
-nnoremap <Leader>tm :tabmove
+nnoremap <leader>tn :tabnew<CR>
+nnoremap <leader>to :tabonly<CR>
+nnoremap <leader>tc :tabclose<CR>
+nnoremap <leader>tm :tabmove
 " Open a new tab with the current buffer's path
-nnoremap <Leader>te :tabedit <C-R>=expand("%:p:h")<CR>/
+nnoremap <leader>te :tabedit <C-R>=expand("%:p:h")<CR>/
 
-nnoremap <Leader>. :cd %:h<CR>
+nnoremap <leader>. :cd %:h<CR>
 
 " Open an edit command with the path of the currently edited file filled in
 " http://vimcasts.org/episodes/the-edit-command/
 cnoremap %% <C-R>=fnameescape(expand('%:p:h')).'/'<CR>
-nmap <Leader>ew :e %%
-nmap <Leader>es :sp %%
-nmap <Leader>ev :vsp %%
-nnoremap <Leader>et :tabe %%
+nmap <leader>ew :e %%
+nmap <leader>es :sp %%
+nmap <leader>ev :vsp %%
+nnoremap <leader>et :tabe %%
 
 " Display all lines with keyword under cursor and ask which one to jump to
-nnoremap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+nnoremap <leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 " }}}
 
 " Other mappings {{{
@@ -264,12 +269,15 @@ function! PackInit() abort
   call minpac#add('itchyny/lightline.vim')
 
   " syntax
-  call minpac#add('neoclide/coc.nvim')
+  call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
   " call minpac#add('dense-analysis/ale')
   call minpac#add('scrooloose/syntastic')
 
   " markdown
   call minpac#add('tpope/vim-markdown')
+
+  " cpp
+  " call minpac#add('preservim/tagbar')
 
   " python https://www.vimfromscratch.com/articles/vim-for-python/
   call minpac#add('tmhedberg/SimpylFold')
@@ -298,9 +306,9 @@ endif
 " }}}
 
 " bufkill {{{
-nnoremap <Leader>bx :BD<CR>
-nnoremap <Leader>bb :BB<CR>
-nnoremap <Leader>bf :BF<CR>
+nnoremap <leader>bx :BD<cr>
+nnoremap <leader>bb :BB<cr>
+nnoremap <leader>bf :BF<cr>
 " }}}
 
 " Netrw {{{
