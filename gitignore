@@ -6,3 +6,4 @@
 explain*.sql
 explain*.json
 node_modules/
+.ccls
