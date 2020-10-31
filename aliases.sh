@@ -3,6 +3,7 @@
 # Miscellaneous {{{
 alias 'ttop=top -ocpu -R -F -s 2 -n30' # fancy top
 alias rm='rm -i' # make rm less destructive
+alias vi=vim
 alias python=python3
 # }}}
 
