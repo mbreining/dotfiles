@@ -9,15 +9,6 @@ Requirements
 - Install ack (e.g. `brew install ack`)
 - install vim minpac plugin [https://github.com/k-takata/minpac](minpac)
 
-Installation
-------------
-
-```
-$ git clone git@github.com:mbreining/dotfiles.git
-$ cd dotfiles
-$ ./install.sh
-```
-
 Pure prompt configuration
 -------------------------
 

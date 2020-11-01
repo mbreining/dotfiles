@@ -1,4 +1,3 @@
-" http://www.cs.swarthmore.edu/help/vim/modelines.html
 " vim: set sw=2 ts=2 sts=2 et tw=78 foldmarker={{{,}}} foldlevel=0 foldmethod=marker:
 
 " Inspired by:

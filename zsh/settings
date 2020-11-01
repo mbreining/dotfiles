@@ -1,3 +1,4 @@
+# vim: set sw=2 ts=2 sts=2 et tw=78 foldmarker={{{,}}} foldlevel=0 foldmethod=marker:
 # https://blog.callstack.io/supercharge-your-terminal-with-zsh-8b369d689770
 
 # Exports {{{
@@ -28,9 +29,9 @@ setopt extended_glob # treat #, ~, and ^ as part of patterns for filename genera
 setopt correct # spelling correction for commands
 setopt correctall # spelling correction for arguments
 
-# Prompt
-setopt prompt_subst # enable parameter expansion, command substitution, and arithmetic expansion in the prompt
-setopt transient_rprompt # only show the rprompt on the current prompt
+alias mkdir='nocorrect mkdir'
+alias mv='nocorrect mv'
+alias sudo='nocorrect sudo'
 
 # Scripts and Functions
 setopt multios # perform implicit tees or cats when multiple redirections are attempted
@@ -117,25 +118,91 @@ setopt hist_reduce_blanks # remove extra blanks from each command line being add
 setopt hist_verify # dont execute, just expand history
 setopt share_history # imports new commands and appends typed commands to history
 
-HISTFILE=$HOME/.zsh_history
-HISTSIZE=10000
+HISTFILE=$HOME/.zhistory
+HISTSIZE=100000
 SAVEHIST=$HISTSIZE
 # }}}
-#
+
 # Colors {{{
 autoload -U colors && colors # enable colors in prompt
 
-# The variables are wrapped in \%\{\%\}
-for COLOR in RED GREEN YELLOW BLUE MAGENTA CYAN BLACK WHITE; do
-  eval PR_$COLOR='%{$fg_no_bold[${(L)COLOR}]%}'
-  eval PR_BOLD_$COLOR='%{$fg_bold[${(L)COLOR}]%}'
-done
+# http://zsh.sourceforge.net/Doc/Release/User-Contributions.html
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git hg
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' disable-patterns "${(b)HOME}/code/(portal|portal-ee|portal-master)(|/*)"
+zstyle ':vcs_info:*' stagedstr "%F{green}●%f" # default 'S'
+zstyle ':vcs_info:*' unstagedstr "%F{red}●%f" # default 'U'
+zstyle ':vcs_info:*' use-simple true
+zstyle ':vcs_info:git+set-message:*' hooks git-untracked
+zstyle ':vcs_info:git*:*' formats '[%b%m%c%u] ' # default ' (%s)-[%b]%c%u-'
+zstyle ':vcs_info:git*:*' actionformats '[%b|%a%m%c%u] ' # default ' (%s)-[%b|%a]%c%u-'
+zstyle ':vcs_info:hg*:*' formats '[%m%b] '
+zstyle ':vcs_info:hg*:*' actionformats '[%b|%a%m] '
+zstyle ':vcs_info:hg*:*' branchformat '%b'
+zstyle ':vcs_info:hg*:*' get-bookmarks true
+zstyle ':vcs_info:hg*:*' get-revision true
+zstyle ':vcs_info:hg*:*' get-mq false
+zstyle ':vcs_info:hg*+gen-hg-bookmark-string:*' hooks hg-bookmarks
+zstyle ':vcs_info:hg*+set-message:*' hooks hg-message
 
-eval RESET='$reset_color'
-export PR_RED PR_GREEN PR_YELLOW PR_BLUE PR_WHITE PR_BLACK
-export PR_BOLD_RED PR_BOLD_GREEN PR_BOLD_YELLOW PR_BOLD_BLUE
-export PR_BOLD_WHITE PR_BOLD_BLACK
+function +vi-hg-bookmarks() {
+  emulate -L zsh
+  if [[ -n "${hook_com[hg-active-bookmark]}" ]]; then
+    hook_com[hg-bookmark-string]="${(Mj:,:)@}"
+    ret=1
+  fi
+}
 
-# Enable color in grep
-export GREP_COLOR='3;33'
+function +vi-hg-message() {
+  emulate -L zsh
+
+  # Suppress hg branch display if we can display a bookmark instead.
+  if [[ -n "${hook_com[misc]}" ]]; then
+    hook_com[branch]=''
+  fi
+  return 0
+}
+
+function +vi-git-untracked() {
+  emulate -L zsh
+  if [[ -n $(git ls-files --exclude-standard --others 2> /dev/null) ]]; then
+    hook_com[unstaged]+="%F{blue}●%f"
+  fi
+}
+
+RPROMPT_BASE="\${vcs_info_msg_0_}%F{blue}%~%f"
+setopt PROMPT_SUBST
+
+# Anonymous function to avoid leaking variables.
+function () {
+  # Check for tmux by looking at $TERM, because $TMUX won't be propagated to any
+  # nested sudo shells but $TERM will.
+  local TMUXING=$([[ "$TERM" =~ "tmux" ]] && echo tmux)
+  if [ -n "$TMUXING" -a -n "$TMUX" ]; then
+    # In a a tmux session created in a non-root or root shell.
+    local LVL=$(($SHLVL - 1))
+  elif [ -n "$XAUTHORITY" ]; then
+    # Probably in X on Linux.
+    local LVL=$(($SHLVL - 2))
+  else
+    # Either in a root shell created inside a non-root tmux session,
+    # or not in a tmux session.
+    local LVL=$SHLVL
+  fi
+  if [[ $EUID -eq 0 ]]; then
+    local SUFFIX='%F{yellow}%n%f'$(printf '%%F{yellow}\u276f%.0s%%f' {1..$LVL})
+  else
+    local SUFFIX=$(printf '%%F{red}\u276f%.0s%%f' {1..$LVL})
+  fi
+  export PS1="%F{green}${SSH_TTY:+%n@%m}%f%B${SSH_TTY:+:}%b%F{blue}%B%1~%b%F{yellow}%B%(1j.*.)%(?..!)%b%f %B${SUFFIX}%b "
+  if [[ -n "$TMUXING" ]]; then
+    # Outside tmux, ZLE_RPROMPT_INDENT ends up eating the space after PS1, and
+    # prompt still gets corrupted even if we add an extra space to compensate.
+    export ZLE_RPROMPT_INDENT=0
+  fi
+}
+
+export RPROMPT=$RPROMPT_BASE
+export SPROMPT="zsh: correct %F{red}'%R'%f to %F{red}'%r'%f [%B%Uy%u%bes, %B%Un%u%bo, %B%Ue%u%bdit, %B%Ua%u%bbort]? "
 # }}}

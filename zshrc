@@ -1,11 +1,10 @@
-# zsh startup files: http://zsh.sourceforge.net/Intro/intro_3.html
-# sources: https://github.com/myfreeweb/zshuery
-#          http://zanshin.net/2013/02/02/zsh-configuration-from-the-ground-up/
+# vim: set sw=2 ts=2 sts=2 et tw=78 foldmarker={{{,}}} foldlevel=0 foldmethod=marker:
 
 # Zsh config {{{
-source $HOME/.zsh/settings.zsh # prompt, completion, path, bindkeys, history
-source $HOME/.aliases.sh
-source $HOME/.functions.sh
+source $HOME/.zsh/settings # prompt, completion, path, bindkeys, history
+source $HOME/.zsh/aliases
+source $HOME/.zsh/colors
+source $HOME/.zsh/functions
 # }}}
 
 # Zsh local config overrides {{{
