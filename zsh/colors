@@ -1,3 +1,5 @@
+# https://github.com/wincent/wincent/blob/master/aspects/dotfiles/files/.zsh/colors
+
 __MBREINING[BASE16_CONFIG]=~/.vim/.base16
 
 # Takes a hex color in the form of "RRGGBB" and outputs its luma (0-255, where

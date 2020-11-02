@@ -266,6 +266,7 @@ function! PackInit() abort
   call minpac#add('easymotion/vim-easymotion')
   call minpac#add('christoomey/vim-system-copy')
   call minpac#add('itchyny/lightline.vim')
+  call minpac#add('chriskempson/base16-vim')
 
   " syntax
   call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
