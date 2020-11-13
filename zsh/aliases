@@ -5,16 +5,17 @@ alias 'ttop=top -ocpu -R -F -s 2 -n30' # fancy top
 alias rm='rm -i' # make rm less destructive
 alias vi=vim
 alias python=python3
-alias f='find . -name'
-alias cd..='cd ..'
+alias ff='find -L . -type f -name'
+alias fd='find -L . -type d -name'
 alias prettyjson='python -m json.tool'
 # }}}
 
 # Directory handling {{{
+alias cd..='cd ..'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
-alias 'bk=cd $OLDPWD'
+alias bk='cd $OLDPWD'
 
 ls --color -d . &>/dev/null 2>&1 && alias ls="ls --color=tty -Fh" || alias ls="ls -GFh"
 alias la='ls -d .*' # show hidden files/directories only
