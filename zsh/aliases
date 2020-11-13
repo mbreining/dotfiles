@@ -27,10 +27,3 @@ alias 'wcfile=find . -type f | wc -l' # number of files (not directories)
 
 alias mkdir="mkdir -p"
 # }}}
-
-# Git {{{
-alias g=git
-alias gv='git log --pretty=format:'%s' | cut -d " " -f 1 | sort | uniq -c | sort -nr'
-alias gsh="git shortlog | grep -E '^[ ]+\w+' | wc -l" # show number of commits for current repos for all developers
-alias gu="git shortlog | grep -E '^[^ ]'" # show list of all developers and the number of commits they've made
-# }}}
