@@ -21,10 +21,6 @@ set backspace=indent,eol,start " allow backspacing over everything in insert mod
 set history=1000 " keep 1000 lines of command line history
 set ruler " show the cursor position all the time
 set showcmd " show command in bottom bar
-scriptencoding utf-8 " character encoding used in this script
-if !has("nvim")
-  set encoding=utf-8 " character encoding used inside vim (buffers, registers, etc)
-endif
 set scrolloff=3
 set showmode " show current mode
 set hidden " allow buffer switching w/o saving
@@ -50,9 +46,6 @@ set iskeyword-=- " - is an end of word designator
 
 if has('linebreak')
   set breakindent " indent wrapped lines to match start
-  if exists('&breakindentopt')
-    set breakindentopt=shift:2 " emphasize broken lines by indenting them
-  endif
 endif
 
 set visualbell " display error bells visually
@@ -177,9 +170,14 @@ endfunction
 " }}}
 
 " Leader mappings {{{
-" VIM config
+" vimrc config
 nnoremap <leader>ve :split $MYVIMRC<CR>
 nnoremap <leader>vs :w<CR> :source $MYVIMRC<CR> :edit!<CR>
+
+nnoremap <C-J> <C-W>j
+nnoremap <C-K> <C-W>k
+nnoremap <C-L> <C-W>l
+nnoremap <C-H> <C-W>h
 
 " Tabs
 nnoremap <leader>tn :tabnew<CR>
@@ -311,8 +309,26 @@ nnoremap <leader>bb :BB<cr>
 nnoremap <leader>bf :BF<cr>
 " }}}
 
+" lightline {{{
+let g:lightline = {
+      \ 'component_function': {
+      \   'filename': 'LightlineFilename',
+      \ }
+      \ }
+
+function! LightlineFilename()
+  let root = fnamemodify(get(b:, 'git_dir'), ':h')
+  let path = expand('%:p')
+  if path[:len(root)-1] ==# root
+    return path[len(root)+1:]
+  endif
+  return expand('%')
+endfunction
+" }}}
+
 " Netrw {{{
 let g:netrw_banner = 0
+let g:netrw_liststyle = 3
 let g:netrw_winsize = 25
 let g:netrw_browse_split = 4
 nnoremap <C-n> :Vexplore<CR>
