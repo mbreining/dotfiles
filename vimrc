@@ -261,7 +261,7 @@ function! PackInit() abort
   call minpac#add('morhetz/gruvbox')
 
   " syntax
-  " call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
+  call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
   " call minpac#add('dense-analysis/ale')
   call minpac#add('scrooloose/syntastic')
 
@@ -272,7 +272,7 @@ function! PackInit() abort
   " call minpac#add('preservim/tagbar')
 
   " python https://www.vimfromscratch.com/articles/vim-for-python/
-  call minpac#add('tmhedberg/SimpylFold')
+  " call minpac#add('tmhedberg/SimpylFold')
   call minpac#add('klen/python-mode')
   " call minpac#add('sheerun/vim-polyglot')
   call minpac#add('yssource/python.vim')
@@ -356,13 +356,6 @@ if isdirectory(expand("~/.vim/pack/minpac/start/vim-prettier"))
   " Run Prettier async before saving
   let g:prettier#autoformat = 0
   autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
-endif
-" }}}
-
-" SimpylFold {{{
-if isdirectory(expand("~/.vim/pack/minpac/start/SimpylFold"))
-  let g:SimpylFold_fold_docstring = 1
-  let g:SimpylFold_fold_import = 1
 endif
 " }}}
 
