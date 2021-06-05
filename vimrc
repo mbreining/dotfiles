@@ -31,6 +31,7 @@ set list listchars=tab:»·,trail:· " display extra whitespace
 set cursorline " highlight current line
 set mouse=a " automatically enable mouse usage
 set mousehide " hide mouse cursor while typing
+syntax enable " enable colors
 
 " https://github.com/jeffkreeftmeijer/vim-numbertoggle
 set nonumber
@@ -52,11 +53,6 @@ set visualbell " display error bells visually
 if exists('&belloff')
   set belloff=all " never ring the bell for any reason
 endif
-" }}}
-
-" Colors {{{
-syntax enable
-hi CursorLine term=bold cterm=bold " no underline on current line
 " }}}
 
 " Spaces and tabs {{{
@@ -94,15 +90,13 @@ set foldmethod=indent " fold based on indent level
 set foldlevelstart=10 " open most folds by default
 set foldnestmax=10 " 10 nested fold max
 
-  " Code folding key mappings {{{
-  " Toggle fold w/ space
-  nnoremap <Space> za
-  vnoremap <Space> za
+" Toggle fold w/ space
+nnoremap <Space> za
+vnoremap <Space> za
 
-  " Open all / Close all
-  nnoremap <leader>fo :set foldlevel=10<CR>
-  nnoremap <leader>fc :set foldlevel=0<CR>
-  " }}}
+" Open all / Close all
+nnoremap <leader>fo :set foldlevel=10<CR>
+nnoremap <leader>fc :set foldlevel=0<CR>
 " }}}
 
 " Filetypes {{{
@@ -149,21 +143,6 @@ set spelllang=en_us " set region to US English
 " nnoremap <leader>sp [s " got to previous error
 " nnoremap <leader>ss z= " show suggestions
 " nnoremap <leader>sl 1z= " feeling lucky
-" }}}
-
-" Quickfix {{{
-nnoremap <leader>qt :call QuickfixToggle()<CR>
-
-function! QuickfixToggle()
-  for i in range(1, winnr('$'))
-    let bnum = winbufnr(i)
-    if getbufvar(bnum, '&buftype') == 'quickfix'
-      cclose
-      return
-    endif
-  endfor
-  copen
-endfunction
 " }}}
 
 " Autocommands {{{
@@ -242,6 +221,20 @@ nnoremap Q <NOP>
 " Save changes
 nnoremap <C-s> :w<CR>
 inoremap <C-s> <ESC>:w<CR>a
+
+" Quickfix toggle
+nnoremap <leader>qt :call QuickfixToggle()<CR>
+
+function! QuickfixToggle()
+  for i in range(1, winnr('$'))
+    let bnum = winbufnr(i)
+    if getbufvar(bnum, '&buftype') == 'quickfix'
+      cclose
+      return
+    endif
+  endfor
+  copen
+endfunction
 " }}}
 
 " Plugins {{{
