@@ -21,7 +21,7 @@ set backspace=indent,eol,start " allow backspacing over everything in insert mod
 set history=1000 " keep 1000 lines of command line history
 set ruler " show the cursor position all the time
 set showcmd " show command in bottom bar
-set scrolloff=3
+set scrolloff=8
 set showmode " show current mode
 set hidden " allow buffer switching w/o saving
 set wildmenu " visual autocomplete for command menu
