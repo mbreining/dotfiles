@@ -124,15 +124,11 @@ autocmd BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufRead,BufNewFile .{jscs,jshint,eslint}rc set filetype=json
 " }}}
 
-" Backups {{{
-" Also see vim-autoswap plugin which auto manages swap files.
+" No backups, no swaps {{{
+set noswapfile
 set nobackup
 set nowritebackup
-silent execute '!mkdir -p ~/.vim/tmp/{backup,swap,undo}'
-set backupdir=~/.vim/tmp/backup
-set directory=~/.vim/tmp/swap
-set undodir=~/.vim/tmp/undo
-set updatetime=100
+set undodir=~/.vim/undo
 " }}}
 
 " Spelling {{{
