@@ -264,10 +264,13 @@ function! PackInit() abort
   call minpac#add('easymotion/vim-easymotion')
   call minpac#add('christoomey/vim-system-copy')
   call minpac#add('itchyny/lightline.vim')
-  call minpac#add('chriskempson/base16-vim')
+  " call minpac#add('chriskempson/base16-vim')
+
+  " colorscheme
+  call minpac#add('morhetz/gruvbox')
 
   " syntax
-  call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
+  " call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
   " call minpac#add('dense-analysis/ale')
   call minpac#add('scrooloose/syntastic')
 
@@ -301,6 +304,11 @@ command! PackStatus packadd minpac | call minpac#status()
 if isdirectory(expand("~/.vim/pack/minpac"))
   call PackInit()
 endif
+" }}}
+
+" {{{
+colorscheme gruvbox
+set background=dark
 " }}}
 
 " bufkill {{{
