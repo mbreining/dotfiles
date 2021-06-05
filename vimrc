@@ -169,11 +169,12 @@ endfunction
 " Autocommands {{{
 " }}}
 
-" Leader mappings {{{
+" Key mappings {{{
 " vimrc config
 nnoremap <leader>ve :split $MYVIMRC<CR>
 nnoremap <leader>vs :w<CR> :source $MYVIMRC<CR> :edit!<CR>
 
+" Windows
 nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
 nnoremap <C-L> <C-W>l
@@ -199,9 +200,7 @@ nnoremap <leader>et :tabe %%
 
 " Display all lines with keyword under cursor and ask which one to jump to
 nnoremap <leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
-" }}}
 
-" Other mappings {{{
 " Disable F1 help
 nnoremap <F1> <Esc>
 
@@ -264,7 +263,6 @@ function! PackInit() abort
   call minpac#add('easymotion/vim-easymotion')
   call minpac#add('christoomey/vim-system-copy')
   call minpac#add('itchyny/lightline.vim')
-  " call minpac#add('chriskempson/base16-vim')
 
   " colorscheme
   call minpac#add('morhetz/gruvbox')
@@ -306,7 +304,7 @@ if isdirectory(expand("~/.vim/pack/minpac"))
 endif
 " }}}
 
-" {{{
+" gruvbox {{{
 colorscheme gruvbox
 set background=dark
 " }}}
