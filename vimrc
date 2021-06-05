@@ -374,3 +374,7 @@ if isdirectory(expand("~/.vim/pack/minpac/start/SimpylFold"))
   let g:SimpylFold_fold_import = 1
 endif
 " }}}
+
+if filereadable(expand("~/.vimrc.local"))
+  source ~/.vimrc.local
+endif
