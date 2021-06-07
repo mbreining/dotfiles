@@ -36,6 +36,7 @@ syntax enable " enable colors
 " https://github.com/jeffkreeftmeijer/vim-numbertoggle
 set nonumber
 set relativenumber
+set number " show current line number
 set numberwidth=5
 
 set shortmess+=filmnrxoOtT " abbrev. of messages (avoids 'hit enter')
@@ -261,7 +262,7 @@ function! PackInit() abort
   call minpac#add('morhetz/gruvbox')
 
   " syntax
-  " call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
+  call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
   " call minpac#add('dense-analysis/ale')
   call minpac#add('scrooloose/syntastic')
 
@@ -328,9 +329,8 @@ endfunction
 " Netrw {{{
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
-let g:netrw_winsize = 25
-let g:netrw_browse_split = 4
-nnoremap <C-n> :Vexplore<CR>
+let g:netrw_browse_split = 0
+nnoremap <C-n> :Explore<CR>
 " }}}
 
 " Fzf {{{
