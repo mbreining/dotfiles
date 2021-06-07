@@ -21,7 +21,7 @@ set backspace=indent,eol,start " allow backspacing over everything in insert mod
 set history=1000 " keep 1000 lines of command line history
 set ruler " show the cursor position all the time
 set showcmd " show command in bottom bar
-set scrolloff=3
+set scrolloff=8
 set showmode " show current mode
 set hidden " allow buffer switching w/o saving
 set wildmenu " visual autocomplete for command menu
@@ -125,15 +125,11 @@ autocmd BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufRead,BufNewFile .{jscs,jshint,eslint}rc set filetype=json
 " }}}
 
-" Backups {{{
-" Also see vim-autoswap plugin which auto manages swap files.
+" No backups, no swaps {{{
+set noswapfile
 set nobackup
 set nowritebackup
-silent execute '!mkdir -p ~/.vim/tmp/{backup,swap,undo}'
-set backupdir=~/.vim/tmp/backup
-set directory=~/.vim/tmp/swap
-set undodir=~/.vim/tmp/undo
-set updatetime=100
+set undodir=~/.vim/undo
 " }}}
 
 " Spelling {{{
@@ -273,7 +269,7 @@ function! PackInit() abort
   " call minpac#add('preservim/tagbar')
 
   " python https://www.vimfromscratch.com/articles/vim-for-python/
-  call minpac#add('tmhedberg/SimpylFold')
+  " call minpac#add('tmhedberg/SimpylFold')
   call minpac#add('klen/python-mode')
   " call minpac#add('sheerun/vim-polyglot')
   call minpac#add('yssource/python.vim')
@@ -356,13 +352,6 @@ if isdirectory(expand("~/.vim/pack/minpac/start/vim-prettier"))
   " Run Prettier async before saving
   let g:prettier#autoformat = 0
   autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
-endif
-" }}}
-
-" SimpylFold {{{
-if isdirectory(expand("~/.vim/pack/minpac/start/SimpylFold"))
-  let g:SimpylFold_fold_docstring = 1
-  let g:SimpylFold_fold_import = 1
 endif
 " }}}
 
