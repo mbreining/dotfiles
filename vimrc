@@ -245,7 +245,7 @@ function! PackInit() abort
   call minpac#add('qpkorr/vim-bufkill')
   call minpac#add('junegunn/fzf')
   call minpac#add('junegunn/fzf.vim')
-  call minpac#add('mileszs/ack.vim')
+  " call minpac#add('mileszs/ack.vim')
   call minpac#add('tpope/vim-surround')
   call minpac#add('tpope/vim-repeat')
   call minpac#add('tpope/vim-fugitive')
@@ -257,7 +257,8 @@ function! PackInit() abort
   " colorscheme
   call minpac#add('morhetz/gruvbox')
 
-  " syntax
+  " syntax / lsp
+  " https://www.youtube.com/watch?v=OXEVhnY621M
   call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
   " call minpac#add('dense-analysis/ale')
   call minpac#add('scrooloose/syntastic')
@@ -333,25 +334,6 @@ nnoremap <C-n> :Explore<CR>
 if isdirectory(expand("~/.vim/pack/minpac/start/fzf.vim"))
   nnoremap <expr> <C-p> (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<CR>"
   nnoremap <C-b> :Buffers<CR>
-endif
-" }}}
-
-" Ack {{{
-if executable("ack")
-  " Use Ack instead of Grep when available
-  set grepprg=ack\ -H\ --nogroup\ --nocolor
-  let g:ackhighlight = 1
-endif
-nnoremap <C-k> :Ack!<Space>
-" Search for word under cursor
-nnoremap <C-k><C-d> :Ack! -w <C-r><C-w><CR>
-" }}}
-
-" Prettier {{{
-if isdirectory(expand("~/.vim/pack/minpac/start/vim-prettier"))
-  " Run Prettier async before saving
-  let g:prettier#autoformat = 0
-  autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
 endif
 " }}}
 
