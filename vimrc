@@ -15,7 +15,7 @@ let mapleader = ","
 let maplocalleader = "\\"
 " }}}
 
-" General settings {{{
+" Sets {{{
 set autoindent " maintain indent of current line
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
 set history=1000 " keep 1000 lines of command line history
@@ -33,15 +33,8 @@ set mouse=a " automatically enable mouse usage
 set mousehide " hide mouse cursor while typing
 syntax enable " enable colors
 
-" https://github.com/jeffkreeftmeijer/vim-numbertoggle
-set nonumber
-set relativenumber
-set number " show current line number
-set numberwidth=5
-
 set shortmess+=filmnrxoOtT " abbrev. of messages (avoids 'hit enter')
 set viewoptions=folds,options,cursor,unix,slash " better unix / windows compatibility
-"set virtualedit=onemore " allow for cursor beyond last character
 set iskeyword-=. " . is an end of word designator
 set iskeyword-=# " # is an end of word designator
 set iskeyword-=- " - is an end of word designator
@@ -50,105 +43,67 @@ if has('linebreak')
   set breakindent " indent wrapped lines to match start
 endif
 
+" Line numbers
+" https://github.com/jeffkreeftmeijer/vim-numbertoggle
+set nonumber
+set relativenumber
+set number " show current line number
+set numberwidth=5
+
+# Bell
 set visualbell " display error bells visually
 if exists('&belloff')
   set belloff=all " never ring the bell for any reason
 endif
-" }}}
 
-" Spaces and tabs {{{
+" Spelling
+set nospell " disable spell checking by default
+set spelllang=en_us " set region to US English
+
+" Spaces and tabs
 set tabstop=2 " number of visual spaces per TAB
 set softtabstop=2 " number of spaces in tab when editing
 set expandtab " tabs are spaces
 set shiftwidth=2
-" }}}
 
-" Status line {{{
+" Status line
 " https://github.com/itchyny/lightline.vim
 set laststatus=2 " always display the status line
 set noshowmode
-" }}}
 
-" Search {{{
+" Search
 set ignorecase
 set smartcase
 set incsearch " search as characters are entered
 set showmatch " highlight matching [{()}]
 set hlsearch " highlight all matches
-" Toggle search highlighting
-nnoremap <leader><space> :set invhlsearch<CR>
-" }}}
 
-" Completion {{{
+" Completion
 set wildmode=list:longest,list:full " tab completion options
 set complete=.,t
-" Map autocomplete to tab
-inoremap <Tab> <C-P>
-" }}}
 
-" Folding {{{
+" Folding
 set foldmethod=indent " fold based on indent level
 set foldlevelstart=10 " open most folds by default
 set foldnestmax=10 " 10 nested fold max
 
-" Toggle fold w/ space
-nnoremap <Space> za
-vnoremap <Space> za
-
-" Open all / Close all
-nnoremap <leader>fo :set foldlevel=10<CR>
-nnoremap <leader>fc :set foldlevel=0<CR>
-" }}}
-
-" Filetypes {{{
-filetype on " enable file-type detection
-filetype indent on " load indent files to automatically do language-dependent indenting
-filetype plugin on " enable file-type plugins
-
-"https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/
-autocmd BufNewFile,BufRead *.py
-  \ set tabstop=4 |
-  \ set softtabstop=4 |
-  \ set shiftwidth=4 |
-  \ set textwidth=89 |
-  \ set colorcolumn=+1 |
-  \ set expandtab |
-  \ set autoindent |
-  \ set fileformat=unix
-
-autocmd BufNewFile,BufRead *.js,*.html,*.css
-  \ set tabstop=2 |
-  \ set softtabstop=2 |
-  \ set shiftwidth=2
-
-autocmd BufRead,BufNewFile *.md set filetype=markdown
-autocmd BufRead,BufNewFile .{jscs,jshint,eslint}rc set filetype=json
-" }}}
-
-" No backups, no swaps {{{
+# No backup files, no swap files
 set noswapfile
 set nobackup
 set nowritebackup
 set undodir=~/.vim/undo
 " }}}
 
-" Spelling {{{
-set nospell " disable spell checking by default
-set spelllang=en_us " set region to US English
-" nnoremap <leader>ss :setlocal spell!<CR>
-" nnoremap <leader>sn ]s " go to next error
-" nnoremap <leader>sp [s " got to previous error
-" nnoremap <leader>ss z= " show suggestions
-" nnoremap <leader>sl 1z= " feeling lucky
-" }}}
-
-" Autocommands {{{
-" }}}
-
 " Key mappings {{{
 " vimrc config
 nnoremap <leader>ve :split $MYVIMRC<CR>
 nnoremap <leader>vs :w<CR> :source $MYVIMRC<CR> :edit!<CR>
+
+" Toggle search highlighting
+nnoremap <leader><space> :set invhlsearch<CR>
+
+" Map autocomplete to tab
+inoremap <Tab> <C-P>
 
 " Windows
 nnoremap <C-J> <C-W>j
@@ -164,8 +119,6 @@ nnoremap <leader>tm :tabmove
 " Open a new tab with the current buffer's path
 nnoremap <leader>te :tabedit <C-R>=expand("%:p:h")<CR>/
 
-nnoremap <leader>. :cd %:h<CR>
-
 " Open an edit command with the path of the currently edited file filled in
 " http://vimcasts.org/episodes/the-edit-command/
 cnoremap %% <C-R>=fnameescape(expand('%:p:h')).'/'<CR>
@@ -174,15 +127,23 @@ nmap <leader>es :sp %%
 nmap <leader>ev :vsp %%
 nnoremap <leader>et :tabe %%
 
+" Folding
+" Toggle fold w/ space
+nnoremap <Space> za
+vnoremap <Space> za
+" Open all / Close all
+nnoremap <leader>fo :set foldlevel=10<CR>
+nnoremap <leader>fc :set foldlevel=0<CR>
+
+" Move up and down on a row basis
+nnoremap j gj
+nnoremap k gk
+
 " Display all lines with keyword under cursor and ask which one to jump to
 nnoremap <leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
 " Disable F1 help
 nnoremap <F1> <Esc>
-
-" Move up and down on a row basis
-nnoremap j gj
-nnoremap k gk
 
 " Emacs-style movement keys in command mode
 cnoremap <C-a>  <Home>
@@ -234,6 +195,31 @@ function! QuickfixToggle()
 endfunction
 " }}}
 
+" Autocommands {{{
+filetype on " enable file-type detection
+filetype indent on " load indent files to automatically do language-dependent indenting
+filetype plugin on " enable file-type plugins
+
+"https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/
+autocmd BufNewFile,BufRead *.py
+  \ set tabstop=4 |
+  \ set softtabstop=4 |
+  \ set shiftwidth=4 |
+  \ set textwidth=89 |
+  \ set colorcolumn=+1 |
+  \ set expandtab |
+  \ set autoindent |
+  \ set fileformat=unix
+
+autocmd BufNewFile,BufRead *.js,*.html,*.css
+  \ set tabstop=2 |
+  \ set softtabstop=2 |
+  \ set shiftwidth=2
+
+autocmd BufRead,BufNewFile *.md set filetype=markdown
+autocmd BufRead,BufNewFile .{jscs,jshint,eslint}rc set filetype=json
+" }}}
+
 " Plugins {{{
 function! PackInit() abort
   packadd minpac
@@ -245,7 +231,7 @@ function! PackInit() abort
   call minpac#add('qpkorr/vim-bufkill')
   call minpac#add('junegunn/fzf')
   call minpac#add('junegunn/fzf.vim')
-  call minpac#add('mileszs/ack.vim')
+  " call minpac#add('mileszs/ack.vim')
   call minpac#add('tpope/vim-surround')
   call minpac#add('tpope/vim-repeat')
   call minpac#add('tpope/vim-fugitive')
@@ -257,7 +243,8 @@ function! PackInit() abort
   " colorscheme
   call minpac#add('morhetz/gruvbox')
 
-  " syntax
+  " syntax / lsp
+  " https://www.youtube.com/watch?v=OXEVhnY621M
   call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
   " call minpac#add('dense-analysis/ale')
   call minpac#add('scrooloose/syntastic')
@@ -333,25 +320,6 @@ nnoremap <C-n> :Explore<CR>
 if isdirectory(expand("~/.vim/pack/minpac/start/fzf.vim"))
   nnoremap <expr> <C-p> (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<CR>"
   nnoremap <C-b> :Buffers<CR>
-endif
-" }}}
-
-" Ack {{{
-if executable("ack")
-  " Use Ack instead of Grep when available
-  set grepprg=ack\ -H\ --nogroup\ --nocolor
-  let g:ackhighlight = 1
-endif
-nnoremap <C-k> :Ack!<Space>
-" Search for word under cursor
-nnoremap <C-k><C-d> :Ack! -w <C-r><C-w><CR>
-" }}}
-
-" Prettier {{{
-if isdirectory(expand("~/.vim/pack/minpac/start/vim-prettier"))
-  " Run Prettier async before saving
-  let g:prettier#autoformat = 0
-  autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
 endif
 " }}}
 
