@@ -50,7 +50,7 @@ set relativenumber
 set number " show current line number
 set numberwidth=5
 
-# Bell
+" Bell
 set visualbell " display error bells visually
 if exists('&belloff')
   set belloff=all " never ring the bell for any reason
@@ -87,7 +87,7 @@ set foldmethod=indent " fold based on indent level
 set foldlevelstart=10 " open most folds by default
 set foldnestmax=10 " 10 nested fold max
 
-# No backup files, no swap files
+" No backup files, no swap files
 set noswapfile
 set nobackup
 set nowritebackup
