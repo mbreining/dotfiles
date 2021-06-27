@@ -96,11 +96,11 @@ set undodir=~/.vim/undo
 
 " Key mappings {{{
 " vimrc config
-nnoremap <leader>ve :split $MYVIMRC<CR>
-nnoremap <leader>vs :w<CR> :source $MYVIMRC<CR> :edit!<CR>
+nnoremap <leader>ve :split $MYVIMRC<cr>
+nnoremap <leader>vs :w<cr> :source $MYVIMRC<cr> :edit!<cr>
 
 " Toggle search highlighting
-nnoremap <leader><space> :set invhlsearch<CR>
+nnoremap <leader><space> :set invhlsearch<cr>
 
 " Map autocomplete to tab
 inoremap <Tab> <C-P>
@@ -112,16 +112,16 @@ nnoremap <C-L> <C-W>l
 nnoremap <C-H> <C-W>h
 
 " Tabs
-nnoremap <leader>tn :tabnew<CR>
-nnoremap <leader>to :tabonly<CR>
-nnoremap <leader>tc :tabclose<CR>
+nnoremap <leader>tn :tabnew<cr>
+nnoremap <leader>to :tabonly<cr>
+nnoremap <leader>tc :tabclose<cr>
 nnoremap <leader>tm :tabmove
 " Open a new tab with the current buffer's path
-nnoremap <leader>te :tabedit <C-R>=expand("%:p:h")<CR>/
+nnoremap <leader>te :tabedit <C-R>=expand("%:p:h")<cr>/
 
 " Open an edit command with the path of the currently edited file filled in
 " http://vimcasts.org/episodes/the-edit-command/
-cnoremap %% <C-R>=fnameescape(expand('%:p:h')).'/'<CR>
+cnoremap %% <C-R>=fnameescape(expand('%:p:h')).'/'<cr>
 nmap <leader>ew :e %%
 nmap <leader>es :sp %%
 nmap <leader>ev :vsp %%
@@ -129,18 +129,18 @@ nnoremap <leader>et :tabe %%
 
 " Folding
 " Toggle fold w/ space
-nnoremap <Space> za
-vnoremap <Space> za
+nnoremap <space> za
+vnoremap <space> za
 " Open all / Close all
-nnoremap <leader>fo :set foldlevel=10<CR>
-nnoremap <leader>fc :set foldlevel=0<CR>
+nnoremap <leader>fo :set foldlevel=10<cr>
+nnoremap <leader>fc :set foldlevel=0<cr>
 
 " Move up and down on a row basis
 nnoremap j gj
 nnoremap k gk
 
 " Display all lines with keyword under cursor and ask which one to jump to
-nnoremap <leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+nnoremap <leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<cr>
 
 " Disable F1 help
 nnoremap <F1> <Esc>
@@ -159,13 +159,13 @@ cnoremap <Esc>d <S-right><Delete>
 cnoremap <C-g>  <C-c>
 
 " Close current buffer
-nnoremap <C-x> :bd!<CR>
+nnoremap <C-x> :bd!<cr>
 
 " Show absolute file path and number of lines
 nnoremap <C-g> 1<C-g>
 
 " Change working directory to that of the current file
-cmap cd. lcd %:p:h<CR>
+cmap cd. lcd %:p:h<cr>
 
 " Duplicate a selection in visual mode
 vnoremap D y'>p
@@ -174,14 +174,14 @@ vnoremap D y'>p
 nnoremap Y y$
 
 " Hide Ex mode http://www.bestofvim.com/tip/leave-ex-mode-good/
-nnoremap Q <NOP>
+nnoremap Q <nop>
 
 " Save changes
-nnoremap <C-s> :w<CR>
-inoremap <C-s> <ESC>:w<CR>a
+nnoremap <C-s> :w<cr>
+inoremap <C-s> <esc>:w<cr>a
 
 " Quickfix toggle
-nnoremap <leader>qt :call QuickfixToggle()<CR>
+nnoremap <leader>qt :call QuickfixToggle()<cr>
 
 function! QuickfixToggle()
   for i in range(1, winnr('$'))
@@ -243,6 +243,10 @@ function! PackInit() abort
   " colorscheme
   call minpac#add('morhetz/gruvbox')
 
+  " notes
+  call minpac#add('xolox/vim-misc')
+  call minpac#add('xolox/vim-notes')
+
   " syntax / lsp
   " https://www.youtube.com/watch?v=OXEVhnY621M
   call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
@@ -281,15 +285,15 @@ if isdirectory(expand("~/.vim/pack/minpac"))
 endif
 " }}}
 
-" gruvbox {{{
-colorscheme gruvbox
-set background=dark
-" }}}
-
 " bufkill {{{
 nnoremap <leader>bx :BD<cr>
 nnoremap <leader>bb :BB<cr>
 nnoremap <leader>bf :BF<cr>
+" }}}
+
+" gruvbox {{{
+colorscheme gruvbox
+set background=dark
 " }}}
 
 " lightline {{{
@@ -313,13 +317,22 @@ endfunction
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 let g:netrw_browse_split = 0
-nnoremap <C-n> :Explore<CR>
+nnoremap <C-n> :Explore<cr>
 " }}}
 
 " Fzf {{{
 if isdirectory(expand("~/.vim/pack/minpac/start/fzf.vim"))
-  nnoremap <expr> <C-p> (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<CR>"
-  nnoremap <C-b> :Buffers<CR>
+  nnoremap <expr> <C-p> (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<cr>"
+  nnoremap <C-b> :Buffers<cr>
+endif
+" }}}
+
+" vim-notes {{{
+if isdirectory(expand("~/.vim/pack/minpac/start/vim-notes"))
+  let g:notes_directories = ['~/notes']
+  let g:notes_suffix = '.txt'
+  nnoremap <leader>cn :execute 'Note '.strftime('%Y-%m-%d')<cr>
+  nnoremap <leader>cs :SearchNotes<cr>
 endif
 " }}}
 
