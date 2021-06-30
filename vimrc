@@ -96,7 +96,7 @@ set undodir=~/.vim/undo
 
 " Key mappings {{{
 " vimrc config
-nnoremap <leader>ve :split $MYVIMRC<cr>
+nnoremap <leader>ve :vsplit ~/dotfiles/vimrc<cr>
 nnoremap <leader>vs :w<cr> :source $MYVIMRC<cr> :edit!<cr>
 
 " Toggle search highlighting
@@ -229,9 +229,6 @@ function! PackInit() abort
 
   " general
   call minpac#add('qpkorr/vim-bufkill')
-  call minpac#add('junegunn/fzf')
-  call minpac#add('junegunn/fzf.vim')
-  " call minpac#add('mileszs/ack.vim')
   call minpac#add('tpope/vim-surround')
   call minpac#add('tpope/vim-repeat')
   call minpac#add('tpope/vim-fugitive')
@@ -239,6 +236,14 @@ function! PackInit() abort
   call minpac#add('easymotion/vim-easymotion')
   call minpac#add('christoomey/vim-system-copy')
   call minpac#add('itchyny/lightline.vim')
+
+  " file management
+  call minpac#add('junegunn/fzf')
+  call minpac#add('junegunn/fzf.vim')
+  call minpac#add('nvim-lua/popup.nvim')
+  call minpac#add('nvim-lua/plenary.nvim')
+  call minpac#add('nvim-telescope/telescope.nvim')
+  call minpac#add('nvim-telescope/telescope-fzy-native.nvim')
 
   " colorscheme
   call minpac#add('morhetz/gruvbox')
@@ -250,7 +255,6 @@ function! PackInit() abort
   " syntax / lsp
   " https://www.youtube.com/watch?v=OXEVhnY621M
   call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
-  " call minpac#add('dense-analysis/ale')
   call minpac#add('scrooloose/syntastic')
 
   " markdown
@@ -327,12 +331,23 @@ if isdirectory(expand("~/.vim/pack/minpac/start/fzf.vim"))
 endif
 " }}}
 
+" Telescope {{{
+if isdirectory(expand("~/.vim/pack/minpac/start/telescope.nvim"))
+  nnoremap <leader>ff <cmd>Telescope find_files<cr>
+  nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+  nnoremap <leader>fb <cmd>Telescope buffers<cr>
+  nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+endif
+" }}}
+
 " vim-notes {{{
 if isdirectory(expand("~/.vim/pack/minpac/start/vim-notes"))
   let g:notes_directories = ['~/notes']
   let g:notes_suffix = '.txt'
-  nnoremap <leader>cn :execute 'Note '.strftime('%Y-%m-%d')<cr>
-  nnoremap <leader>cs :SearchNotes<cr>
+  nnoremap <leader>cn :Note 
+  nnoremap <leader>cj :execute 'Note '.strftime('%Y-%m-%d')<cr>
+  nnoremap <leader>cs :SearchNotes 
+  nnoremap <leader>cd :DeleteNote 
 endif
 " }}}
 
