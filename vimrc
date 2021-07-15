@@ -115,17 +115,22 @@ nnoremap <C-H> <C-W>h
 nnoremap <leader>tn :tabnew<cr>
 nnoremap <leader>to :tabonly<cr>
 nnoremap <leader>tc :tabclose<cr>
-nnoremap <leader>tm :tabmove
-" Open a new tab with the current buffer's path
-nnoremap <leader>te :tabedit <C-R>=expand("%:p:h")<cr>/
+nnoremap <leader>tm :tabmove<space>
 
-" Open an edit command with the path of the currently edited file filled in
+" Open an edit command with the path of the current buffer.
 " http://vimcasts.org/episodes/the-edit-command/
 cnoremap %% <C-R>=fnameescape(expand('%:p:h')).'/'<cr>
 nmap <leader>ew :e %%
 nmap <leader>es :sp %%
 nmap <leader>ev :vsp %%
-nnoremap <leader>et :tabe %%
+nmap <leader>et :tabe %%
+
+" Open an edit command with the path of the current working directory.
+cnoremap PWD <C-R>=getcwd().'/'<cr>
+nmap <leader>eW :e PWD
+nmap <leader>eS :sp PWD
+nmap <leader>eV :vsp PWD
+nmap <leader>eT :tabe PWD
 
 " Folding
 " Toggle fold w/ space
@@ -240,10 +245,6 @@ function! PackInit() abort
   " file management
   call minpac#add('junegunn/fzf')
   call minpac#add('junegunn/fzf.vim')
-  call minpac#add('nvim-lua/popup.nvim')
-  call minpac#add('nvim-lua/plenary.nvim')
-  call minpac#add('nvim-telescope/telescope.nvim')
-  call minpac#add('nvim-telescope/telescope-fzy-native.nvim')
 
   " colorscheme
   call minpac#add('morhetz/gruvbox')
@@ -328,15 +329,6 @@ nnoremap <C-n> :Explore<cr>
 if isdirectory(expand("~/.vim/pack/minpac/start/fzf.vim"))
   nnoremap <expr> <C-p> (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<cr>"
   nnoremap <C-b> :Buffers<cr>
-endif
-" }}}
-
-" Telescope {{{
-if isdirectory(expand("~/.vim/pack/minpac/start/telescope.nvim"))
-  nnoremap <leader>ff <cmd>Telescope find_files<cr>
-  nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-  nnoremap <leader>fb <cmd>Telescope buffers<cr>
-  nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 endif
 " }}}
 
