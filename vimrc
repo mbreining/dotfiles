@@ -96,7 +96,7 @@ set undodir=~/.vim/undo
 
 " Key mappings {{{
 " vimrc config
-nnoremap <leader>ve :vsplit ~/dotfiles/vimrc<cr>
+nnoremap <leader>ve :split ~/dotfiles/vimrc<cr>
 nnoremap <leader>vs :w<cr> :source $MYVIMRC<cr> :edit!<cr>
 
 " Toggle search highlighting
