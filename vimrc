@@ -336,10 +336,10 @@ endif
 if isdirectory(expand("~/.vim/pack/minpac/start/vim-notes"))
   let g:notes_directories = ['~/notes']
   let g:notes_suffix = '.txt'
-  nnoremap <leader>cn :Note 
+  nnoremap <leader>cn :Note<space>
   nnoremap <leader>cj :execute 'Note '.strftime('%Y-%m-%d')<cr>
-  nnoremap <leader>cs :SearchNotes 
-  nnoremap <leader>cd :DeleteNote 
+  nnoremap <leader>cs :SearchNotes<space>
+  nnoremap <leader>cd :DeleteNote<space>
 endif
 " }}}
 
