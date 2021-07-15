@@ -94,7 +94,7 @@ set nowritebackup
 set undodir=~/.vim/undo
 " }}}
 
-" Key mappings {{{
+" Maps {{{
 " vimrc config
 nnoremap <leader>ve :split ~/dotfiles/vimrc<cr>
 nnoremap <leader>vs :w<cr> :source $MYVIMRC<cr> :edit!<cr>
@@ -117,7 +117,7 @@ nnoremap <leader>to :tabonly<cr>
 nnoremap <leader>tc :tabclose<cr>
 nnoremap <leader>tm :tabmove<space>
 
-" Open an edit command with the path of the current buffer.
+" Open an edit command with the path of the current buffer
 " http://vimcasts.org/episodes/the-edit-command/
 cnoremap %% <C-R>=fnameescape(expand('%:p:h')).'/'<cr>
 nmap <leader>ew :e %%
@@ -125,7 +125,7 @@ nmap <leader>es :sp %%
 nmap <leader>ev :vsp %%
 nmap <leader>et :tabe %%
 
-" Open an edit command with the path of the current working directory.
+" Open an edit command with the path of the current working directory
 cnoremap PWD <C-R>=getcwd().'/'<cr>
 nmap <leader>eW :e PWD
 nmap <leader>eS :sp PWD
