@@ -334,7 +334,7 @@ endif
 
 " vim-notes {{{
 if isdirectory(expand("~/.vim/pack/minpac/start/vim-notes"))
-  let g:notes_directories = ['~/data/notes']
+  let g:notes_directories = [$MBREINING_NOTES_DIR]
   let g:notes_suffix = '.txt'
   nnoremap <leader>cn :Note<space>
   nnoremap <leader>cj :execute 'Note '.strftime('%Y-%m-%d')<cr>

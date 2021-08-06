@@ -5,6 +5,8 @@ source $HOME/.zsh/settings # prompt, completion, path, bindkeys, history
 source $HOME/.zsh/aliases
 source $HOME/.zsh/colors
 source $HOME/.zsh/functions
+
+export MBREINING_NOTES_DIR="~/data/notes"
 # }}}
 
 # Zsh local config overrides {{{

@@ -1,7 +1,8 @@
 # vim: set sw=2 ts=2 sts=2 et tw=78 foldmarker={{{,}}} foldlevel=0 foldmethod=marker:
 # https://blog.callstack.io/supercharge-your-terminal-with-zsh-8b369d689770
 
-# Create a hash table for globally stashing variables without polluting main scope with a bunch of identifiers.
+# Create a hash table for globally stashing variables w/o polluting the global
+# scope.
 typeset -A __MBREINING
 
 # Exports {{{
@@ -11,7 +12,7 @@ export LC_COLLATE=C # CTAGS sorting in vim/Emacs is better behaved with this in 
 export MANPAGER="less -X" # don't clear the screen after quitting man
 export PAGER="less"
 export GIT_PAGER="less"
-export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
+export PATH=$HOME/data/bin:$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
 export TERM=xterm-256color
 
 # filename (if known), line number if known, falling back to percent if known,
