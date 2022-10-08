@@ -7,3 +7,6 @@ explain*.sql
 explain*.json
 node_modules/
 .ccls
+.env*
+cloud/airflow/deploy/airflow_local/Chart.lock
+cloud/airflow/deploy/airflow_local/charts/

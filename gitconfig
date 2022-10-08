@@ -19,7 +19,7 @@
   ca = commit --amend
   di = diff
   dic = diff --cached
-  graph = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  graph = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
   l = log --pretty=\"%Cblue%h%Creset %Cgreen[%cr]%C(bold blue)<%an>%Creset %s\"
   pl = pull
   ps = push
