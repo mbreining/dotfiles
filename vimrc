@@ -136,7 +136,7 @@ nnoremap j gj
 nnoremap k gk
 
 " Display all lines with keyword under cursor and ask which one to jump to
-nnoremap <leader><space> [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<cr>
+nnoremap <leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<cr>
 
 " Disable F1 help
 nnoremap <F1> <Esc>
