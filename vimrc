@@ -136,7 +136,7 @@ nnoremap j gj
 nnoremap k gk
 
 " Display all lines with keyword under cursor and ask which one to jump to
-nnoremap <leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<cr>
+nnoremap <leader><space> [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<cr>
 
 " Disable F1 help
 nnoremap <F1> <Esc>
@@ -173,11 +173,11 @@ nnoremap Y y$
 nnoremap Q <nop>
 
 " Save changes
-nnoremap <C-s> :w<cr>
-inoremap <C-s> <esc>:w<cr>a
+nnoremap <leader>s :w<cr>
+inoremap <leader>s <esc>:w<cr>a
 
 " Quickfix toggle
-nnoremap <leader>qt :call QuickfixToggle()<cr>
+nnoremap <leader>q :call QuickfixToggle()<cr>
 
 function! QuickfixToggle()
   for i in range(1, winnr('$'))
@@ -253,6 +253,9 @@ function! PackInit() abort
 
   " terraform
   call minpac#add('hashivim/vim-terraform')
+
+  " code snippets
+  call minpac#add('honza/vim-snippets')
 endfunction
 
 command! PackUpdate source $MYVIMRC | call PackInit() | call minpac#update()
@@ -388,8 +391,8 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+xmap <leader>f <Plug>(coc-format-selected)
+nmap <leader>f <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -401,18 +404,18 @@ augroup end
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+xmap <leader>a <Plug>(coc-codeaction-selected)
+nmap <leader>a <Plug>(coc-codeaction-selected)
 
 " Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
+nmap <leader>ac <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>qf <Plug>(coc-fix-current)
 
 " Run the Code Lens action on the current line.
-nmap <leader>cl  <Plug>(coc-codelens-action)
+nmap <leader>cl <Plug>(coc-codelens-action)
 
-" Map function and class text objects
+" Map function and class text objects.
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
 xmap if <Plug>(coc-funcobj-i)
 omap if <Plug>(coc-funcobj-i)
@@ -469,6 +472,14 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 " nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 " nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+" }}}
+
+" python-mode {{{
+let g:pymode_options_max_line_length = 100
+" }}}
+
+" python-mode {{{
+let g:pymode_options_max_line_length = 100
 " }}}
 
 if filereadable(expand("~/.vimrc.local"))

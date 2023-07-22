@@ -102,3 +102,6 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 
 [[ -f $HOME/.zshrc.local ]] && . "$HOME/.zshrc.local"
+
+export NVM_DIR="/home/mbreining/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

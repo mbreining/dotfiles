@@ -2,7 +2,7 @@
 
 export EDITOR="vim"
 export GITHUB_USER="mbreining"
-export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
+export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
 export LC_COLLATE=C # CTAGS sorting in vim/Emacs is better behaved with this in place
 export MANPAGER="less -X" # don't clear the screen after quitting man
 export PAGER="less"
