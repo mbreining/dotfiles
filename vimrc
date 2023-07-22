@@ -175,20 +175,6 @@ nnoremap Q <nop>
 " Save changes
 nnoremap <leader>s :w<cr>
 inoremap <leader>s <esc>:w<cr>a
-
-" Quickfix toggle
-nnoremap <leader>q :call QuickfixToggle()<cr>
-
-function! QuickfixToggle()
-  for i in range(1, winnr('$'))
-    let bnum = winbufnr(i)
-    if getbufvar(bnum, '&buftype') == 'quickfix'
-      cclose
-      return
-    endif
-  endfor
-  copen
-endfunction
 " }}}
 
 " Autocommands {{{
